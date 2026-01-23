@@ -440,7 +440,7 @@ const Footer = () => (
     <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="text-center md:text-left">
             <div className="flex items-center gap-2 justify-center md:justify-start mb-2">
-                <div className="w-4 h-4 rounded bg-[#A451FF] flex items-center justify-center text-[8px] text-black font-black">H</div>
+                {/* <div className="w-4 h-4 rounded bg-[#A451FF] flex items-center justify-center text-[8px] text-black font-black">H</div> */}
                 <span className="text-sm font-black italic tracking-tighter text-white">HOFFBY</span>
             </div>
             <p className="text-[10px] text-slate-600 font-bold uppercase tracking-[0.2em]">

@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hoffby",
-  description: "Hoffby Tecnologia Ltda - Soluções em Desenvolvimento de Software e Consultoria Tecnológica",
+  title: "Hoffby | Soluções Tecnológicas", // Título otimizado
+  description: "Automação, SaaS e Inteligência Artificial para o seu negócio.",
 };
 
 export default function RootLayout({
@@ -23,9 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
+    // 1. Mudamos para pt-BR
+    // 2. Adicionamos suppressHydrationWarning para evitar erros com extensões
+    <html lang="pt-BR" suppressHydrationWarning={true}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050505]`}
       >
         {children}
       </body>

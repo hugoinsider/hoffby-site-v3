@@ -134,7 +134,7 @@ const Hero = () => {
         </motion.div>
 
         {/* CARTÃO FLUTUANTE 3D (RESTAURADO) */}
-        <motion.div className="lg:col-span-5 relative hidden lg:block" style={{ y: y2 }}>
+        <motion.div className="lg:col-span-5 relative hidden lg:block w-[420px]" style={{ y: y2 }}>
           <div className="relative z-10 bg-gradient-to-b from-[#1a1a1a] to-[#050505] border border-white/10 rounded-[40px] p-8 shadow-2xl rotate-[-6deg] hover:rotate-0 transition-all duration-700 group backdrop-blur-xl">
             <div className="flex justify-between items-start mb-12">
               <Cpu className="w-12 h-12 text-[#00F26B]" />

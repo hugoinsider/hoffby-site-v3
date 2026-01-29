@@ -148,9 +148,27 @@ export default function QRCodeGeneratorPage() {
                         <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors mb-4 block">
                             ← Voltar para Ferramentas
                         </Link>
-                        <h1 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white mb-2">
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#A451FF]/20 bg-[#A451FF]/5 backdrop-blur-md">
+                                <QrCode size={12} className="text-[#A451FF]" />
+                                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#A451FF]">
+                                    Instant Matrix
+                                </span>
+                            </div>
+
+                            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#00F26B] text-black shadow-[0_0_20px_rgba(0,242,107,0.3)] animate-pulse">
+                                <span className="text-[10px] font-black uppercase tracking-widest">
+                                    ★ 100% Grátis & Sem Limites
+                                </span>
+                            </div>
+                        </div>
+
+                        <h1 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white mb-2 mt-4">
                             Gerador <span className="text-[#A451FF]">QR Code Pro.</span>
                         </h1>
+                        <p className="text-slate-400 text-sm max-w-lg mx-auto">
+                            Crie códigos QR personalizados de alta resolução. <span className="text-white font-bold">Sem custos ocultos, sem validade e sem limites de scan.</span> Totalmente gratuito para uso comercial.
+                        </p>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -270,7 +288,8 @@ export default function QRCodeGeneratorPage() {
                                     <div ref={canvasRef}>
                                         <QRCodeCanvas
                                             value={text}
-                                            size={256}
+                                            size={size} // Uses 1024px native resolution
+                                            style={{ width: '256px', height: '256px' }} // Scales down for display
                                             fgColor={fgColor}
                                             bgColor={frame === 'none' ? bgColor : 'transparent'} // Transparent if framed to blend
                                             level={level}
@@ -279,8 +298,8 @@ export default function QRCodeGeneratorPage() {
                                                 src: logo,
                                                 x: undefined,
                                                 y: undefined,
-                                                height: 48,
-                                                width: 48,
+                                                height: 48 * 4, // Scale logo settings for high res
+                                                width: 48 * 4,
                                                 excavate: true,
                                             } : undefined}
                                         />

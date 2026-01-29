@@ -1,16 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import {
   Menu, X, ArrowRight, ChevronDown, ShoppingBag,
   Cpu, Code2, BarChart3, Terminal, History, Bike,
   Send, Mail, Phone, Rocket, Lock,
   Bot, Layers, Gamepad2, Sparkles, Megaphone,
-  BrainCircuit, Database, Workflow, Box,
+  BrainCircuit, Database, Workflow, Box, Scale, Diamond, Shield, FileText,
   CreditCard, Stethoscope, Users, CalendarCheck,
-  CheckSquare
+  CheckSquare, Linkedin, Github, MapPin, Award, ShieldCheck
 } from 'lucide-react';
+import Image from 'next/image';
 
 // --- CORES & CONSTANTES ---
 const brand = {
@@ -21,7 +23,7 @@ const brand = {
 
 
 
-import Image from 'next/image';
+
 
 // --- LOGOTIPO VETORIAL HOFFBY ---
 const Logo = ({ className = "w-24 h-24" }: { className?: string }) => {
@@ -414,14 +416,19 @@ const About = () => {
           </h2>
           <div className="space-y-6 text-lg text-slate-400 leading-relaxed">
             <p>
-              O nome <strong>Hoffby</strong> carrega a precisão e a destreza de <span className="text-white">Bruno Hoffmann</span> e a adrenalina das pistas de BMX ({'"'}Hoffbmx{'"'}).
+              Tudo começou em 2013, nas ruas, não nos servidores. Inspirado pela lenda do BMX Street alemã, <span className="text-white">Bruno Hoffmann</span>, iniciamos uma jornada de expressão e resiliência sobre duas rodas. O nome <strong>Hoffby</strong> é uma homenagem direta a essa influência que moldou nosso caráter.
             </p>
             <p className="pl-6 border-l-2 border-[#00F26B] bg-gradient-to-r from-[#00F26B]/5 to-transparent py-4">
-              <span className="text-white italic">{'"'}Representamos a intersecção da tradição e da modernidade.{'"'}</span>
+              <span className="text-white italic">{'"'}Do BMX, aprendemos que a queda é parte do processo de acertar a manobra perfeita.{'"'}</span>
             </p>
             <p>
-              Fundada em meio aos desafios da pandemia, transformamos aquela paixão inabalável do esporte em energia para resolver problemas complexos de T.I.
+              Trouxemos essa mentalidade do esporte para a tecnologia. A mesma obsessão por executar movimentos complexos com fluidez no asfalto agora aplicamos na arquitetura de algoritmos. Cada bug é um obstáculo, cada deploy é um acerto. A essência de cair e levantar mais forte continua a mesma.
             </p>
+            <div className="mt-8">
+              <Link href="/inspiracao" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#00F26B] hover:text-white transition-colors group">
+                Ver Inspirações <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </div>
           <div className="grid grid-cols-3 gap-8 mt-12 pt-12 border-t border-white/5">
             {[{ val: "07", label: "Anos" }, { val: "+226", label: "Projetos" }, { val: "3k+", label: "Suportes" }].map((st, i) => (
@@ -448,11 +455,186 @@ const About = () => {
               <div className="flex gap-4 items-center p-3 bg-white/5 rounded-lg border border-[#00F26B]/30">
                 <Terminal className="text-[#00F26B]" size={20} />
                 <div className="flex flex-col">
-                  <span className="text-sm font-bold text-white">Destino: Hoffby Tech</span>
+                  <span className="text-sm font-bold text-white">Destino: Hoffby</span>
                   <span className="text-[9px] text-slate-500">CURRENT_VERSION</span>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section >
+  );
+};
+
+// --- TECH ROOTS SECTION ---
+const TechRoots = () => {
+  return (
+    <section className="py-20 relative overflow-hidden z-10 border-t border-white/5 bg-[#080808]/30">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row items-center gap-12">
+          <div className="w-full md:w-1/2">
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-r from-[#00F26B] to-[#A451FF] rounded-[30px] opacity-10 blur-xl" />
+              <div className="relative bg-[#0E0E0E] rounded-2xl border border-white/10 p-8">
+                <div className="flex items-center gap-4 mb-6">
+                  <Terminal className="text-[#00F26B]" size={24} />
+                  <span className="font-mono text-sm text-slate-400">root@12yo:~# init_coding.sh</span>
+                </div>
+                <div className="space-y-3 font-mono text-sm">
+                  <p className="text-slate-300"><span className="text-[#A451FF]">❯</span> Loading Minecraft Plugins (Java/Lua)... <span className="text-[#00F26B]">OK</span></p>
+                  <p className="text-slate-300"><span className="text-[#A451FF]">❯</span> Initializing Eclipse IDE... <span className="text-[#00F26B]">OK</span></p>
+                  <p className="text-slate-300"><span className="text-[#A451FF]">❯</span> Compiling Unity3D (C++)... <span className="text-[#00F26B]">OK</span></p>
+                  <p className="text-slate-300"><span className="text-[#A451FF]">❯</span> Executing Curiosity... <span className="text-[#00F26B] animate-pulse">Running</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full md:w-1/2">
+            <div className="flex items-center gap-3 mb-4">
+              <Cpu className="w-5 h-5 text-[#00F26B]" />
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#00F26B]">Gênese Tecnológica</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter text-white mb-6">
+              Curiosidade como <span className="text-[#A451FF]">Motor.</span>
+            </h2>
+            <p className="text-lg text-slate-400 leading-relaxed mb-6">
+              A inspiração pela tecnologia e desenvolvimento de software vem desde criança. A curiosidade insaciável em saber como as coisas funcionam por dentro, criar algo novo e inovador, resolver problemas usando tecnologia, sempre com um pensamento ímpar.
+            </p>
+            <p className="text-lg text-slate-400 leading-relaxed">
+              Com apenas <strong>12 anos</strong>, comecei a programar plugins para servidores de Minecraft 1.7.2 usando linguagem Java/Lua e IDE Eclipse, além de desenvolver jogos com C++ no Unity 3D. Ali nascia o engenheiro, antes mesmo do diploma.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// --- FOUNDER PROFILE SECTION ---
+const FounderProfile = () => {
+  return (
+    <section className="py-32 relative z-10">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="bg-[#0E0E0E] border border-white/5 rounded-[40px] overflow-hidden relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#A451FF]/5 to-[#00F26B]/5" />
+
+          <div className="flex flex-col lg:flex-row relative z-10">
+            {/* Left: Image & Stats */}
+            <div className="w-full lg:w-1/3 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-white/5 flex flex-col items-center text-center">
+              <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-white/5 shadow-2xl mb-8 group">
+                <div className="absolute inset-0 bg-[#A451FF]/10 mix-blend-overlay group-hover:bg-transparent transition-all z-10" />
+                <Image
+                  src="/1767834710412.jpg"
+                  alt="Hugo Alves"
+                  fill
+                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
+                />
+              </div>
+
+              <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-2">Hugo Alves</h3>
+              <p className="text-[#00F26B] font-mono text-sm tracking-widest uppercase mb-6">Founder & Tech Lead</p>
+
+              <div className="flex items-center gap-2 text-slate-500 text-sm mb-8">
+                <MapPin size={16} /> Jandaia Goiás, Brasil
+              </div>
+
+              <div className="flex gap-4">
+                <a href="https://www.linkedin.com/in/hugoinsider/" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 hover:bg-[#0077B5] hover:text-white transition-all text-slate-400">
+                  <Linkedin size={20} />
+                </a>
+                <a href="https://github.com/hugoinsider" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 hover:bg-white hover:text-black transition-all text-slate-400">
+                  <Github size={20} />
+                </a>
+              </div>
+            </div>
+
+            {/* Right: Bio & Experience */}
+            <div className="w-full lg:w-2/3 p-8 lg:p-12">
+              <div className="flex items-center gap-3 mb-8">
+                <Award className="w-5 h-5 text-[#A451FF]" />
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#A451FF]">Liderança Técnica</span>
+              </div>
+
+              <div className="space-y-6 text-slate-400 leading-relaxed mb-10">
+                <p>
+                  Com uma trajetória na tecnologia iniciada de forma autodidata em <strong className="text-white">2013</strong>, construí uma carreira pautada pela evolução técnica acelerada e pela entrega de soluções robustas. Minha progressão reflete esse comprometimento: atuei como Desenvolvedor Júnior em 2018, Pleno em 2020 e consolidei minha senioridade como Sênior em 2022.
+                </p>
+                <p>
+                  Evoluí de bases sólidas em sistemas críticos (ERP, migração de dados e lógica em PHP/Pascal) para o domínio especializado do ecossistema moderno de alta performance: <span className="text-white">Node.js, React.js, TypeScript e Python</span>.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                <div className="bg-white/[0.02] p-6 rounded-xl border border-white/5 hover:border-[#00F26B]/20 transition-colors">
+                  <h4 className="text-white font-bold uppercase mb-2 flex items-center gap-2">
+                    <Users size={16} className="text-[#00F26B]" /> Liderança
+                  </h4>
+                  <p className="text-sm text-slate-500">
+                    Tech Lead com base em Scrum (cert. 2019). Coordenação de times e decisões arquiteturais estratégicas.
+                  </p>
+                </div>
+                <div className="bg-white/[0.02] p-6 rounded-xl border border-white/5 hover:border-[#A451FF]/20 transition-colors">
+                  <h4 className="text-white font-bold uppercase mb-2 flex items-center gap-2">
+                    <ShieldCheck size={16} className="text-[#A451FF]" /> Enterprise
+                  </h4>
+                  <p className="text-sm text-slate-500">
+                    Bagagem em Fintech (TNP Bank) e E-commerce (Codeby/VTEX), focando em segurança e alta escala.
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-widest text-white mb-4">Tecnologias Core</h4>
+                <div className="flex flex-wrap gap-2">
+                  {["Node.js", "React.js", "TypeScript", "Python", "IA Generativa", "Scrum", "Arquitetura de Sistemas"].map((tech) => (
+                    <span key={tech} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00F26B]">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// --- GOVERNANCE SECTION ---
+const GovernanceSection = () => {
+  const items = [
+    { title: "Privacidade", icon: Shield, href: "/privacidade", desc: "Como protegemos seus dados." },
+    { title: "Termos de Uso", icon: Scale, href: "/termos", desc: "Regras e acordos comerciais." },
+    { title: "Valores", icon: Diamond, href: "/valores", desc: "Nosso manifesto ético." },
+  ];
+
+  return (
+    <section className="py-20 relative z-10 border-t border-white/5 bg-[#050505]">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="mb-6 md:mb-0">
+            <div className="flex items-center gap-3 mb-3">
+              <Scale className="w-5 h-5 text-[#A451FF]" />
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#A451FF]">Compliance & Cultura</span>
+            </div>
+            <h2 className="text-3xl font-black uppercase italic tracking-tighter text-white">Transparência</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full md:w-auto">
+            {items.map((item) => (
+              <Link key={item.title} href={item.href} className="group bg-[#0E0E0E] border border-white/5 p-6 rounded-2xl hover:border-[#00F26B]/30 transition-all flex items-center gap-4 min-w-[240px]">
+                <div className="w-10 h-10 rounded-full bg-[#00F26B]/10 flex items-center justify-center text-[#00F26B] group-hover:bg-[#00F26B] group-hover:text-black transition-colors">
+                  <item.icon size={20} />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold uppercase text-sm">{item.title}</h4>
+                  <p className="text-xs text-slate-500">{item.desc}</p>
+                </div>
+                <ArrowRight size={16} className="text-slate-500 ml-auto group-hover:text-white group-hover:translate-x-1 transition-all" />
+              </Link>
+            ))}
           </div>
         </div>
       </div>
@@ -561,13 +743,17 @@ const Contact = () => {
                   <div className="text-white text-sm">contato@hoffby.com.br</div>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#00F26B]/10 flex items-center justify-center text-[#00F26B]"><Phone size={18} /></div>
-                <div>
-                  <div className="text-[10px] uppercase font-bold text-slate-500">Whatsapp</div>
-                  <div className="text-white text-sm">+55 (64) 99226-3914</div>
+              <a href="https://wa.me/5564992263914" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group hover:bg-white/5 p-2 rounded-lg -ml-2 transition-all">
+                <div className="w-10 h-10 rounded-lg bg-[#00F26B]/10 flex items-center justify-center text-[#00F26B] group-hover:bg-[#00F26B] group-hover:text-black transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-circle">
+                    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+                  </svg>
                 </div>
-              </div>
+                <div>
+                  <div className="text-[10px] uppercase font-bold text-slate-500 group-hover:text-[#00F26B] transition-colors">Whatsapp</div>
+                  <div className="text-white text-sm group-hover:text-[#00F26B] transition-colors">+55 (64) 99226-3914</div>
+                </div>
+              </a>
             </div>
 
             <div className="mt-12 font-mono text-xs">
@@ -611,6 +797,10 @@ const Contact = () => {
                 <textarea rows={3} name="message" required value={formData.message} onChange={handleChange} className="w-full bg-transparent border-b border-white/10 py-2 text-white focus:outline-none focus:border-[#A451FF] transition-colors resize-none placeholder:text-slate-700" placeholder="// Digite sua mensagem..." />
               </div>
 
+              <p className="text-[10px] text-slate-500 mt-4 mb-2">
+                Ao executar o envio do contato você aceita os nossos <Link href="/termos" className="text-[#A451FF] hover:underline">termos de uso</Link> e está ciente de nossos <Link href="/valores" className="text-[#A451FF] hover:underline">valores e princípios</Link>.
+              </p>
+
               <button
                 type="submit"
                 disabled={status === 'loading'}
@@ -626,31 +816,81 @@ const Contact = () => {
   );
 };
 
-// --- FOOTER ---
-const Footer = () => (
-  <footer className="py-12 border-t border-white/5 bg-[#020202] relative z-10">
-    <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div className="text-center md:text-left">
-        <div className="flex items-center gap-3 justify-center md:justify-start mb-2 opacity-80 hover:opacity-100 transition-opacity">
-          <Logo className="w-16 h-16" />
-          {/* <span className="text-sm font-black italic tracking-tighter text-white">HOFFBY</span> */}
+// --- FOOTER PREMIUM ---
+const Footer = () => {
+  return (
+    <footer className="relative bg-[#020202] pt-32 pb-10 border-t border-white/5 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+          <div className="md:col-span-1">
+            <Logo className="w-20 h-20 mb-6" />
+            {/* <p className="text-white font-black uppercase tracking-tighter text-lg leading-none mb-4">
+              Hoffby<span className="text-[#A451FF]">.Tec</span>
+            </p> */}
+            <p className="text-xs text-slate-500 font-mono mb-6 max-w-[200px]">
+              Arquitetura Digital de Alta Precisão & Inteligência Artificial.
+            </p>
+            <div className="flex gap-4">
+              <a href="https://linkedin.com/in/hugoinsider" target="_blank" className="text-slate-500 hover:text-white transition-colors"><Linkedin size={18} /></a>
+              <a href="https://github.com/hugoinsider" target="_blank" className="text-slate-500 hover:text-white transition-colors"><Github size={18} /></a>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-8">Navegação</h4>
+            <ul className="space-y-4">
+              {['Soluções', 'Cases', 'Processo', 'Legado', 'Contato'].map((item) => (
+                <li key={item}>
+                  <a href={`#${item.toLowerCase()}`} className="text-slate-500 text-sm hover:text-[#00F26B] transition-colors">{item}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-8">Legal & Ética</h4>
+            <ul className="space-y-4">
+              <li><Link href="/privacidade" className="text-slate-500 text-sm hover:text-[#00F26B] transition-colors">Política de Privacidade</Link></li>
+              <li><Link href="/termos" className="text-slate-500 text-sm hover:text-[#00F26B] transition-colors">Termos de Uso</Link></li>
+              <li><Link href="/valores" className="text-slate-500 text-sm hover:text-[#00F26B] transition-colors">Valores & Princípios</Link></li>
+              <li><Link href="/inspiracao" className="text-slate-500 text-sm hover:text-[#00F26B] transition-colors">Inspirações</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-8">Member Access</h4>
+            <div className="p-6 bg-[#0E0E0E] border border-white/5 rounded-2xl">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-2 h-2 rounded-full bg-[#00F26B] animate-pulse" />
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">System Status: Online</span>
+              </div>
+              <p className="text-[10px] text-slate-600 mb-4">
+                Acesso restrito para clientes com contratos ativos de suporte e manutenção.
+              </p>
+              <button className="w-full py-3 bg-white/5 hover:bg-white/10 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg transition-colors flex items-center justify-center gap-2">
+                <Lock size={12} /> Área do Cliente
+              </button>
+            </div>
+          </div>
         </div>
-        <p className="text-[10px] text-slate-600 font-bold uppercase tracking-[0.2em]">© 2026 Hoffby Tecnologia Ltda</p>
+
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-[10px] text-slate-600 uppercase tracking-widest">
+            © 2026 Hoffby Tecnologia. All Rights Reserved.
+          </p>
+          <div className="flex items-center gap-2">
+            <div className="w-1 h-1 rounded-full bg-[#A451FF]" />
+            <span className="text-[10px] text-slate-600 font-mono">EST. 2020</span>
+          </div>
+        </div>
       </div>
-      <div className="flex flex-col items-center md:items-end gap-2">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-white/[0.03] border border-white/5">
-          <Lock className="w-3 h-3 text-[#A451FF]" />
-          <span className="text-[10px] font-mono text-slate-400">CNPJ: 44.532.586/0001-00</span>
-        </div>
-        <div className="flex gap-4 text-[9px] font-bold uppercase text-slate-600 mt-2">
-          <a href="/privacidade" className="hover:text-white transition-colors">Privacidade</a>
-          <a href="/termos" className="hover:text-white transition-colors">Termos</a>
-          <a href="/valores" className="hover:text-white transition-colors text-[#00F26B]">Valores</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-);
+
+      {/* Background Gradients */}
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#A451FF] opacity-[0.03] blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#00F26B] opacity-[0.03] blur-[120px] rounded-full pointer-events-none" />
+    </footer>
+  );
+};
 
 // --- COMPONENTE PRINCIPAL ---
 export default function HoffbyPage() {
@@ -665,6 +905,9 @@ export default function HoffbyPage() {
         <SolutionsBento />
         <Process />
         <About />
+        <TechRoots />
+        <FounderProfile />
+        <GovernanceSection />
         <FAQ />
         <Contact />
         <Footer />

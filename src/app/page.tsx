@@ -19,26 +19,23 @@ const brand = {
   bg: '#050505',
 };
 
-import { useId } from 'react';
+
+
+import Image from 'next/image';
 
 // --- LOGOTIPO VETORIAL HOFFBY ---
-const Logo = ({ className = "w-8 h-8" }: { className?: string }) => {
-  const gradientId = useId();
+const Logo = ({ className = "w-24 h-24" }: { className?: string }) => {
   return (
-    (
-      <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#A451FF" />
-            <stop offset="100%" stopColor="#00F26B" />
-          </linearGradient>
-        </defs>
-        <path d="M20 10 L20 90 M80 10 L80 90 M20 50 L80 50" stroke={`url(#${gradientId})`} strokeWidth="12" strokeLinecap="round" />
-        <circle cx="20" cy="10" r="6" fill="#A451FF" />
-        <circle cx="80" cy="90" r="6" fill="#00F26B" />
-      </svg>
-    )
-  )
+    <div className={`relative ${className}`}>
+      <Image
+        src="/logo.svg"
+        alt="Hoffby Logo"
+        fill
+        className="object-contain"
+        priority
+      />
+    </div>
+  );
 };
 
 // --- COMPONENTE DE FUNDO ---
@@ -72,12 +69,12 @@ const Navbar = () => {
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'py-4' : 'py-8'}`}
     >
-      <div className={`max-w-7xl mx-auto px-6 ${isScrolled ? 'bg-[#0a0a0a]/80 backdrop-blur-md rounded-full border border-white/5 py-3 shadow-2xl' : ''} flex justify-between items-center transition-all`}>
+      <div className={`max-w-7xl mx-auto py-3 px-6 ${isScrolled ? 'bg-[#0a0a0a]/80 backdrop-blur-md rounded-full border border-white/5 shadow-2xl' : ''} flex justify-between items-center transition-all`}>
         <a href="#" className="flex items-center gap-3 group">
-          <Logo className="w-8 h-8" />
-          <span className="text-xl font-black italic tracking-tighter text-white group-hover:text-[#00F26B] transition-colors">
+          <Logo className="w-24 h-11" />
+          {/* <span className="text-xl font-black italic tracking-tighter text-white group-hover:text-[#00F26B] transition-colors">
             HOFFBY<span className="text-[#A451FF]">.TEC</span>
-          </span>
+          </span> */}
         </a>
         <div className="hidden md:flex gap-8">
           {['Soluções', 'Cases', 'SaaS Factory', 'Legado', 'Contato'].map((item) => (
@@ -635,8 +632,8 @@ const Footer = () => (
     <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
       <div className="text-center md:text-left">
         <div className="flex items-center gap-3 justify-center md:justify-start mb-2 opacity-80 hover:opacity-100 transition-opacity">
-          <Logo className="w-6 h-6" />
-          <span className="text-sm font-black italic tracking-tighter text-white">HOFFBY</span>
+          <Logo className="w-16 h-16" />
+          {/* <span className="text-sm font-black italic tracking-tighter text-white">HOFFBY</span> */}
         </div>
         <p className="text-[10px] text-slate-600 font-bold uppercase tracking-[0.2em]">© 2026 Hoffby Tecnologia Ltda</p>
       </div>

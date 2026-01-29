@@ -112,8 +112,8 @@ const Hero = () => {
           </div>
 
           <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic leading-[0.9] text-white mb-8">
-            O Futuro é <br />
-            <GradientText from="from-[#A451FF]" to="to-[#00F26B]">Artificial.</GradientText>
+            A Inteligência é <span className="text-[#A451FF]">Artificial.</span> <br />
+            A Essência é <span className="text-[#00F26B]">Humana.</span>
           </h1>
 
           <p className="text-lg text-slate-400 max-w-xl leading-relaxed mb-10 border-l-2 border-white/10 pl-6 bg-gradient-to-r from-white/5 to-transparent py-4 rounded-r-xl">
@@ -643,8 +643,9 @@ const Footer = () => (
           <span className="text-[10px] font-mono text-slate-400">CNPJ: 44.532.586/0001-00</span>
         </div>
         <div className="flex gap-4 text-[9px] font-bold uppercase text-slate-600 mt-2">
-          <a href="#" className="hover:text-white transition-colors">Privacidade</a>
-          <a href="#" className="hover:text-white transition-colors">Termos</a>
+          <a href="/privacidade" className="hover:text-white transition-colors">Privacidade</a>
+          <a href="/termos" className="hover:text-white transition-colors">Termos</a>
+          <a href="/valores" className="hover:text-white transition-colors text-[#00F26B]">Valores</a>
         </div>
       </div>
     </div>

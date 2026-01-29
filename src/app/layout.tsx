@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Hoffby | Soluções Tecnológicas", // Título otimizado
   description: "Automação, SaaS e Inteligência Artificial para o seu negócio.",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({

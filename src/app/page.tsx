@@ -858,6 +858,16 @@ const Footer = () => {
           </div>
 
           <div>
+            <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-8">Ferramentas</h4>
+            <ul className="space-y-4">
+              <li><Link href="/ferramentas" className="text-slate-500 text-sm hover:text-[#00F26B] transition-colors">Hub de Ferramentas</Link></li>
+              <li><Link href="/ferramentas/gerador-de-senha" className="text-slate-500 text-sm hover:text-[#00F26B] transition-colors">Gerador de Senha</Link></li>
+              <li><Link href="/ferramentas/gerador-qrcode" className="text-slate-500 text-sm hover:text-[#00F26B] transition-colors">Gerador QR Code</Link></li>
+              <li><Link href="/ferramentas/dns-checker" className="text-slate-500 text-sm hover:text-[#00F26B] transition-colors">DNS Checker</Link></li>
+            </ul>
+          </div>
+
+          <div>
             <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-8">Member Access</h4>
             <div className="p-6 bg-[#0E0E0E] border border-white/5 rounded-2xl">
               <div className="flex items-center gap-3 mb-4">

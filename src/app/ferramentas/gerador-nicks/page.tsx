@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Gamepad2, RefreshCw, Copy, Check, Hash, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
@@ -42,7 +42,11 @@ const generateNick = (style: 'clean' | 'leet' | 'random') => {
 
 export default function NickGeneratorPage() {
     const [style, setStyle] = useState<'clean' | 'leet' | 'random'>('random');
-    const [nicks, setNicks] = useState<string[]>(Array(6).fill('').map(() => generateNick('random')));
+    const [nicks, setNicks] = useState<string[]>([]);
+
+    useEffect(() => {
+        setNicks(Array(6).fill('').map(() => generateNick('random')));
+    }, []);
     const [copiedField, setCopiedField] = useState<number | null>(null);
 
     const handleGenerate = () => {
@@ -96,24 +100,26 @@ export default function NickGeneratorPage() {
                     </div>
 
                     {/* Results Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                        {nicks.map((nick, idx) => (
-                            <div key={idx} className="bg-[#050505] p-5 rounded-2xl border border-white/5 flex justify-between items-center group hover:border-[#00F26B]/50 transition-colors">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-[#00F26B]/50 group-hover:text-[#00F26B] transition-colors">
-                                        <Hash size={16} />
+                    {nicks.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            {nicks.map((nick, idx) => (
+                                <div key={idx} className="bg-[#050505] p-5 rounded-2xl border border-white/5 flex justify-between items-center group hover:border-[#00F26B]/50 transition-colors">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-[#00F26B]/50 group-hover:text-[#00F26B] transition-colors">
+                                            <Hash size={16} />
+                                        </div>
+                                        <span className="font-mono text-white text-lg tracking-wide">{nick}</span>
                                     </div>
-                                    <span className="font-mono text-white text-lg tracking-wide">{nick}</span>
+                                    <button
+                                        onClick={() => copyToClipboard(nick, idx)}
+                                        className="p-3 bg-white/5 hover:bg-[#00F26B] hover:text-black rounded-xl transition-colors"
+                                    >
+                                        {copiedField === idx ? <Check size={18} /> : <Copy size={18} />}
+                                    </button>
                                 </div>
-                                <button
-                                    onClick={() => copyToClipboard(nick, idx)}
-                                    className="p-3 bg-white/5 hover:bg-[#00F26B] hover:text-black rounded-xl transition-colors"
-                                >
-                                    {copiedField === idx ? <Check size={18} /> : <Copy size={18} />}
-                                </button>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    ) : <div className="p-12 text-center text-slate-500 animate-pulse">Gerando nicks...</div>}
 
                     <button
                         onClick={handleGenerate}

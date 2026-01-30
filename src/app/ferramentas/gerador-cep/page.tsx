@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Map, RefreshCw, Copy, Check, MapPin, Navigation } from 'lucide-react';
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
@@ -36,8 +36,12 @@ const generateCEP = () => {
 };
 
 export default function CepGeneratorPage() {
-    const [cep, setCep] = useState(generateCEP());
+    const [cep, setCep] = useState<ReturnType<typeof generateCEP> | null>(null);
     const [copiedField, setCopiedField] = useState<string | null>(null);
+
+    useEffect(() => {
+        setCep(generateCEP());
+    }, []);
 
     const handleGenerate = () => setCep(generateCEP());
 
@@ -90,25 +94,29 @@ export default function CepGeneratorPage() {
                 </div>
 
                 <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl">
-                    <div className="flex flex-col gap-6 mb-8">
-                        <div className="bg-[#050505] p-8 rounded-2xl border border-white/10 flex items-center justify-between">
-                            <div>
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1 block">CEP Gerado</span>
-                                <span className="text-4xl font-mono text-white tracking-widest">{cep.code}</span>
+                    {cep ? (
+                        <div className="flex flex-col gap-6 mb-8">
+                            <div className="bg-[#050505] p-8 rounded-2xl border border-white/10 flex items-center justify-between">
+                                <div>
+                                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1 block">CEP Gerado</span>
+                                    <span className="text-4xl font-mono text-white tracking-widest">{cep.code}</span>
+                                </div>
+                                <button onClick={() => copyToClipboard(cep.code, 'main-cep')} className="p-4 bg-white/5 hover:bg-[#00F26B] hover:text-black rounded-xl transition-all">
+                                    {copiedField === 'main-cep' ? <Check size={24} /> : <Copy size={24} />}
+                                </button>
                             </div>
-                            <button onClick={() => copyToClipboard(cep.code, 'main-cep')} className="p-4 bg-white/5 hover:bg-[#00F26B] hover:text-black rounded-xl transition-all">
-                                {copiedField === 'main-cep' ? <Check size={24} /> : <Copy size={24} />}
-                            </button>
-                        </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <Field label="Estado (UF)" value={`${cep.state} (${cep.uf})`} icon={MapPin} id="uf" />
-                            <Field label="Bairro Fictício" value={cep.district} icon={Navigation} id="district" />
-                            <div className="md:col-span-2">
-                                <Field label="Logradouro" value={cep.street} icon={MapPin} id="street" />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <Field label="Estado (UF)" value={`${cep.state} (${cep.uf})`} icon={MapPin} id="uf" />
+                                <Field label="Bairro Fictício" value={cep.district} icon={Navigation} id="district" />
+                                <div className="md:col-span-2">
+                                    <Field label="Logradouro" value={cep.street} icon={MapPin} id="street" />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div className="p-8 text-center text-slate-500 animate-pulse">Carregando gerador...</div>
+                    )}
 
                     <button
                         onClick={handleGenerate}

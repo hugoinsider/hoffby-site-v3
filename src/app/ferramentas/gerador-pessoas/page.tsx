@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User, RefreshCw, Copy, Check, MapPin, Mail, CreditCard, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
@@ -49,8 +49,12 @@ const generatePerson = () => {
 };
 
 export default function PersonGeneratorPage() {
-    const [person, setPerson] = useState(generatePerson());
+    const [person, setPerson] = useState<ReturnType<typeof generatePerson> | null>(null);
     const [copiedField, setCopiedField] = useState<string | null>(null);
+
+    useEffect(() => {
+        setPerson(generatePerson());
+    }, []);
 
     const handleGenerate = () => setPerson(generatePerson());
 
@@ -103,17 +107,19 @@ export default function PersonGeneratorPage() {
                 </div>
 
                 <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        <div className="md:col-span-2">
-                            <Field label="Nome Completo" value={person.name} icon={User} id="name" />
+                    {person ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div className="md:col-span-2">
+                                <Field label="Nome Completo" value={person.name} icon={User} id="name" />
+                            </div>
+                            <Field label="CPF" value={person.cpf} icon={CreditCard} id="cpf" />
+                            <Field label="RG" value={person.rg} icon={CreditCard} id="rg" />
+                            <Field label="E-mail" value={person.email} icon={Mail} id="email" />
+                            <Field label="Data Nascimento" value={person.birthDate} icon={Calendar} id="birth" />
+                            <Field label="Cidade / Estado" value={person.city} icon={MapPin} id="city" />
+                            <Field label="Endereço" value={person.address} icon={MapPin} id="address" />
                         </div>
-                        <Field label="CPF" value={person.cpf} icon={CreditCard} id="cpf" />
-                        <Field label="RG" value={person.rg} icon={CreditCard} id="rg" />
-                        <Field label="E-mail" value={person.email} icon={Mail} id="email" />
-                        <Field label="Data Nascimento" value={person.birthDate} icon={Calendar} id="birth" />
-                        <Field label="Cidade / Estado" value={person.city} icon={MapPin} id="city" />
-                        <Field label="Endereço" value={person.address} icon={MapPin} id="address" />
-                    </div>
+                    ) : <div className="p-12 text-center text-slate-500 animate-pulse">Carregando dados pessoais...</div>}
 
                     <div className="grid grid-cols-2 gap-4">
                         <button

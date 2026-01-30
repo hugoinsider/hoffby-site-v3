@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Building2, RefreshCw, Copy, Check, MapPin, Phone, Hash, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
@@ -45,8 +45,12 @@ const generateCompany = () => {
 };
 
 export default function CompanyGeneratorPage() {
-    const [company, setCompany] = useState(generateCompany());
+    const [company, setCompany] = useState<ReturnType<typeof generateCompany> | null>(null);
     const [copiedField, setCopiedField] = useState<string | null>(null);
+
+    useEffect(() => {
+        setCompany(generateCompany());
+    }, []);
 
     const handleGenerate = () => setCompany(generateCompany());
 
@@ -99,18 +103,20 @@ export default function CompanyGeneratorPage() {
                 </div>
 
                 <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        <div className="md:col-span-2">
-                            <Field label="Razão Social" value={company.name} icon={Building2} id="name" />
+                    {company ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div className="md:col-span-2">
+                                <Field label="Razão Social" value={company.name} icon={Building2} id="name" />
+                            </div>
+                            <Field label="CNPJ" value={company.cnpj} icon={Hash} id="cnpj" />
+                            <Field label="Inscrição Estadual" value={company.ie} icon={Hash} id="ie" />
+                            <Field label="Telefone Comercial" value={company.phone} icon={Phone} id="phone" />
+                            <Field label="Data de Abertura" value={company.openingDate} icon={Calendar} id="date" />
+                            <div className="md:col-span-2">
+                                <Field label="Endereço Comercial" value={company.address} icon={MapPin} id="address" />
+                            </div>
                         </div>
-                        <Field label="CNPJ" value={company.cnpj} icon={Hash} id="cnpj" />
-                        <Field label="Inscrição Estadual" value={company.ie} icon={Hash} id="ie" />
-                        <Field label="Telefone Comercial" value={company.phone} icon={Phone} id="phone" />
-                        <Field label="Data de Abertura" value={company.openingDate} icon={Calendar} id="date" />
-                        <div className="md:col-span-2">
-                            <Field label="Endereço Comercial" value={company.address} icon={MapPin} id="address" />
-                        </div>
-                    </div>
+                    ) : <div className="p-12 text-center text-slate-500 animate-pulse">Inicializando gerador de empresas...</div>}
 
                     <div className="grid grid-cols-2 gap-4">
                         <button

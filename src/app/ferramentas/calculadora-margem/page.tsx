@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { DollarSign, PieChart as PieIcon, Calculator, Plus, Trash2, TrendingUp, TrendingDown, Info, QrCode, Copy } from 'lucide-react';
 import Link from 'next/link';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from 'recharts';
+import { Logo } from '@/components/Logo';
 
 interface Expense {
     id: string;
@@ -191,6 +192,9 @@ export default function FinancialCalculatorPage() {
 
             <div className="max-w-7xl w-full relative z-10 my-8 md:my-12">
                 <div className="text-center mb-12">
+                    <div className="flex justify-center mb-6">
+                        <Logo className="w-16 h-16 md:w-20 md:h-20" />
+                    </div>
                     <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors mb-4 block">
                         ← Voltar para Ferramentas
                     </Link>

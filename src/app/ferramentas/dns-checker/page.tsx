@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Globe, Search, Server, CheckCircle2, XCircle, AlertCircle, ArrowRight, Lock } from 'lucide-react';
 import Link from 'next/link';
+import { Logo } from '@/components/Logo';
 
 type DnsRecord = 'A' | 'AAAA' | 'CNAME' | 'MX' | 'NS' | 'TXT';
 
@@ -77,6 +78,9 @@ export default function DnsCheckerPage() {
 
                 <div className="max-w-6xl w-full relative z-10">
                     <div className="text-center mb-10">
+                        <div className="flex justify-center mb-6">
+                            <Logo className="w-16 h-16 md:w-20 md:h-20" />
+                        </div>
                         <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors mb-4 block">
                             ← Voltar para Ferramentas
                         </Link>

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Type, ArrowRightLeft, Copy, Check, Trash2 } from 'lucide-react';
 import Link from 'next/link';
+import { Logo } from '@/components/Logo';
 
 export default function Base64Page() {
     const [input, setInput] = useState('');
@@ -36,6 +37,9 @@ export default function Base64Page() {
 
             <div className="max-w-4xl w-full relative z-10 my-20">
                 <div className="text-center mb-10">
+                    <div className="flex justify-center mb-6">
+                        <Logo className="w-16 h-16 md:w-20 md:h-20" />
+                    </div>
                     <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors mb-4 block">
                         ← Voltar para Ferramentas
                     </Link>

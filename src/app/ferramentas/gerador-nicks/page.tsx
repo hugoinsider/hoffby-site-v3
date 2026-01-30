@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Gamepad2, RefreshCw, Copy, Check, Hash, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import { Logo } from '@/components/Logo';
 
 // --- GENERATOR UTILS ---
 const prefixes = ['Neo', 'Cyber', 'Dark', 'Night', 'Shadow', 'Iron', 'Golden', 'Silver', 'Toxic', 'Radio', 'Hyper', 'Mega', 'Ultra', 'Pro', 'God', 'Master', 'Elite', 'Rogue', 'Ninja'];
@@ -63,6 +64,9 @@ export default function NickGeneratorPage() {
 
             <div className="max-w-4xl w-full relative z-10 my-20">
                 <div className="text-center mb-10">
+                    <div className="flex justify-center mb-6">
+                        <Logo className="w-16 h-16 md:w-20 md:h-20" />
+                    </div>
                     <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors mb-4 block">
                         ← Voltar para Ferramentas
                     </Link>

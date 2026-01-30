@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Calculator, Copy, Check, FileCheck } from 'lucide-react';
 import Link from 'next/link';
+import { Logo } from '@/components/Logo';
 import CRC32 from 'crc-32';
 
 export default function CRC32Page() {
@@ -35,6 +36,9 @@ export default function CRC32Page() {
 
             <div className="max-w-3xl w-full relative z-10 my-20">
                 <div className="text-center mb-10">
+                    <div className="flex justify-center mb-6">
+                        <Logo className="w-16 h-16 md:w-20 md:h-20" />
+                    </div>
                     <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors mb-4 block">
                         ← Voltar para Ferramentas
                     </Link>

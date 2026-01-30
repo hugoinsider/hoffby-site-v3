@@ -12,33 +12,8 @@ import {
   CreditCard, Stethoscope, Users, CalendarCheck,
   CheckSquare, Linkedin, Github, MapPin, Award, ShieldCheck
 } from 'lucide-react';
+import { Logo } from '@/components/Logo';
 import Image from 'next/image';
-
-// --- CORES & CONSTANTES ---
-const brand = {
-  purple: '#A451FF',
-  green: '#00F26B',
-  bg: '#050505',
-};
-
-
-
-
-
-// --- LOGOTIPO VETORIAL HOFFBY ---
-const Logo = ({ className = "w-24 h-24" }: { className?: string }) => {
-  return (
-    <div className={`relative ${className}`}>
-      <Image
-        src="/logo.svg"
-        alt="Hoffby Logo"
-        fill
-        className="object-contain"
-        priority
-      />
-    </div>
-  );
-};
 
 // --- COMPONENTE DE FUNDO ---
 const IdentityBackground = () => (

@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { Download, Link as LinkIcon, Upload, Image as ImageIcon, Layers, Layout, X, QrCode } from 'lucide-react';
 import Link from 'next/link';
+import { Logo } from '@/components/Logo';
 
 export default function QRCodeGeneratorPage() {
     const [text, setText] = useState('https://hoffby.com.br');
@@ -145,6 +146,9 @@ export default function QRCodeGeneratorPage() {
                 {/* HEADERS... (Keep existing headers) */}
                 <div className="max-w-7xl w-full relative z-10">
                     <div className="text-center mb-10">
+                        <div className="flex justify-center mb-6">
+                            <Logo className="w-16 h-16 md:w-20 md:h-20" />
+                        </div>
                         <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors mb-4 block">
                             ← Voltar para Ferramentas
                         </Link>

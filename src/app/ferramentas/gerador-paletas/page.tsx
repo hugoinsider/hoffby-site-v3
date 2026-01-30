@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Lock, Unlock, RefreshCw, Copy, Check, Download, Palette, ChevronDown, X } from 'lucide-react';
 import Link from 'next/link';
+import { Logo } from '@/components/Logo';
 import chroma from 'chroma-js';
 
 interface ColorState {
@@ -113,9 +114,12 @@ export default function PaletteGeneratorPage() {
         <div className="bg-[#050505] h-screen font-sans flex flex-col overflow-hidden text-slate-300">
             {/* TOP BAR */}
             <div className="h-16 border-b border-white/5 bg-[#0E0E0E] flex items-center justify-between px-6 z-20 sticky top-0">
-                <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors flex items-center gap-2">
-                    <ChevronDown className="rotate-90" size={16} /> Voltar
-                </Link>
+                <div className="flex items-center gap-4">
+                    <Logo className="w-8 h-8" />
+                    <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors flex items-center gap-2">
+                        <ChevronDown className="rotate-90" size={16} /> Voltar
+                    </Link>
+                </div>
                 <div className="hidden md:flex items-center gap-2">
                     <span className="text-[10px] uppercase font-bold text-slate-600 bg-white/5 px-2 py-1 rounded border border-white/5">Espaço</span>
                     <span className="text-xs text-slate-500">para gerar novas cores</span>

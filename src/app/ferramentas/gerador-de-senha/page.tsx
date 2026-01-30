@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Copy, RefreshCw, Key, ShieldCheck, Lock } from 'lucide-react';
 import Link from 'next/link';
+import { Logo } from '@/components/Logo';
 
 export default function PasswordGeneratorPage() {
     const [password, setPassword] = useState('');
@@ -62,6 +63,9 @@ export default function PasswordGeneratorPage() {
 
                 <div className="max-w-xl w-full relative z-10">
                     <div className="text-center mb-10">
+                        <div className="flex justify-center mb-6">
+                            <Logo className="w-16 h-16 md:w-20 md:h-20" />
+                        </div>
                         <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors mb-4 block">
                             ← Voltar para Ferramentas
                         </Link>

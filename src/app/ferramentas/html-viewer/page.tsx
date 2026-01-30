@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Code, Eye, RefreshCw, LayoutTemplate } from 'lucide-react';
 import Link from 'next/link';
+import { Logo } from '@/components/Logo';
 
 const defaultHtml = `<!DOCTYPE html>
 <html>
@@ -63,6 +64,9 @@ export default function HtmlViewerPage() {
             {/* Header */}
             <div className="w-full max-w-[1600px] mb-6 flex justify-between items-end">
                 <div>
+                    <div className="flex mb-4">
+                        <Logo className="w-12 h-12" />
+                    </div>
                     <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors mb-2 block">
                         ← Voltar
                     </Link>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Lock, RefreshCw, CheckCircle2, XCircle, Hash, Shield } from 'lucide-react';
+import { Lock, RefreshCw, CheckCircle2, XCircle, Hash, Shield, Copy, Check } from 'lucide-react';
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
 import bcrypt from 'bcryptjs';
@@ -13,6 +13,13 @@ export default function BcryptGeneratorPage() {
     const [rounds, setRounds] = useState(10);
     const [result, setResult] = useState<boolean | null>(null);
     const [loading, setLoading] = useState(false);
+    const [copied, setCopied] = useState(false);
+
+    const copyToClipboard = (text: string) => {
+        navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     const handleEncrypt = async () => {
         if (!input) return;
@@ -42,7 +49,7 @@ export default function BcryptGeneratorPage() {
                 <div className="absolute top-0 right-1/4 w-[40vw] h-[40vw] bg-[#A451FF]/5 blur-[120px] rounded-full pointer-events-none" />
             </div>
 
-            <div className="max-w-4xl w-full relative z-10 my-20">
+            <div className="max-w-4xl w-full relative z-10 my-10 md:my-20">
                 <div className="text-center mb-10">
                     <div className="flex justify-center mb-6">
                         <Logo className="w-16 h-16 md:w-20 md:h-20" />
@@ -60,7 +67,7 @@ export default function BcryptGeneratorPage() {
                     <p className="text-slate-400 text-sm">Geração de hash e verificação segura usando bcryptjs.</p>
                 </div>
 
-                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl">
+                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-8 shadow-2xl">
 
                     {/* TABS */}
                     <div className="flex bg-[#050505] p-1 rounded-xl mb-8 border border-white/5 w-fit mx-auto">
@@ -105,9 +112,18 @@ export default function BcryptGeneratorPage() {
                                     {loading ? 'Processing...' : <><Lock size={18} /> Generate Hash</>}
                                 </button>
                                 {hash && (
-                                    <div className="mt-6 bg-[#050505] p-6 rounded-2xl border border-[#A451FF]/30 relative group">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest text-[#A451FF] mb-2 block">Bcrypt Hash</label>
-                                        <p className="font-mono text-xs text-slate-300 break-all">{hash}</p>
+                                    <div className="mt-6 bg-[#050505] p-6 rounded-2xl border border-[#A451FF]/30 relative group flex items-center justify-between gap-4">
+                                        <div className="overflow-hidden">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-[#A451FF] mb-2 block">Bcrypt Hash</label>
+                                            <p className="font-mono text-xs text-slate-300 break-all">{hash}</p>
+                                        </div>
+                                        <button
+                                            onClick={() => copyToClipboard(hash)}
+                                            className="p-3 bg-[#A451FF]/10 text-[#A451FF] hover:bg-[#A451FF] hover:text-white rounded-xl transition-all flex-shrink-0"
+                                            title="Copy Hash"
+                                        >
+                                            {copied ? <Check size={18} /> : <Copy size={18} />}
+                                        </button>
                                     </div>
                                 )}
                             </>

@@ -852,9 +852,9 @@ const Footer = () => {
               <p className="text-[10px] text-slate-600 mb-4">
                 Acesso restrito para clientes com contratos ativos de suporte e manutenção.
               </p>
-              <button className="w-full py-3 bg-white/5 hover:bg-white/10 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg transition-colors flex items-center justify-center gap-2">
+              <Link href="/area-do-cliente" className="w-full py-3 bg-white/5 hover:bg-white/10 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg transition-colors flex items-center justify-center gap-2">
                 <Lock size={12} /> Área do Cliente
-              </button>
+              </Link>
             </div>
           </div>
         </div>

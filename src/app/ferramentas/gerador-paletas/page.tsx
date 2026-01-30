@@ -111,7 +111,7 @@ export default function PaletteGeneratorPage() {
     };
 
     return (
-        <div className="bg-[#050505] h-screen font-sans flex flex-col overflow-hidden text-slate-300">
+        <div className="bg-[#050505] min-h-screen md:h-screen font-sans flex flex-col md:overflow-hidden overflow-auto text-slate-300">
             {/* TOP BAR */}
             <div className="h-16 border-b border-white/5 bg-[#0E0E0E] flex items-center justify-between px-6 z-20 sticky top-0">
                 <div className="flex items-center gap-4">
@@ -139,7 +139,7 @@ export default function PaletteGeneratorPage() {
                 {colors.map((color, index) => (
                     <div
                         key={index}
-                        className="flex-1 relative group transition-all duration-300 flex flex-col items-center justify-center p-4 border-b md:border-b-0 md:border-r border-white/5 last:border-0"
+                        className="flex-1 relative group transition-all duration-300 flex flex-col items-center justify-center p-4 border-b md:border-b-0 md:border-r border-white/5 last:border-0 min-h-[160px] md:min-h-0"
                         style={{ backgroundColor: color.hex }}
                     >
                         <div className="flex flex-col items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0 duration-300">

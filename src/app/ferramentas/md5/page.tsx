@@ -30,7 +30,7 @@ export default function MD5Page() {
                 <div className="absolute top-[20%] right-[30%] w-[30vw] h-[30vw] bg-red-500/5 blur-[120px] rounded-full pointer-events-none" />
             </div>
 
-            <div className="max-w-3xl w-full relative z-10 my-20">
+            <div className="max-w-3xl w-full relative z-10 my-10 md:my-20">
                 <div className="text-center mb-10">
                     <div className="flex justify-center mb-6">
                         <Logo className="w-16 h-16 md:w-20 md:h-20" />
@@ -44,7 +44,7 @@ export default function MD5Page() {
                     <p className="text-slate-500 text-xs uppercase tracking-widest mt-2">Legacy Message-Digest Algorithm 5</p>
                 </div>
 
-                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl">
+                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-8 shadow-2xl">
                     <div className="mb-6">
                         <label className="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wide">Texto para Hash</label>
                         <input

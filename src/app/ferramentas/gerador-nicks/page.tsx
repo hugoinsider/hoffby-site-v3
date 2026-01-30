@@ -66,7 +66,7 @@ export default function NickGeneratorPage() {
                 <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-[#A451FF]/5 blur-[120px] rounded-full pointer-events-none" />
             </div>
 
-            <div className="max-w-4xl w-full relative z-10 my-20">
+            <div className="max-w-4xl w-full relative z-10 my-10 md:my-20">
                 <div className="text-center mb-10">
                     <div className="flex justify-center mb-6">
                         <Logo className="w-16 h-16 md:w-20 md:h-20" />
@@ -84,7 +84,7 @@ export default function NickGeneratorPage() {
                     <p className="text-slate-400 text-sm">Identidades únicas para jogos, redes sociais e comunidades.</p>
                 </div>
 
-                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl">
+                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-8 shadow-2xl">
 
                     {/* Style Selection */}
                     <div className="flex justify-center gap-4 mb-10">

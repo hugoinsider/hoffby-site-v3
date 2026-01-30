@@ -75,7 +75,7 @@ export default function CepGeneratorPage() {
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-[#A451FF]/5 blur-[150px] rounded-full pointer-events-none" />
             </div>
 
-            <div className="max-w-2xl w-full relative z-10 my-20">
+            <div className="max-w-2xl w-full relative z-10 my-10 md:my-20">
                 <div className="text-center mb-10">
                     <div className="flex justify-center mb-6">
                         <Logo className="w-16 h-16 md:w-20 md:h-20" />
@@ -93,7 +93,7 @@ export default function CepGeneratorPage() {
                     <p className="text-slate-400 text-sm">Códigos postais válidos por região para testes de entrega e cadastro.</p>
                 </div>
 
-                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl">
+                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-8 shadow-2xl">
                     {cep ? (
                         <div className="flex flex-col gap-6 mb-8">
                             <div className="bg-[#050505] p-8 rounded-2xl border border-white/10 flex items-center justify-between">

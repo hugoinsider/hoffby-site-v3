@@ -71,7 +71,7 @@ export default function DnsCheckerPage() {
 
     return (
         <div className="bg-[#050505] min-h-screen text-slate-300 font-sans selection:bg-[#A451FF] selection:text-white flex flex-col">
-            <div className="flex-grow flex flex-col items-center p-6 relative overflow-hidden my-20">
+            <div className="flex-grow flex flex-col items-center p-6 relative overflow-hidden my-10 md:my-20">
                 <div className="absolute inset-0 z-0 opacity-20">
                     <div className="absolute top-[0%] left-[50%] -translate-x-1/2 w-[80vw] h-[50vw] bg-blue-500/10 blur-[150px] rounded-full" />
                 </div>
@@ -99,7 +99,7 @@ export default function DnsCheckerPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                         {/* CONTROLS */}
-                        <div className="lg:col-span-3 bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl flex flex-col md:flex-row gap-4 items-center">
+                        <div className="lg:col-span-3 bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-8 shadow-2xl flex flex-col md:flex-row gap-4 items-center">
                             <div className="flex-grow w-full relative">
                                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
                                 <input

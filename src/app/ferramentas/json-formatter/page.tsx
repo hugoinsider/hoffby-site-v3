@@ -45,7 +45,7 @@ export default function JsonFormatterPage() {
                 <div className="absolute bottom-[10%] right-[10%] w-[50vw] h-[50vw] bg-[#00F26B]/10 blur-[150px] rounded-full" />
             </div>
 
-            <div className="max-w-6xl w-full relative z-10 my-20 h-[80vh] flex flex-col">
+            <div className="max-w-6xl w-full relative z-10 my-10 md:my-20 h-auto md:h-[80vh] flex flex-col">
                 <div className="text-center mb-6">
                     <div className="flex justify-center mb-6">
                         <Logo className="w-16 h-16 md:w-20 md:h-20" />

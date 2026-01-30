@@ -141,7 +141,7 @@ export default function QRCodeGeneratorPage() {
 
     return (
         <div className="bg-[#050505] min-h-screen text-slate-300 font-sans selection:bg-[#A451FF] selection:text-white flex flex-col">
-            <div className="flex-grow flex flex-col items-center justify-center p-6 relative overflow-hidden my-20">
+            <div className="flex-grow flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden my-10 md:my-20">
 
                 {/* HEADERS... (Keep existing headers) */}
                 <div className="max-w-7xl w-full relative z-10">
@@ -271,7 +271,7 @@ export default function QRCodeGeneratorPage() {
                         </div>
 
                         {/* PREVIEW AREA */}
-                        <div className="lg:col-span-5 flex flex-col gap-6 sticky top-10">
+                        <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-10">
                             <div className="bg-white rounded-[30px] p-8 shadow-2xl flex items-center justify-center aspect-[3/4] relative group overflow-hidden">
                                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none" />
 

@@ -84,7 +84,7 @@ export default function CompanyGeneratorPage() {
                 <div className="absolute bottom-0 right-1/4 w-[50vw] h-[50vw] bg-[#00F26B]/5 blur-[120px] rounded-full pointer-events-none" />
             </div>
 
-            <div className="max-w-4xl w-full relative z-10 my-20">
+            <div className="max-w-4xl w-full relative z-10 my-10 md:my-20">
                 <div className="text-center mb-10">
                     <div className="flex justify-center mb-6">
                         <Logo className="w-16 h-16 md:w-20 md:h-20" />
@@ -102,7 +102,7 @@ export default function CompanyGeneratorPage() {
                     <p className="text-slate-400 text-sm">Dados corporativos fictícios para testes B2B e validação de sistemas.</p>
                 </div>
 
-                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl">
+                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-8 shadow-2xl">
                     {company ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             <div className="md:col-span-2">

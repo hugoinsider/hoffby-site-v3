@@ -70,7 +70,7 @@ export default function MyIpPage() {
                 <div className="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] bg-[#00F26B]/5 blur-[150px] rounded-full pointer-events-none" />
             </div>
 
-            <div className="max-w-5xl w-full relative z-10 my-20">
+            <div className="max-w-5xl w-full relative z-10 my-10 md:my-20">
                 <div className="text-center mb-12">
                     <div className="flex justify-center mb-6">
                         <Logo className="w-16 h-16 md:w-20 md:h-20" />

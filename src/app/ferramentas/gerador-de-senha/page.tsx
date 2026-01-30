@@ -81,7 +81,7 @@ export default function PasswordGeneratorPage() {
                         <p className="text-slate-400 text-sm">Crie chaves de acesso com entropia militar.</p>
                     </div>
 
-                    <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl relative overflow-hidden">
+                    <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-8 shadow-2xl relative overflow-hidden">
 
                         {/* Display */}
                         <div className="relative mb-8">

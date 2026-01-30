@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, AlertTriangle, Code2 } from 'lucide-react';
+import { ShieldCheck, AlertTriangle, Code2, Copy, Check } from 'lucide-react';
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
 import jwt from 'jsonwebtoken';
@@ -19,6 +19,20 @@ export default function JwtDebuggerPage() {
     const [header, setHeader] = useState('');
     const [payload, setPayload] = useState('');
     const [isValid, setIsValid] = useState(false);
+    const [copiedHeader, setCopiedHeader] = useState(false);
+    const [copiedPayload, setCopiedPayload] = useState(false);
+
+    const copyToClipboard = (text: string, section: 'header' | 'payload') => {
+        if (!text) return;
+        navigator.clipboard.writeText(text);
+        if (section === 'header') {
+            setCopiedHeader(true);
+            setTimeout(() => setCopiedHeader(false), 2000);
+        } else {
+            setCopiedPayload(true);
+            setTimeout(() => setCopiedPayload(false), 2000);
+        }
+    };
 
     useEffect(() => {
         if (!token) {
@@ -50,7 +64,7 @@ export default function JwtDebuggerPage() {
                 <div className="absolute top-0 w-full h-[400px] bg-gradient-to-b from-[#A451FF]/10 to-transparent pointer-events-none" />
             </div>
 
-            <div className="max-w-6xl w-full relative z-10 my-20">
+            <div className="max-w-6xl w-full relative z-10 my-10 md:my-20">
                 <div className="text-center mb-10">
                     <div className="flex justify-center mb-6">
                         <Logo className="w-16 h-16 md:w-20 md:h-20" />
@@ -85,7 +99,7 @@ export default function JwtDebuggerPage() {
                         <textarea
                             value={token}
                             onChange={(e) => setToken(e.target.value)}
-                            className={`w-full h-[400px] bg-[#050505] border rounded-xl p-4 font-mono text-sm outline-none resize-none transition-colors ${isValid ? 'border-[#A451FF] text-[#A451FF]' : 'border-white/10 text-slate-400'}`}
+                            className={`w-full h-[200px] md:h-[400px] bg-[#050505] border rounded-xl p-4 font-mono text-sm outline-none resize-none transition-colors ${isValid ? 'border-[#A451FF] text-[#A451FF]' : 'border-white/10 text-slate-400'}`}
                             placeholder="Cole seu JWT aqui (eyJhbGciOi...)"
                         />
                     </div>
@@ -94,18 +108,38 @@ export default function JwtDebuggerPage() {
                     <div className="space-y-6">
 
                         {/* HEADER */}
-                        <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl relative overflow-hidden">
+                        <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl relative overflow-hidden group">
                             <div className="absolute top-0 left-0 w-1 h-full bg-red-500" />
-                            <h3 className="text-xs font-bold uppercase tracking-widest text-red-500 mb-4">Header</h3>
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="text-xs font-bold uppercase tracking-widest text-red-500">Header</h3>
+                                {header && (
+                                    <button
+                                        onClick={() => copyToClipboard(header, 'header')}
+                                        className="text-slate-500 hover:text-white transition-colors"
+                                    >
+                                        {copiedHeader ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                    </button>
+                                )}
+                            </div>
                             <pre className="font-mono text-xs text-slate-300 overflow-auto max-h-[150px]">
                                 {header || <span className="text-slate-700">// Header data...</span>}
                             </pre>
                         </div>
 
                         {/* PAYLOAD */}
-                        <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl relative overflow-hidden">
+                        <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl relative overflow-hidden group">
                             <div className="absolute top-0 left-0 w-1 h-full bg-[#A451FF]" />
-                            <h3 className="text-xs font-bold uppercase tracking-widest text-[#A451FF] mb-4">Payload</h3>
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="text-xs font-bold uppercase tracking-widest text-[#A451FF]">Payload</h3>
+                                {payload && (
+                                    <button
+                                        onClick={() => copyToClipboard(payload, 'payload')}
+                                        className="text-slate-500 hover:text-white transition-colors"
+                                    >
+                                        {copiedPayload ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                    </button>
+                                )}
+                            </div>
                             <pre className="font-mono text-xs text-slate-300 overflow-auto max-h-[300px]">
                                 {payload || <span className="text-slate-700">// Payload data...</span>}
                             </pre>

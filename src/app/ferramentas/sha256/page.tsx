@@ -37,7 +37,7 @@ export default function Sha256GeneratorPage() {
                 <div className="absolute bottom-1/4 left-1/4 w-[40vw] h-[40vw] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
             </div>
 
-            <div className="max-w-4xl w-full relative z-10 my-20">
+            <div className="max-w-4xl w-full relative z-10 my-10 md:my-20">
                 <div className="text-center mb-10">
                     <div className="flex justify-center mb-6">
                         <Logo className="w-16 h-16 md:w-20 md:h-20" />
@@ -55,7 +55,7 @@ export default function Sha256GeneratorPage() {
                     <p className="text-slate-400 text-sm">Geração de hash em tempo real usando Web Crypto API.</p>
                 </div>
 
-                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl space-y-8">
+                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-8 shadow-2xl space-y-8">
 
                     <div>
                         <label className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block">Entrada de Texto</label>

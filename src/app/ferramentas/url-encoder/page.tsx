@@ -35,7 +35,7 @@ export default function UrlEncoderPage() {
                 <div className="absolute bottom-[10%] right-[20%] w-[40vw] h-[40vw] bg-[#00F26B]/5 blur-[120px] rounded-full pointer-events-none" />
             </div>
 
-            <div className="max-w-4xl w-full relative z-10 my-20">
+            <div className="max-w-4xl w-full relative z-10 my-10 md:my-20">
                 <div className="text-center mb-10">
                     <div className="flex justify-center mb-6">
                         <Logo className="w-16 h-16 md:w-20 md:h-20" />
@@ -48,7 +48,7 @@ export default function UrlEncoderPage() {
                     </h1>
                 </div>
 
-                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-2xl relative overflow-hidden">
+                <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-8 shadow-2xl relative overflow-hidden">
                     <div className="flex justify-center mb-8 gap-4">
                         <button
                             onClick={() => setMode('encode')}

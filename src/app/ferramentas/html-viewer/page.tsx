@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Code, Eye, RefreshCw, LayoutTemplate } from 'lucide-react';
+import { Code, Eye, RefreshCw, LayoutTemplate, Copy, Check } from 'lucide-react';
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
 
@@ -50,6 +50,13 @@ const defaultHtml = `<!DOCTYPE html>
 export default function HtmlViewerPage() {
     const [code, setCode] = useState(defaultHtml);
     const [srcDoc, setSrcDoc] = useState('');
+    const [copied, setCopied] = useState(false);
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(code);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -80,7 +87,7 @@ export default function HtmlViewerPage() {
                 </div>
             </div>
 
-            <div className="max-w-[1600px] w-full h-[80vh] grid grid-cols-1 lg:grid-cols-2 gap-6 relative z-10">
+            <div className="max-w-[1600px] w-full h-auto lg:h-[80vh] grid grid-cols-1 lg:grid-cols-2 gap-6 relative z-10 my-6 lg:my-0">
 
                 {/* EDITOR */}
                 <div className="bg-[#0E0E0E] border border-white/5 rounded-2xl p-4 flex flex-col shadow-2xl">
@@ -90,9 +97,19 @@ export default function HtmlViewerPage() {
                             <div className="w-2 h-2 rounded-full bg-yellow-500" />
                             <div className="w-2 h-2 rounded-full bg-green-500" />
                         </div>
-                        <button onClick={() => setCode(defaultHtml)} className="text-slate-500 hover:text-white transition-colors">
-                            <RefreshCw size={14} />
-                        </button>
+                        <div className="flex gap-2">
+                            <button
+                                onClick={copyToClipboard}
+                                className="text-slate-500 hover:text-white transition-colors flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest"
+                            >
+                                {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                                <span className={copied ? "text-green-500" : ""}>{copied ? "Copied" : "Copy"}</span>
+                            </button>
+                            <div className="w-px h-4 bg-white/10 mx-2" />
+                            <button onClick={() => setCode(defaultHtml)} className="text-slate-500 hover:text-white transition-colors" title="Reset Code">
+                                <RefreshCw size={14} />
+                            </button>
+                        </div>
                     </div>
                     <textarea
                         value={code}

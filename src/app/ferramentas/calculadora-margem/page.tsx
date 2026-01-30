@@ -183,13 +183,13 @@ export default function FinancialCalculatorPage() {
     };
 
     return (
-        <div className="bg-[#050505] min-h-screen text-slate-300 font-sans flex flex-col items-center justify-center p-6 relative overflow-hidden">
+        <div className="bg-[#050505] min-h-screen text-slate-300 font-sans flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden">
             <div className="absolute inset-0 z-0">
                 <div className="absolute top-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-[#00F26B]/5 blur-[150px] rounded-full pointer-events-none" />
                 <div className="absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-[#A451FF]/5 blur-[150px] rounded-full pointer-events-none" />
             </div>
 
-            <div className="max-w-7xl w-full relative z-10 my-12">
+            <div className="max-w-7xl w-full relative z-10 my-8 md:my-12">
                 <div className="text-center mb-12">
                     <Link href="/ferramentas" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors mb-4 block">
                         ← Voltar para Ferramentas
@@ -198,7 +198,7 @@ export default function FinancialCalculatorPage() {
                         <DollarSign size={12} className="text-yellow-500" />
                         <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-yellow-500">Finance Pro</span>
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white mb-2">
+                    <h1 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter text-white mb-2">
                         Calculadora de <span className="text-yellow-500">Margem.</span>
                     </h1>
                     <p className="text-slate-400 text-sm">Controle financeiro mensal (DRE) e precificação inteligente de produtos.</p>
@@ -211,20 +211,20 @@ export default function FinancialCalculatorPage() {
                         <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-2 flex">
                             <button
                                 onClick={() => setMode('dre')}
-                                className={`flex-1 py-3 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all ${mode === 'dre' ? 'bg-[#00F26B] text-black shadow-lg' : 'text-slate-500 hover:text-white'}`}
+                                className={`flex-1 py-3 rounded-2xl text-[10px] md:text-xs font-bold uppercase tracking-normal md:tracking-widest transition-all ${mode === 'dre' ? 'bg-[#00F26B] text-black shadow-lg' : 'text-slate-500 hover:text-white'}`}
                             >
                                 Gestão Mensal (DRE)
                             </button>
                             <button
                                 onClick={() => setMode('pricing')}
-                                className={`flex-1 py-3 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all ${mode === 'pricing' ? 'bg-[#A451FF] text-white shadow-lg' : 'text-slate-500 hover:text-white'}`}
+                                className={`flex-1 py-3 rounded-2xl text-[10px] md:text-xs font-bold uppercase tracking-normal md:tracking-widest transition-all ${mode === 'pricing' ? 'bg-[#A451FF] text-white shadow-lg' : 'text-slate-500 hover:text-white'}`}
                             >
                                 Precificação
                             </button>
                         </div>
 
                         {/* REVENUE INPUT */}
-                        <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-xl">
+                        <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-8 shadow-xl">
                             <h3 className="text-white font-bold uppercase tracking-widest text-xs mb-6 flex items-center gap-2">
                                 <TrendingUp size={14} className="text-[#00F26B]" />
                                 {mode === 'dre' ? 'Faturamento Bruto' : 'Custo do Produto'}
@@ -261,7 +261,7 @@ export default function FinancialCalculatorPage() {
                         </div>
 
                         {/* EXPENSE LIST */}
-                        <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 shadow-xl">
+                        <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-8 shadow-xl">
                             <h3 className="text-white font-bold uppercase tracking-widest text-xs mb-6 flex items-center gap-2">
                                 <TrendingDown size={14} className="text-red-500" />
                                 {mode === 'dre' ? 'Despesas & Custos' : 'Custos Adicionais (Un)'}
@@ -376,7 +376,7 @@ export default function FinancialCalculatorPage() {
 
                     {/* RESULTS SECTION */}
                     <div className="lg:col-span-7 space-y-6">
-                        <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-8 md:p-12 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
+                        <div className="bg-[#0E0E0E] border border-white/5 rounded-[30px] p-6 md:p-12 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
 
                             {/* RESULTS DISPLAY */}
                             <div className="grid grid-cols-2 gap-8 mb-12">
@@ -384,7 +384,7 @@ export default function FinancialCalculatorPage() {
                                     <div className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mb-2">
                                         {mode === 'dre' ? 'Lucro Líquido' : 'Preço de Venda'}
                                     </div>
-                                    <div className={`text-4xl md:text-5xl font-black font-mono tracking-tight ${results?.isPositive || mode === 'pricing' ? 'text-[#00F26B]' : 'text-red-500'}`}>
+                                    <div className={`text-3xl md:text-5xl font-black font-mono tracking-tight ${results?.isPositive || mode === 'pricing' ? 'text-[#00F26B]' : 'text-red-500'}`}>
                                         R$ {mode === 'dre' ? (results?.netProfit || 0).toFixed(2) : (results?.salePrice || 0).toFixed(2)}
                                     </div>
                                 </div>

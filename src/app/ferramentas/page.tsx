@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Shield, QrCode, Globe, Key, ArrowRight, Lock, Sparkles, User, Building2, Map, Gamepad2, Fingerprint, Code2, Code, Braces } from 'lucide-react';
+import { Shield, QrCode, Globe, Key, ArrowRight, Lock, Sparkles, User, Building2, Map, Gamepad2, Fingerprint, Code2, Code, Braces, Smartphone, Type, FileCheck, Hash, Binary, Link2, Palette } from 'lucide-react';
 
 export default function ToolsHubPage() {
     const tools = [
@@ -98,6 +98,70 @@ export default function ToolsHubPage() {
             icon: Globe,
             color: "text-blue-400",
             bg: "bg-blue-400/10"
+        },
+        {
+            title: "Meu IP",
+            desc: "Visualize seu endereço IP público, localização e provedor (ISP).",
+            href: "/ferramentas/meu-ip",
+            icon: Globe,
+            color: "text-[#00F26B]",
+            bg: "bg-[#00F26B]/10"
+        },
+        {
+            title: "Meu Dispositivo",
+            desc: "Informações detalhadas sobre seu navegador, sistema operacional e hardware.",
+            href: "/ferramentas/meu-dispositivo",
+            icon: Smartphone,
+            color: "text-[#A451FF]",
+            bg: "bg-[#A451FF]/10"
+        },
+        {
+            title: "Base64 Converter",
+            desc: "Codifique e decodifique textos em Base64 instantaneamente.",
+            href: "/ferramentas/base64",
+            icon: Type,
+            color: "text-white",
+            bg: "bg-white/10"
+        },
+        {
+            title: "Calculadora CRC32",
+            desc: "Gere checksums CRC32 para verificação de integridade de arquivos.",
+            href: "/ferramentas/crc32",
+            icon: FileCheck,
+            color: "text-blue-500",
+            bg: "bg-blue-500/10"
+        },
+        {
+            title: "Gerador MD5",
+            desc: "Crie hashes MD5 rapidamente para verificação de integridade (Legacy).",
+            href: "/ferramentas/md5",
+            icon: Hash,
+            color: "text-red-500",
+            bg: "bg-red-500/10"
+        },
+        {
+            title: "Tradutor Binário",
+            desc: "Traduza textos para código binário (010101) e vice-versa.",
+            href: "/ferramentas/tradutor-binario",
+            icon: Binary,
+            color: "text-[#00F26B]",
+            bg: "bg-[#00F26B]/10"
+        },
+        {
+            title: "URL Encoder",
+            desc: "Codifique e decodifique caracteres especiais em URLs (Percent-encoding).",
+            href: "/ferramentas/url-encoder",
+            icon: Link2,
+            color: "text-yellow-500",
+            bg: "bg-yellow-500/10"
+        },
+        {
+            title: "Gerador de Paletas",
+            desc: "Crie paletas de cores harmônicas, trave cores e exporte em JSON/CSS.",
+            href: "/ferramentas/gerador-paletas",
+            icon: Palette,
+            color: "text-pink-500",
+            bg: "bg-pink-500/10"
         }
     ];
 

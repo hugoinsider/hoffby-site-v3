@@ -864,11 +864,11 @@ const Footer = () => {
             © 2026 Hoffby Tecnologia Ltda • CNPJ: 44.532.586/0001-00
             <br className="md:hidden" />
             <span className="hidden md:inline"> • </span>
-            All Rights Reserved.
+            Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-2">
             <div className="w-1 h-1 rounded-full bg-[#A451FF]" />
-            <span className="text-[10px] text-slate-600 font-mono">EST. 2020</span>
+            <span className="text-[10px] text-slate-600 font-mono">DESDE 2020</span>
           </div>
         </div>
       </div>

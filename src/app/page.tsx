@@ -886,7 +886,10 @@ const Footer = () => {
 
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[10px] text-slate-600 uppercase tracking-widest">
-            © 2026 Hoffby Tecnologia. All Rights Reserved.
+            © 2026 Hoffby Tecnologia Ltda • CNPJ: 44.532.586/0001-00
+            <br className="md:hidden" />
+            <span className="hidden md:inline"> • </span>
+            All Rights Reserved.
           </p>
           <div className="flex items-center gap-2">
             <div className="w-1 h-1 rounded-full bg-[#A451FF]" />

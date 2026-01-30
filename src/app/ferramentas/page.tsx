@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Shield, QrCode, Globe, Key, ArrowRight, Lock, Sparkles, User, Building2, Map, Gamepad2, Fingerprint, Code2, Code, Braces, Smartphone, Type, FileCheck, Hash, Binary, Link2, Palette } from 'lucide-react';
+import { Shield, QrCode, Globe, Key, ArrowRight, Lock, Sparkles, User, Building2, Map, Gamepad2, Fingerprint, Code2, Code, Braces, Smartphone, Type, FileCheck, Hash, Binary, Link2, Palette, DollarSign } from 'lucide-react';
 
 export default function ToolsHubPage() {
     const tools = [
@@ -162,6 +162,14 @@ export default function ToolsHubPage() {
             icon: Palette,
             color: "text-pink-500",
             bg: "bg-pink-500/10"
+        },
+        {
+            title: "Finance Pro (DRE)",
+            desc: "Calculadora de Margem Líquida, DRE Mensal e Precificação com Gráficos.",
+            href: "/ferramentas/calculadora-margem",
+            icon: DollarSign,
+            color: "text-green-400",
+            bg: "bg-green-400/10"
         }
     ];
 

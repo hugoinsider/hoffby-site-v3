@@ -595,30 +595,34 @@ export function ResumeGenerator() {
                             <div className="sticky bottom-0 z-20 mt-8 -mx-1 md:-mx-8 -mb-1 md:-mb-8 p-4 md:p-8 bg-[#0E0E0E]/80 backdrop-blur-xl border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 rounded-b-2xl">
 
                                 {currentStep === 0 ? (
-                                    <div className="flex gap-2">
-                                        <label className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-colors border border-blue-500/20 cursor-pointer text-sm font-bold uppercase tracking-wider whitespace-nowrap">
-                                            <Upload size={16} /> Importar
+                                    <div className="flex gap-3 items-center">
+                                        <label className="group relative flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0A0A0A] text-blue-400 hover:text-blue-300 transition-all border border-blue-500/30 hover:border-blue-500/50 cursor-pointer text-xs font-bold uppercase tracking-wider whitespace-nowrap overflow-hidden shadow-lg shadow-blue-900/10 hover:shadow-blue-900/20">
+                                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                            <Upload size={16} className="relative z-10 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                                            <span className="relative z-10">Importar JSON</span>
                                             <input type="file" accept=".json" onChange={handleImport} className="hidden" />
                                         </label>
 
-                                        <div className="hidden md:flex gap-2">
+                                        <div className="hidden md:flex gap-2 items-center">
+                                            <div className="h-8 w-px bg-white/10 mx-2" />
+
                                             <button
                                                 onClick={handleGenerateExample}
-                                                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 text-slate-400 hover:bg-white/10 transition-colors border border-white/10 text-xs font-bold uppercase tracking-wider"
+                                                className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-500 hover:text-amber-400 hover:bg-amber-400/5 transition-colors text-[10px] font-bold uppercase tracking-wider"
                                                 title="Gerar currículo de exemplo"
                                             >
                                                 <Sparkles size={14} /> Exemplo
                                             </button>
                                             <button
                                                 onClick={handleDownloadTemplate}
-                                                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 text-slate-400 hover:bg-white/10 transition-colors border border-white/10 text-xs font-bold uppercase tracking-wider"
+                                                className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-500 hover:text-emerald-400 hover:bg-emerald-400/5 transition-colors text-[10px] font-bold uppercase tracking-wider"
                                                 title="Baixar modelo preenchido (Exemplo Completo)"
                                             >
                                                 <FileDown size={14} /> Modelo Rico
                                             </button>
                                             <button
                                                 onClick={() => setShowJsonDocs(true)}
-                                                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors border border-emerald-500/20 text-xs font-bold uppercase tracking-wider"
+                                                className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-500 hover:text-white hover:bg-white/5 transition-colors text-[10px] font-bold uppercase tracking-wider"
                                                 title="Ver documentação do JSON"
                                             >
                                                 <FileJson size={14} /> Docs

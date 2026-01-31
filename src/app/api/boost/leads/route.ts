@@ -16,8 +16,11 @@ export async function POST(request: Request) {
         const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
         if (!supabaseUrl || !supabaseServiceKey) {
-            console.error('Missing Supabase credentials');
-            return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+            const missing = [];
+            if (!supabaseUrl) missing.push('SUPABASE_URL');
+            if (!supabaseServiceKey) missing.push('SUPABASE_SERVICE_ROLE_KEY');
+            console.error(`Missing Supabase credentials: ${missing.join(', ')}`);
+            return NextResponse.json({ error: `Server configuration error: Missing ${missing.join(', ')}` }, { status: 500 });
         }
 
         const supabase = createClient(supabaseUrl, supabaseServiceKey, {

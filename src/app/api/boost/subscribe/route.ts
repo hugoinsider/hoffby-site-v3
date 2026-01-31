@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     try {
         if (!ASAAS_API_KEY) {
             console.error('ASAAS_API_KEY not defined');
-            return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+            return NextResponse.json({ error: 'Server configuration error: Missing ASAAS_API_KEY' }, { status: 500 });
         }
 
         const body = await request.json();
@@ -24,8 +24,11 @@ export async function POST(request: Request) {
         const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
         if (!supabaseUrl || !supabaseServiceKey) {
-            console.error('Missing Supabase credentials');
-            return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+            const missing = [];
+            if (!supabaseUrl) missing.push('SUPABASE_URL');
+            if (!supabaseServiceKey) missing.push('SUPABASE_SERVICE_ROLE_KEY');
+            console.error(`Missing Supabase credentials: ${missing.join(', ')}`);
+            return NextResponse.json({ error: `Server configuration error: Missing ${missing.join(', ')}` }, { status: 500 });
         }
 
         const supabase = createClient(supabaseUrl, supabaseServiceKey, {
@@ -82,8 +85,11 @@ export async function POST(request: Request) {
             });
             const customerData = await createCustomer.json();
             if (customerData.errors) {
-                console.error('Asaas Create Customer Error:', customerData.errors);
-                throw new Error('Failed to create customer in Payment Gateway');
+                console.error('Asaas Create Customer Error:', JSON.stringify(customerData.errors));
+                return NextResponse.json({
+                    error: 'Error creating payment customer',
+                    details: customerData.errors[0]?.description || 'Unknown Asaas Error'
+                }, { status: 400 });
             }
             customerId = customerData.id;
         }
@@ -109,8 +115,11 @@ export async function POST(request: Request) {
         const subscriptionData = await createSubscription.json();
 
         if (subscriptionData.errors) {
-            console.error('Asaas Subscription Error:', subscriptionData.errors);
-            throw new Error('Failed to create subscription');
+            console.error('Asaas Subscription Error:', JSON.stringify(subscriptionData.errors));
+            return NextResponse.json({
+                error: 'Error creating subscription',
+                details: subscriptionData.errors[0]?.description || 'Unknown Asaas Error'
+            }, { status: 400 });
         }
 
         // 4. Update Lead with Subscription ID 

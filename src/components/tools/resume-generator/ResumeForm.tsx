@@ -2,6 +2,7 @@ import React from 'react';
 import { ResumeData } from './ResumeGenerator';
 import { Plus, Trash } from 'lucide-react';
 import { MonthYearPicker } from './MonthYearPicker';
+import { Tooltip } from './Tooltip';
 
 interface ResumeFormProps {
     data: ResumeData;
@@ -82,6 +83,7 @@ export function ResumeForm({ data, onChange, step }: ResumeFormProps) {
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
 
+
             {/* Personal Info */}
             {step === 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -106,7 +108,10 @@ export function ResumeForm({ data, onChange, step }: ResumeFormProps) {
                         />
                     </div>
                     <div>
-                        <label className={labelClass}>Cargo / Título</label>
+                        <label className={labelClass}>
+                            Cargo / Título
+                            <Tooltip content="O cargo que você ocupa ou almeja. Seja específico, ex: 'Senior Frontend Developer' ao invés de apenas 'Desenvolvedor'." />
+                        </label>
                         <input
                             type="text"
                             className={inputClass}
@@ -157,7 +162,10 @@ export function ResumeForm({ data, onChange, step }: ResumeFormProps) {
                         />
                     </div>
                     <div className="md:col-span-2">
-                        <label className={labelClass}>Resumo Profissional</label>
+                        <label className={labelClass}>
+                            Resumo Profissional
+                            <Tooltip content="Um parágrafo curto (3-4 linhas) destacando seus anos de experiência, principais stacks e maiores conquistas. Use palavras-chave da sua área." />
+                        </label>
                         <textarea
                             className={`${inputClass} min-h-[140px] resize-y`}
                             value={data.personal.summary}
@@ -262,7 +270,10 @@ export function ResumeForm({ data, onChange, step }: ResumeFormProps) {
                                         </div>
                                     </div>
                                     <div className="md:col-span-2">
-                                        <label className={labelClass}>Descrição das Atividades</label>
+                                        <label className={labelClass}>
+                                            Descrição das Atividades
+                                            <Tooltip content="Use bullet points (•) para listar conquistas mensuráveis. Foque em resultados: 'Aumentou X em Y%', 'Reduziu custos...', 'Liderou...'." />
+                                        </label>
                                         <textarea
                                             className={`${inputClass} min-h-[120px]`}
                                             value={exp.description}
@@ -484,7 +495,10 @@ export function ResumeForm({ data, onChange, step }: ResumeFormProps) {
                                         />
                                     </div>
                                     <div className="md:col-span-2">
-                                        <label className={labelClass}>Tecnologias (separadas por vírgula)</label>
+                                        <label className={labelClass}>
+                                            Tecnologias (separadas por vírgula)
+                                            <Tooltip content="Liste as principais tecnologias usadas neste projeto. Isso ajuda a ranquear seu currículo em buscas. Ex: React, Node.js, AWS." />
+                                        </label>
                                         <input
                                             type="text"
                                             className={inputClass}
@@ -497,7 +511,10 @@ export function ResumeForm({ data, onChange, step }: ResumeFormProps) {
                                         />
                                     </div>
                                     <div className="md:col-span-2">
-                                        <label className={labelClass}>Descrição do Projeto</label>
+                                        <label className={labelClass}>
+                                            Descrição do Projeto
+                                            <Tooltip content="Descreva o que o projeto faz, seu papel e o impacto. Se houver números (ex: 1000 visitas/mês), melhor ainda." />
+                                        </label>
                                         <textarea
                                             className={`${inputClass} min-h-[100px]`}
                                             value={proj.description}
@@ -552,7 +569,10 @@ export function ResumeForm({ data, onChange, step }: ResumeFormProps) {
                     </div>
 
                     <div>
-                        <label className={labelClass}>Lista de Habilidades (separadas por vírgula)</label>
+                        <label className={labelClass}>
+                            Lista de Habilidades (separadas por vírgula)
+                            <Tooltip content="O algoritmo lê isso! Use termos técnicos exatos. Agrupe por área se possível. Ex: 'JavaScript, TypeScript' depois 'Node.js, Express'." />
+                        </label>
                         <textarea
                             className={`${inputClass} min-h-[200px] text-lg leading-relaxed`}
                             value={data.skills.join(', ')}

@@ -337,9 +337,9 @@ export function ResumeGenerator() {
 
                 {/* Desktop Stepper (Sidebar) */}
                 <div className="hidden lg:block w-72 sticky top-8">
-                    <div className="space-y-4 relative">
-                        {/* Connecting Line */}
-                        <div className="absolute left-[19px] top-4 bottom-4 w-0.5 bg-white/5" />
+                    <div className="space-y-0 relative">
+                        {/* Connecting Line - Behind the items */}
+                        <div className="absolute left-10 -translate-x-1/2 top-8 bottom-8 w-0.5 bg-gradient-to-b from-emerald-500/50 via-cyan-500/30 to-transparent" />
 
                         {STEPS.map((step, index) => {
                             const isActive = index === currentStep;
@@ -348,32 +348,41 @@ export function ResumeGenerator() {
                             return (
                                 <div
                                     key={index}
-                                    className={`relative flex items-center gap-4 w-full p-4 rounded-xl border transition-all duration-300 text-left ${isActive
-                                        ? 'bg-emerald-500/10 border-emerald-500/50 shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)]'
-                                        : 'bg-[#0E0E0E] border-white/5 opacity-60'
+                                    className={`group relative flex items-center gap-4 w-full p-4 rounded-xl transition-all duration-300 cursor-pointer ${isActive
+                                        ? 'bg-gradient-to-r from-emerald-500/10 to-transparent'
+                                        : 'hover:bg-white/5'
                                         }`}
+                                    onClick={() => isCompleted && setCurrentStep(index)}
                                 >
-                                    <div className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${isActive
-                                        ? 'bg-[#050505] border-emerald-500 text-emerald-500 scale-110'
+                                    {/* Indicator Circle */}
+                                    <div className={`relative z-10 w-12 h-12 rounded-2xl flex items-center justify-center border transition-all duration-300 shadow-xl ${isActive
+                                        ? 'bg-[#0E0E0E] border-emerald-500 text-emerald-500 scale-110 shadow-emerald-500/20'
                                         : isCompleted
-                                            ? 'bg-emerald-500 border-emerald-500 text-white'
-                                            : 'bg-[#050505] border-white/10 text-slate-600 group-hover:border-white/30'
+                                            ? 'bg-emerald-500 border-emerald-500 text-white cursor-pointer hover:bg-emerald-600'
+                                            : 'bg-[#0E0E0E] border-white/10 text-slate-600'
                                         }`}>
-                                        {isCompleted ? <CheckCircle2 size={18} /> : <span className="text-sm font-bold">{index + 1}</span>}
+                                        {isCompleted ? <CheckCircle2 size={20} /> : <span className="text-sm font-black">{index + 1}</span>}
+
+                                        {isActive && (
+                                            <div className="absolute inset-0 rounded-2xl bg-emerald-500/20 animate-ping" />
+                                        )}
                                     </div>
-                                    <div>
-                                        <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${isActive ? 'text-emerald-400' : 'text-slate-500 group-hover:text-slate-400'
+
+                                    {/* Text Content */}
+                                    <div className="flex-1">
+                                        <div className={`text-[10px] font-bold uppercase tracking-widest mb-1 transition-colors ${isActive ? 'text-emerald-400' : 'text-slate-600'
                                             }`}>
                                             Passo {index + 1}
                                         </div>
-                                        <div className={`font-bold transition-colors ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-300'
+                                        <div className={`font-bold transition-colors ${isActive ? 'text-white' : isCompleted ? 'text-slate-300' : 'text-slate-500'
                                             }`}>
                                             {step.title}
                                         </div>
                                     </div>
 
+                                    {/* Arrow indicator for active */}
                                     {isActive && (
-                                        <div className="absolute right-4 w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                        <ChevronRight size={16} className="text-emerald-500 animate-in slide-in-from-left-2" />
                                     )}
                                 </div>
                             );
@@ -521,47 +530,57 @@ export function ResumeGenerator() {
 
                         {isPreviewStep ? (
                             <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
-                                <div id='resume-actions' className="flex flex-wrap gap-4 justify-center bg-[#0E0E0E] p-4 rounded-xl border border-white/5 mb-8">
-                                    <button
-                                        onClick={handleBoostClick}
-                                        disabled={isSubmittingLead}
-                                        className="flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold transition-all shadow-[0_0_20px_-5px_rgba(147,51,234,0.5)] hover:shadow-[0_0_30px_-5px_rgba(147,51,234,0.7)] transform hover:-translate-y-1 w-full md:w-auto justify-center disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
-                                    >
-                                        {isSubmittingLead ? (
-                                            <>
-                                                <span className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                                                Processando...
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Rocket size={18} className="animate-pulse" />
-                                                Receber alerta de vagas com IA
-                                            </>
-                                        )}
-                                    </button>
+                                <div id='resume-actions' className="flex flex-col md:flex-row gap-4 justify-between items-center bg-[#0E0E0E] p-6 rounded-2xl border border-white/5 mb-8 shadow-2xl">
 
-                                    <div className="w-full md:hidden h-px bg-white/10 my-2" />
-
-                                    <div className="flex-1">
+                                    <div className="flex items-center gap-4 w-full md:w-auto">
                                         <button
-                                            onClick={() => window.print()}
-                                            className="flex items-center gap-2 px-6 py-3 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_-5px_rgba(16,185,129,0.5)] justify-center w-full"
+                                            onClick={() => setData(initialData)}
+                                            className="px-4 py-2 rounded-lg text-slate-500 hover:text-red-400 font-bold transition-colors text-xs uppercase tracking-wider hover:bg-red-500/5"
                                         >
-                                            <Download size={18} /> Baixar PDF
+                                            <div className="flex items-center gap-2">
+                                                <RotateCcw size={14} /> Resetar Tudo
+                                            </div>
+                                        </button>
+                                        <button
+                                            onClick={handleExportJSON}
+                                            className="px-4 py-2 rounded-lg text-slate-400 hover:text-white font-bold transition-colors text-xs uppercase tracking-wider hover:bg-white/5 border border-transparent hover:border-white/10"
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <FileDown size={14} /> Salvar JSON
+                                            </div>
                                         </button>
                                     </div>
-                                    <button
-                                        onClick={handleExportJSON}
-                                        className="flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 font-bold transition-colors border border-white/10 hover:border-white/20"
-                                    >
-                                        <FileDown size={18} /> Exportar JSON
-                                    </button>
-                                    <button
-                                        onClick={() => setData(initialData)}
-                                        className="flex items-center gap-2 px-6 py-3 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold transition-colors border border-red-500/20 hover:border-red-500/30 ml-auto"
-                                    >
-                                        <RotateCcw size={18} /> Resetar
-                                    </button>
+
+                                    <div className="flex flex-col md:flex-row gap-3 w-full md:w-auto">
+                                        <button
+                                            onClick={handleBoostClick}
+                                            disabled={isSubmittingLead}
+                                            className="group relative flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-purple-900/50 to-indigo-900/50 hover:from-purple-600 hover:to-indigo-600 text-white font-bold transition-all border border-purple-500/30 hover:border-purple-400/50 overflow-hidden"
+                                        >
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+
+                                            {isSubmittingLead ? (
+                                                <span className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                                            ) : (
+                                                <>
+                                                    <div className="p-1 bg-purple-500/20 rounded-lg group-hover:bg-white/20 transition-colors">
+                                                        <Rocket size={18} className="text-purple-300 group-hover:text-white" />
+                                                    </div>
+                                                    <span>Aplicar com I.A.</span>
+                                                </>
+                                            )}
+                                        </button>
+
+                                        <button
+                                            onClick={() => window.print()}
+                                            className="group relative flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-white font-bold transition-all shadow-[0_0_30px_-10px_rgba(16,185,129,0.5)] hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.7)]"
+                                        >
+                                            <div className="p-1 bg-black/10 rounded-lg group-hover:bg-transparent transition-colors">
+                                                <Download size={20} />
+                                            </div>
+                                            <span className="text-lg">Baixar PDF</span>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10">
                                     <ResumePreview data={data} ref={printRef} />

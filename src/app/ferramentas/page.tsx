@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Shield, QrCode, Globe, Key, ArrowRight, Lock, Sparkles, User, Building2, Map, Gamepad2, Fingerprint, Code2, Code, Braces, Smartphone, Type, FileCheck, Hash, Binary, Link2, Palette, DollarSign } from 'lucide-react';
+import { Shield, QrCode, Globe, Key, ArrowRight, Lock, Sparkles, User, Building2, Map, Gamepad2, Fingerprint, Code2, Code, Braces, Smartphone, Type, FileCheck, Hash, Binary, Link2, Palette, DollarSign, Box } from 'lucide-react';
 
 export default function ToolsHubPage() {
     const tools = [
@@ -170,6 +170,22 @@ export default function ToolsHubPage() {
             icon: DollarSign,
             color: "text-green-400",
             bg: "bg-green-400/10"
+        },
+        {
+            title: "Gerador de Currículo",
+            desc: "Crie seu currículo dev profissional. Exportação PDF/JSON e templates otimizados.",
+            href: "/ferramentas/gerador-curriculo",
+            icon: FileCheck,
+            color: "text-emerald-400",
+            bg: "bg-emerald-400/10"
+        },
+        {
+            title: "3D Logo Visualizer",
+            desc: "Transforme logos 2D (SVG/PNG) em elementos metálicos 3D com exportação.",
+            href: "/tools/logo-3d",
+            icon: Box,
+            color: "text-neutral-200",
+            bg: "bg-neutral-200/10"
         }
     ];
 

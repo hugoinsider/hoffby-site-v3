@@ -1,19 +1,27 @@
-
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
+import { loadEnvConfig } from '@next/env';
+
+// Force load env vars from project root
+loadEnvConfig(process.cwd());
 
 const ASAAS_API_URL = process.env.ASAAS_API_URL || 'https://www.asaas.com/api/v3';
-const ASAAS_API_KEY = process.env.ASAAS_API_KEY;
 
 export async function POST(request: Request) {
     try {
-        if (!ASAAS_API_KEY) {
-            console.error('ASAAS_API_KEY not defined');
+        // Read directly from process.env to avoid module-time evaluation issues
+        const apiKey = process.env.ASAAS_API_KEY;
+
+        if (!apiKey) {
+            console.error('DEBUG: ASAAS_API_KEY is missing/empty.');
             return NextResponse.json({ error: 'Server configuration error: Missing ASAAS_API_KEY' }, { status: 500 });
         }
+        // console.log('DEBUG: ASAAS_API_KEY Loaded. Length:', apiKey.length);
 
         const body = await request.json();
+        // Allow CPF to be passed in personal object
         const { personal, resumeData } = body;
+        const cpfCnpj = personal.cpf || personal.cpfCnpj;
 
         if (!personal || !personal.email || !personal.fullName) {
             return NextResponse.json({ error: 'Missing personal information' }, { status: 400 });
@@ -61,7 +69,7 @@ export async function POST(request: Request) {
         let customerId = '';
 
         const customerSearch = await fetch(`${ASAAS_API_URL}/customers?email=${personal.email}`, {
-            headers: { 'access_token': ASAAS_API_KEY }
+            headers: { 'access_token': apiKey }
         });
 
         const searchResult = await customerSearch.json();
@@ -70,16 +78,35 @@ export async function POST(request: Request) {
             customerId = searchResult.data[0].id;
         } else {
             // Create Customer
+            const { personal, resumeData } = body;
+
+            // Normalize CPF/CNPJ if present
+            const cpfCnpj = personal.cpf || personal.cpfCnpj;
+
+            if (!personal || !personal.email || !personal.fullName) {
+                return NextResponse.json({ error: 'Missing personal information' }, { status: 400 });
+            }
+
+            // ... (Supabase logic unchanged) ... (omitted for brevity in replacement if possible, but replace_file_content needs contiguous block)
+            // Actually, to avoid breaking file structure, let's insert the CPF logic where we construct the Asaas Payload.
+
+            // ... (lines 27-66 existing logic) ...
+
+            // 2. Create/Get Customer in Asaas
+            // ...
+
+            // Update Customer Payload logic:
             const createCustomer = await fetch(`${ASAAS_API_URL}/customers`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'access_token': ASAAS_API_KEY
+                    'access_token': apiKey
                 },
                 body: JSON.stringify({
                     name: personal.fullName,
                     email: personal.email,
                     mobilePhone: personal.phone,
+                    cpfCnpj: cpfCnpj, // Sending CPF
                     notificationDisabled: false,
                 })
             });
@@ -99,7 +126,7 @@ export async function POST(request: Request) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'access_token': ASAAS_API_KEY
+                'access_token': apiKey
             },
             body: JSON.stringify({
                 customer: customerId,
@@ -132,7 +159,7 @@ export async function POST(request: Request) {
 
         // 5. Return Payment URL
         const paymentsReq = await fetch(`${ASAAS_API_URL}/subscriptions/${subscriptionData.id}/payments`, {
-            headers: { 'access_token': ASAAS_API_KEY }
+            headers: { 'access_token': apiKey }
         });
         const paymentsData = await paymentsReq.json();
         const firstPaymentUrl = paymentsData.data?.[0]?.invoiceUrl || paymentsData.data?.[0]?.bankSlipUrl;

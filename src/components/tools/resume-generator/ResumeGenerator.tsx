@@ -87,6 +87,8 @@ export function ResumeGenerator() {
     const [lgpdConsent, setLgpdConsent] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isSubmittingLead, setIsSubmittingLead] = useState(false);
+    const [showCpfModal, setShowCpfModal] = useState(false);
+    const [cpf, setCpf] = useState('');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const printRef = useRef<HTMLDivElement>(null);
 
@@ -123,14 +125,32 @@ export function ResumeGenerator() {
         }, 100);
     };
 
-    const handleSubscribe = async () => {
+    const handleSubscribeClick = () => {
+        setShowCpfModal(true);
+    };
+
+    const handleConfirmSubscribe = async () => {
+        const cleanCpf = cpf.replace(/\D/g, '');
+        if (cleanCpf.length < 11) {
+            alert('Por favor, informe um CPF válido.');
+            return;
+        }
+
         setIsLoading(true);
         try {
+            const enrichedData = {
+                ...data,
+                personal: {
+                    ...data.personal,
+                    cpf: cleanCpf
+                }
+            };
+
             const response = await fetch('/api/boost/subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    personal: data.personal,
+                    personal: enrichedData.personal,
                     resumeData: data
                 })
             });
@@ -141,7 +161,7 @@ export function ResumeGenerator() {
             } else if (result.success) {
                 alert('Assinatura criada com sucesso! Verifique seu email para o pagamento.');
             } else {
-                alert('Erro ao processar assinatura: ' + (result.error || 'Erro desconhecido'));
+                alert('Erro ao processar assinatura: ' + (result.error || 'Erro desconhecido') + (result.details ? ` (${result.details})` : ''));
             }
 
         } catch (error) {
@@ -149,6 +169,7 @@ export function ResumeGenerator() {
             alert('Ocorreu um erro ao processar sua solicitação.');
         } finally {
             setIsLoading(false);
+            setShowCpfModal(false);
         }
     };
 
@@ -402,7 +423,7 @@ export function ResumeGenerator() {
 
                                         <button
                                             disabled={!lgpdConsent || isLoading}
-                                            onClick={handleSubscribe}
+                                            onClick={handleSubscribeClick}
                                             className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-lg transition-all shadow-lg shadow-purple-900/20 hover:shadow-purple-900/40 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
                                         >
                                             {isLoading ? (
@@ -500,6 +521,49 @@ export function ResumeGenerator() {
                                 >
                                     Próximo Passo <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                 </button>
+                            </div>
+                        )}
+
+                        {/* CPF Modal */}
+                        {showCpfModal && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+                                <div className="bg-[#121212] border border-white/10 rounded-xl p-6 max-w-sm w-full shadow-2xl space-y-4 animate-in zoom-in-95 duration-200">
+                                    <h3 className="text-xl font-bold text-white text-center">Informe seu CPF</h3>
+                                    <p className="text-slate-400 text-sm text-center">
+                                        Para emitir a cobrança via PIX/Boleto, o banco exige o CPF do pagador.
+                                    </p>
+
+                                    <div className="space-y-2">
+                                        <input
+                                            type="text" // using simple text for now, assume user types numbers
+                                            value={cpf}
+                                            onChange={(e) => {
+                                                // Simple mask logic or just value
+                                                const v = e.target.value.replace(/\D/g, '');
+                                                if (v.length <= 11) setCpf(v);
+                                            }}
+                                            placeholder="000.000.000-00"
+                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors text-center text-lg tracking-widest"
+                                        />
+                                        <p className="text-xs text-slate-500 text-center">Somente números</p>
+                                    </div>
+
+                                    <div className="flex gap-3 pt-2">
+                                        <button
+                                            onClick={() => setShowCpfModal(false)}
+                                            className="flex-1 px-4 py-2 rounded-lg border border-white/10 text-slate-300 hover:bg-white/5 transition-colors font-medium"
+                                        >
+                                            Cancelar
+                                        </button>
+                                        <button
+                                            onClick={handleConfirmSubscribe}
+                                            disabled={cpf.length < 11 || isLoading}
+                                            className="flex-1 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            {isLoading ? 'Processando...' : 'Confirmar'}
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </div>

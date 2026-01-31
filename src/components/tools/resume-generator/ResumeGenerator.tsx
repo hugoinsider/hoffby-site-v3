@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { ResumeForm } from './ResumeForm';
 import { ResumePreview } from './ResumePreview';
-import { Download, Upload, FileDown, ChevronRight, ChevronLeft, CheckCircle2, RotateCcw, Rocket, ArrowLeft } from 'lucide-react';
+import { Download, Upload, FileDown, ChevronRight, ChevronLeft, CheckCircle2, RotateCcw, Rocket, ArrowLeft, BrainCircuit, Sparkles, Target, MessageCircleMore, ShieldCheck } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import Link from 'next/link';
 
@@ -78,11 +78,13 @@ const STEPS = [
     { title: "Projetos", description: "Portfólio" },
     { title: "Habilidades", description: "Tecnologias" },
     { title: "Revisão", description: "Preview e Exportar" },
+    { title: "Boost AI", description: "Acelere sua Carreira" },
 ];
 
 export function ResumeGenerator() {
     const [data, setData] = useState<ResumeData>(initialData);
     const [currentStep, setCurrentStep] = useState(0);
+    const [lgpdConsent, setLgpdConsent] = useState(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const printRef = useRef<HTMLDivElement>(null);
 
@@ -133,7 +135,8 @@ export function ResumeGenerator() {
         }
     };
 
-    const isPreviewStep = currentStep === STEPS.length - 1;
+    const isPreviewStep = currentStep === 5;
+    const isBoostStep = currentStep === 6;
     const currentStepData = STEPS[currentStep];
 
     return (
@@ -176,8 +179,8 @@ export function ResumeGenerator() {
                             return (
                                 <button
                                     key={index}
-                                    onClick={() => !isPreviewStep && setCurrentStep(index)}
-                                    disabled={isPreviewStep}
+                                    onClick={() => !isPreviewStep && !isBoostStep && setCurrentStep(index)}
+                                    disabled={isPreviewStep || isBoostStep}
                                     className={`relative flex items-center gap-4 w-full p-4 rounded-xl border transition-all duration-300 text-left group ${isActive
                                         ? 'bg-emerald-500/10 border-emerald-500/50 shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)]'
                                         : 'bg-[#0E0E0E] border-white/5 hover:border-white/10'
@@ -239,10 +242,10 @@ export function ResumeGenerator() {
                 <div className="flex-1 w-full max-w-5xl transition-all duration-500">
 
                     {/* Glass Container */}
-                    <div className="relative bg-[#0E0E0E]/50 backdrop-blur-xl rounded-2xl border border-white/5 p-1 md:p-8 md:pt-4">
+                    <div className={`relative bg-[#0E0E0E]/50 backdrop-blur-xl rounded-2xl border border-white/5 p-1 md:p-8 md:pt-4 ${isBoostStep ? 'border-emerald-500/20 shadow-[0_0_50px_-20px_rgba(16,185,129,0.2)]' : ''}`}>
 
                         {/* Form Header (Desktop) */}
-                        {!isPreviewStep && (
+                        {!isPreviewStep && !isBoostStep && (
                             <div className="hidden lg:flex items-center justify-between mb-8 pb-8 border-b border-white/5">
                                 <div>
                                     <h2 className="text-2xl font-bold text-white mb-2">{currentStepData.title}</h2>
@@ -254,10 +257,112 @@ export function ResumeGenerator() {
                             </div>
                         )}
 
+                        {isBoostStep && (
+                            <div className="animate-in fade-in zoom-in-95 duration-500 py-8 px-4 md:px-12">
+                                <div className="text-center mb-12">
+                                    <div className="inline-flex items-center justify-center p-4 rounded-full bg-gradient-to-r from-purple-500/10 to-indigo-500/10 border border-purple-500/20 mb-6 relative">
+                                        <div className="absolute inset-0 rounded-full bg-purple-500/20 blur-xl animate-pulse" />
+                                        <Rocket className="w-12 h-12 text-purple-400 relative z-10" />
+                                    </div>
+                                    <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
+                                        Acelere sua <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">Contratação</span>
+                                    </h2>
+                                    <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                                        Use nossa IA para encontrar as vagas perfeitas para seu perfil e saia na frente da concorrência.
+                                    </p>
+                                </div>
+
+                                <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+                                    <div className="space-y-8">
+                                        <div className="flex gap-4 items-start">
+                                            <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 mt-1">
+                                                <BrainCircuit size={24} />
+                                            </div>
+                                            <div>
+                                                <h3 className="text-xl font-bold text-white mb-2">Análise de Perfil com IA</h3>
+                                                <p className="text-slate-400 leading-relaxed">Nossa tecnologia analisa seu currículo e portfólio para entender profundamente suas habilidades.</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-4 items-start">
+                                            <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 mt-1">
+                                                <Target size={24} />
+                                            </div>
+                                            <div>
+                                                <h3 className="text-xl font-bold text-white mb-2">Match de Vagas Preciso</h3>
+                                                <p className="text-slate-400 leading-relaxed">Receba alertas apenas de vagas que realmente fazem sentido para seu momento de carreira.</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-4 items-start">
+                                            <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mt-1">
+                                                <Sparkles size={24} />
+                                            </div>
+                                            <div>
+                                                <h3 className="text-xl font-bold text-white mb-2">Destaque-se no Mercado</h3>
+                                                <p className="text-slate-400 leading-relaxed">Saiba exatamente quais skills desenvolver para alcançar as melhores oportunidades.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-gradient-to-b from-[#151515] to-[#0A0A0A] border border-white/10 rounded-3xl p-8 relative overflow-hidden group hover:border-purple-500/30 transition-all duration-500">
+                                        <div className="absolute top-0 right-0 p-3 bg-purple-500 text-white text-xs font-bold uppercase tracking-widest rounded-bl-2xl">
+                                            Melhor Escolha
+                                        </div>
+
+                                        <div className="mb-6">
+                                            <span className="text-slate-400 text-sm uppercase tracking-wider font-bold">Plano Anual</span>
+                                            <div className="flex items-end gap-2 mt-2">
+                                                <span className="text-5xl font-black text-white">R$ 59,90</span>
+                                                <span className="text-slate-500 font-medium mb-1">/ano</span>
+                                            </div>
+                                            <p className="text-emerald-400 text-sm font-bold mt-2 bg-emerald-500/10 inline-block px-3 py-1 rounded-full border border-emerald-500/20">
+                                                Menos de R$ 5,00 por mês
+                                            </p>
+                                        </div>
+
+                                        <p className="text-slate-300 mb-8 pb-8 border-b border-white/5">
+                                            O investimento se paga tranquilamente com a <span className="text-white font-bold">primeira vaga conquistada</span>. Não perca tempo procurando, deixe as vagas virem até você.
+                                        </p>
+
+                                        <div className="space-y-4 mb-8">
+                                            <label className="flex items-start gap-3 cursor-pointer group/check">
+                                                <div className={`mt-0.5 w-5 h-5 rounded border flex items-center justify-center transition-colors shrink-0 ${lgpdConsent ? 'bg-purple-500 border-purple-500' : 'border-slate-600 bg-transparent'}`}>
+                                                    {lgpdConsent && <span className="block w-2 h-2 bg-white rounded-full" />}
+                                                </div>
+                                                <input
+                                                    type="checkbox"
+                                                    className="hidden"
+                                                    checked={lgpdConsent}
+                                                    onChange={(e) => setLgpdConsent(e.target.checked)}
+                                                />
+                                                <span className="text-xs text-slate-400 leading-relaxed group-hover/check:text-slate-300 transition-colors">
+                                                    Concordo que o Hoffby analise os dados do meu currículo para fins de recomendação de vagas e aprimoramento da IA, conforme a LGPD.
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <button
+                                            disabled={!lgpdConsent}
+                                            className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-lg transition-all shadow-lg shadow-purple-900/20 hover:shadow-purple-900/40 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                        >
+                                            Quero Assinar Agora
+                                        </button>
+
+                                        <div className="mt-6 text-center">
+                                            <button className="text-slate-500 hover:text-white text-sm font-medium flex items-center justify-center gap-2 mx-auto transition-colors">
+                                                <MessageCircleMore size={16} />
+                                                Falar com especialista
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         {isPreviewStep ? (
                             <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
                                 <div className="flex flex-wrap gap-4 justify-center bg-[#0E0E0E] p-4 rounded-xl border border-white/5 mb-8">
                                     <button
+                                        onClick={() => setCurrentStep(6)}
                                         className="flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold transition-all shadow-[0_0_20px_-5px_rgba(147,51,234,0.5)] hover:shadow-[0_0_30px_-5px_rgba(147,51,234,0.7)] transform hover:-translate-y-1 w-full md:w-auto justify-center"
                                     >
                                         <Rocket size={18} className="animate-pulse" />
@@ -289,12 +394,12 @@ export function ResumeGenerator() {
                                     <ResumePreview data={data} ref={printRef} />
                                 </div>
                             </div>
-                        ) : (
+                        ) : !isBoostStep ? (
                             <ResumeForm data={data} onChange={setData} step={currentStep} />
-                        )}
+                        ) : null}
 
                         {/* Navigation Footer (Integrated & Sticky) */}
-                        {!isPreviewStep && (
+                        {!isPreviewStep && !isBoostStep && (
                             <div className="sticky bottom-0 z-20 mt-8 -mx-1 md:-mx-8 -mb-1 md:-mb-8 p-4 md:p-8 bg-[#0E0E0E]/80 backdrop-blur-xl border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 rounded-b-2xl">
 
                                 {currentStep === 0 ? (

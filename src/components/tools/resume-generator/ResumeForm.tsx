@@ -1,6 +1,7 @@
 import React from 'react';
 import { ResumeData } from './ResumeGenerator';
 import { Plus, Trash } from 'lucide-react';
+import { MonthYearPicker } from './MonthYearPicker';
 
 interface ResumeFormProps {
     data: ResumeData;
@@ -46,6 +47,32 @@ export function ResumeForm({ data, onChange, step }: ResumeFormProps) {
             ...data,
             experience: data.experience.filter(exp => exp.id !== id)
         });
+    };
+
+    // Phone Mask Helper
+    const formatPhone = (value: string) => {
+        // Remove non-digits
+        const digits = value.replace(/\D/g, '');
+        // Limit to 11 digits
+        const limited = digits.substring(0, 11);
+
+        // Apply mask: (XX) XXXXX-XXXX or (XX) XXXX-XXXX
+        if (limited.length > 2) {
+            let formatted = `(${limited.substring(0, 2)}) `;
+            if (limited.length > 7) {
+                formatted += `${limited.substring(2, 7)}-${limited.substring(7)}`;
+            } else {
+                formatted += limited.substring(2);
+            }
+            return formatted;
+        }
+        return limited;
+    };
+
+    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const formatted = formatPhone(value);
+        updatePersonal('phone', formatted);
     };
 
     // Helper inputs styles
@@ -104,8 +131,9 @@ export function ResumeForm({ data, onChange, step }: ResumeFormProps) {
                             type="text"
                             className={inputClass}
                             value={data.personal.phone}
-                            onChange={(e) => updatePersonal('phone', e.target.value)}
-                            placeholder="+55 11 99999-9999"
+                            onChange={handlePhoneChange}
+                            maxLength={15}
+                            placeholder="(11) 99999-9999"
                         />
                     </div>
                     <div>
@@ -189,24 +217,18 @@ export function ResumeForm({ data, onChange, step }: ResumeFormProps) {
                                     </div>
                                     <div className="flex gap-4">
                                         <div className="flex-1">
-                                            <label className={labelClass}>Início</label>
-                                            <input
-                                                type="text"
-                                                className={inputClass}
-                                                placeholder="MM/AAAA"
+                                            <MonthYearPicker
+                                                label="Início"
                                                 value={exp.startDate}
-                                                onChange={(e) => updateExperience(exp.id, 'startDate', e.target.value)}
+                                                onChange={(val) => updateExperience(exp.id, 'startDate', val)}
                                             />
                                         </div>
                                         <div className="flex-1">
-                                            <label className={labelClass}>Fim</label>
-                                            <input
-                                                type="text"
-                                                className={inputClass}
-                                                placeholder="MM/AAAA"
+                                            <MonthYearPicker
+                                                label="Fim"
                                                 value={exp.endDate}
+                                                onChange={(val) => updateExperience(exp.id, 'endDate', val)}
                                                 disabled={exp.current}
-                                                onChange={(e) => updateExperience(exp.id, 'endDate', e.target.value)}
                                             />
                                         </div>
                                     </div>
@@ -346,28 +368,22 @@ export function ResumeForm({ data, onChange, step }: ResumeFormProps) {
                                     </div>
                                     <div className="flex gap-4">
                                         <div className="flex-1">
-                                            <label className={labelClass}>Início</label>
-                                            <input
-                                                type="text"
-                                                className={inputClass}
-                                                placeholder="AAAA"
+                                            <MonthYearPicker
+                                                label="Início"
                                                 value={edu.startDate}
-                                                onChange={(e) => onChange({
+                                                onChange={(val) => onChange({
                                                     ...data,
-                                                    education: data.education.map(item => item.id === edu.id ? { ...item, startDate: e.target.value } : item)
+                                                    education: data.education.map(item => item.id === edu.id ? { ...item, startDate: val } : item)
                                                 })}
                                             />
                                         </div>
                                         <div className="flex-1">
-                                            <label className={labelClass}>Fim (Previsão)</label>
-                                            <input
-                                                type="text"
-                                                className={inputClass}
-                                                placeholder="AAAA"
+                                            <MonthYearPicker
+                                                label="Fim (Previsão)"
                                                 value={edu.endDate}
-                                                onChange={(e) => onChange({
+                                                onChange={(val) => onChange({
                                                     ...data,
-                                                    education: data.education.map(item => item.id === edu.id ? { ...item, endDate: e.target.value } : item)
+                                                    education: data.education.map(item => item.id === edu.id ? { ...item, endDate: val } : item)
                                                 })}
                                             />
                                         </div>

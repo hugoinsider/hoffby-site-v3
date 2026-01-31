@@ -158,7 +158,7 @@ export const ResumePreview = forwardRef<HTMLDivElement, ResumePreviewProps>(({ d
                         width: 21cm;
                         height: 29.7cm;
                         margin: 0 auto;
-                        padding: 2cm !important;
+                        padding: 0.5cm !important;
                         box-shadow: none;
                         background: white;
                         z-index: 9999;

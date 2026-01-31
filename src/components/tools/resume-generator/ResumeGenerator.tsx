@@ -99,7 +99,20 @@ export function ResumeGenerator() {
             reader.onload = (event) => {
                 try {
                     const importedData = JSON.parse(event.target?.result as string);
-                    setData(importedData);
+
+                    // Sanitize and merge with initial structure to prevent undefined errors
+                    const safeData: ResumeData = {
+                        ...initialData,
+                        ...importedData,
+                        personal: { ...initialData.personal, ...importedData.personal },
+                        experience: Array.isArray(importedData.experience) ? importedData.experience : [],
+                        education: Array.isArray(importedData.education) ? importedData.education : [],
+                        skills: Array.isArray(importedData.skills) ? importedData.skills : [],
+                        projects: Array.isArray(importedData.projects) ? importedData.projects : [],
+                        languages: Array.isArray(importedData.languages) ? importedData.languages : [],
+                    };
+
+                    setData(safeData);
                 } catch (error) {
                     console.error("Error parsing JSON", error);
                     alert("Erro ao importar JSON. Verifique o formato do arquivo.");
@@ -229,10 +242,7 @@ export function ResumeGenerator() {
             </div>
 
             <header className="mb-12 text-center max-w-2xl mx-auto flex flex-col items-center">
-                <div className="mb-8 scale-150 p-4 relative">
-                    <div className="absolute inset-0 bg-emerald-500/20 blur-xl rounded-full animate-pulse" />
-                    <Logo className="w-24 h-24 relative z-10" />
-                </div>
+                <Logo className="w-24 h-24 relative z-10" />
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-4">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     Beta Tool
@@ -258,13 +268,11 @@ export function ResumeGenerator() {
                             const isCompleted = index < currentStep;
 
                             return (
-                                <button
+                                <div
                                     key={index}
-                                    onClick={() => !isPreviewStep && !isBoostStep && setCurrentStep(index)}
-                                    disabled={isPreviewStep || isBoostStep}
-                                    className={`relative flex items-center gap-4 w-full p-4 rounded-xl border transition-all duration-300 text-left group ${isActive
+                                    className={`relative flex items-center gap-4 w-full p-4 rounded-xl border transition-all duration-300 text-left ${isActive
                                         ? 'bg-emerald-500/10 border-emerald-500/50 shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)]'
-                                        : 'bg-[#0E0E0E] border-white/5 hover:border-white/10'
+                                        : 'bg-[#0E0E0E] border-white/5 opacity-60'
                                         }`}
                                 >
                                     <div className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${isActive
@@ -289,41 +297,27 @@ export function ResumeGenerator() {
                                     {isActive && (
                                         <div className="absolute right-4 w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                                     )}
-                                </button>
+                                </div>
                             );
                         })}
                     </div>
                 </div>
 
-                {/* Mobile Stepper (Compact) */}
-                <div className="lg:hidden w-full bg-[#0E0E0E] rounded-xl p-4 border border-white/10 flex items-center justify-between mb-4">
-                    <button
-                        onClick={prevStep}
-                        disabled={currentStep === 0}
-                        className="p-2 rounded-lg hover:bg-white/5 text-slate-400 disabled:opacity-50"
-                    >
-                        <ChevronLeft size={20} />
-                    </button>
+                {/* Mobile Stepper (Compact - Status Only) */}
+                <div className="lg:hidden w-full bg-[#0E0E0E] rounded-xl p-4 border border-white/10 flex items-center justify-center mb-4">
                     <div className="text-center">
                         <span className="text-xs font-bold text-emerald-500 uppercase tracking-widest block mb-1">
                             Passo {currentStep + 1} de {STEPS.length}
                         </span>
                         <span className="font-bold text-white">{currentStepData.title}</span>
                     </div>
-                    <button
-                        onClick={nextStep}
-                        disabled={currentStep === STEPS.length - 1}
-                        className="p-2 rounded-lg hover:bg-white/5 text-slate-400 disabled:opacity-50"
-                    >
-                        <ChevronRight size={20} />
-                    </button>
                 </div>
 
                 {/* Main Content Area */}
                 <div className="flex-1 w-full max-w-5xl transition-all duration-500">
 
                     {/* Glass Container */}
-                    <div className={`relative bg-[#0E0E0E]/50 backdrop-blur-xl rounded-2xl border border-white/5 p-1 md:p-8 md:pt-4 ${isBoostStep ? 'border-emerald-500/20 shadow-[0_0_50px_-20px_rgba(16,185,129,0.2)]' : ''}`}>
+                    <div className={`relative bg-[#0E0E0E]/80 backdrop-blur-md rounded-xl border border-white/10 p-1 md:p-8 md:pt-4 ${isBoostStep ? 'border-orange-500/20 shadow-[0_0_50px_-20px_rgba(249,115,22,0.2)]' : ''}`}>
 
                         {/* Form Header (Desktop) */}
                         {!isPreviewStep && !isBoostStep && (
@@ -341,12 +335,12 @@ export function ResumeGenerator() {
                         {isBoostStep && (
                             <div className="animate-in fade-in zoom-in-95 duration-500 py-8 px-4 md:px-12">
                                 <div className="text-center mb-12">
-                                    <div className="inline-flex items-center justify-center p-4 rounded-full bg-gradient-to-r from-purple-500/10 to-indigo-500/10 border border-purple-500/20 mb-6 relative">
-                                        <div className="absolute inset-0 rounded-full bg-purple-500/20 blur-xl animate-pulse" />
-                                        <Rocket className="w-12 h-12 text-purple-400 relative z-10" />
+                                    <div className="inline-flex items-center justify-center p-4 rounded-xl bg-gradient-to-r from-orange-500/10 to-amber-500/10 border border-orange-500/20 mb-6 relative">
+                                        <div className="absolute inset-0 rounded-xl bg-orange-500/20 blur-xl animate-pulse" />
+                                        <Rocket className="w-12 h-12 text-orange-400 relative z-10" />
                                     </div>
                                     <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-                                        Acelere sua <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">Contratação</span>
+                                        Acelere sua <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-400">Contratação</span>
                                     </h2>
                                     <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
                                         Use nossa IA para encontrar as vagas perfeitas para seu perfil e saia na frente da concorrência.
@@ -543,7 +537,7 @@ export function ResumeGenerator() {
                                                 if (v.length <= 11) setCpf(v);
                                             }}
                                             placeholder="000.000.000-00"
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors text-center text-lg tracking-widest"
+                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-colors text-center text-lg tracking-widest"
                                         />
                                         <p className="text-xs text-slate-500 text-center">Somente números</p>
                                     </div>
@@ -558,7 +552,7 @@ export function ResumeGenerator() {
                                         <button
                                             onClick={handleConfirmSubscribe}
                                             disabled={cpf.length < 11 || isLoading}
-                                            className="flex-1 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="flex-1 px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-500 text-white font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                         >
                                             {isLoading ? 'Processando...' : 'Confirmar'}
                                         </button>

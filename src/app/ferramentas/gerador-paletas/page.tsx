@@ -178,6 +178,14 @@ export default function PaletteGeneratorPage() {
                 ))}
             </div>
 
+            {/* MOBILE FAB */}
+            <button
+                onClick={() => generatePalette()}
+                className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-40 h-14 w-14 rounded-full bg-white text-black shadow-[0_0_40px_rgba(0,0,0,0.5)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all"
+            >
+                <RefreshCw size={24} />
+            </button>
+
             {/* DETAILS MODAL */}
             {selectedColorIndex !== null && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-md">

@@ -85,6 +85,8 @@ export function ResumeGenerator() {
     const [data, setData] = useState<ResumeData>(initialData);
     const [currentStep, setCurrentStep] = useState(0);
     const [lgpdConsent, setLgpdConsent] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSubmittingLead, setIsSubmittingLead] = useState(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const printRef = useRef<HTMLDivElement>(null);
 
@@ -119,6 +121,64 @@ export function ResumeGenerator() {
         setTimeout(() => {
             window.print();
         }, 100);
+    };
+
+    const handleSubscribe = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch('/api/boost/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    personal: data.personal,
+                    resumeData: data
+                })
+            });
+            const result = await response.json();
+
+            if (result.success && result.paymentUrl) {
+                window.location.href = result.paymentUrl;
+            } else if (result.success) {
+                alert('Assinatura criada com sucesso! Verifique seu email para o pagamento.');
+            } else {
+                alert('Erro ao processar assinatura: ' + (result.error || 'Erro desconhecido'));
+            }
+
+        } catch (error) {
+            console.error(error);
+            alert('Ocorreu um erro ao processar sua solicitação.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleBoostClick = async () => {
+        setIsSubmittingLead(true);
+        try {
+            const response = await fetch('/api/boost/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    personal: data.personal,
+                    resumeData: data
+                })
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                setCurrentStep(6);
+            } else {
+                // Even if it fails to save, maybe letting them proceed is better? 
+                // Or alert? Let's alert for now.
+                console.error("Failed to capture lead", result.error);
+                setCurrentStep(6); // Navigate anyway to not block the user
+            }
+        } catch (error) {
+            console.error("Error submitting lead", error);
+            setCurrentStep(6); // Navigate anyway
+        } finally {
+            setIsSubmittingLead(false);
+        }
     };
 
     const nextStep = () => {
@@ -341,10 +401,18 @@ export function ResumeGenerator() {
                                         </div>
 
                                         <button
-                                            disabled={!lgpdConsent}
-                                            className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-lg transition-all shadow-lg shadow-purple-900/20 hover:shadow-purple-900/40 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                            disabled={!lgpdConsent || isLoading}
+                                            onClick={handleSubscribe}
+                                            className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-lg transition-all shadow-lg shadow-purple-900/20 hover:shadow-purple-900/40 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
                                         >
-                                            Quero Assinar Agora
+                                            {isLoading ? (
+                                                <>
+                                                    <span className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                                                    Processando...
+                                                </>
+                                            ) : (
+                                                "Quero Assinar Agora"
+                                            )}
                                         </button>
 
                                         <div className="mt-6 text-center">
@@ -362,11 +430,21 @@ export function ResumeGenerator() {
                             <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
                                 <div className="flex flex-wrap gap-4 justify-center bg-[#0E0E0E] p-4 rounded-xl border border-white/5 mb-8">
                                     <button
-                                        onClick={() => setCurrentStep(6)}
-                                        className="flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold transition-all shadow-[0_0_20px_-5px_rgba(147,51,234,0.5)] hover:shadow-[0_0_30px_-5px_rgba(147,51,234,0.7)] transform hover:-translate-y-1 w-full md:w-auto justify-center"
+                                        onClick={handleBoostClick}
+                                        disabled={isSubmittingLead}
+                                        className="flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold transition-all shadow-[0_0_20px_-5px_rgba(147,51,234,0.5)] hover:shadow-[0_0_30px_-5px_rgba(147,51,234,0.7)] transform hover:-translate-y-1 w-full md:w-auto justify-center disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
                                     >
-                                        <Rocket size={18} className="animate-pulse" />
-                                        Ativar Alerta de Vagas (Boost)
+                                        {isSubmittingLead ? (
+                                            <>
+                                                <span className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                                                Processando...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Rocket size={18} className="animate-pulse" />
+                                                Receber alerta de vagas com IA
+                                            </>
+                                        )}
                                     </button>
 
                                     <div className="w-full md:hidden h-px bg-white/10 my-2" />

@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { ResumeForm } from './ResumeForm';
 import { ResumePreview } from './ResumePreview';
-import { Download, Upload, FileDown, ChevronRight, ChevronLeft, CheckCircle2, RotateCcw, Rocket, ArrowLeft, BrainCircuit, Sparkles, Target, MessageCircleMore, ShieldCheck } from 'lucide-react';
+import { Trash2, Plus, Download, ChevronRight, ChevronLeft, Save, Sparkles, Check, AlertCircle, Copy, Share2, Printer, FileText, Send, Lock, Eye, EyeOff, CheckCircle, Upload, FileDown, Rocket, ArrowLeft, BrainCircuit, Target, MessageCircleMore, RotateCcw, CheckCircle2 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import Link from 'next/link';
 

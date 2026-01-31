@@ -1,6 +1,7 @@
 "use client";
 
 import { useLoader } from "@react-three/fiber";
+// @ts-ignore
 import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader";
 import { TextureLoader } from "three";
 import { useMemo } from "react";
@@ -21,8 +22,8 @@ function SvgLogo({ url, material, depth }: { url: string; material: THREE.Materi
     const svgData = useLoader(SVGLoader, url);
 
     const shapes = useMemo(() => {
-        return svgData.paths.flatMap((path) =>
-            path.toShapes(true).map((shape) => ({ shape, color: path.color }))
+        return svgData.paths.flatMap((path: any) =>
+            path.toShapes(true).map((shape: any) => ({ shape, color: path.color }))
         );
     }, [svgData]);
 
@@ -30,7 +31,7 @@ function SvgLogo({ url, material, depth }: { url: string; material: THREE.Materi
         <group scale={0.01} rotation={[Math.PI, 0, 0]}>
             {/* Center the group roughly */}
             <group position={[-50, -50, 0]}>
-                {shapes.map((item, index) => (
+                {shapes.map((item: any, index: number) => (
                     <mesh key={index} material={material} position={[0, 0, 0]}>
                         <extrudeGeometry
                             args={[

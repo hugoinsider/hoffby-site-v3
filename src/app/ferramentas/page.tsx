@@ -174,7 +174,7 @@ export default function ToolsHubPage() {
         {
             title: "Gerador de Currículo",
             desc: "Crie seu currículo dev profissional. Exportação PDF/JSON e templates otimizados.",
-            href: "/ferramentas/gerador-curriculo/app",
+            href: "/ferramentas/gerador-curriculo",
             icon: FileCheck,
             color: "text-emerald-400",
             bg: "bg-emerald-400/10"

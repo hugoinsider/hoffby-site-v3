@@ -5,7 +5,8 @@ import Link from 'next/link';
 import {
     ArrowRight, CheckCircle2, Download, FileJson, LayoutTemplate,
     Rocket, Sparkles, Star, ShieldCheck, Zap, ChevronDown,
-    CreditCard, PenTool, MousePointerClick, Check
+    CreditCard, PenTool, MousePointerClick, Check,
+    Code2, Terminal, Cpu, Database, Award, UserCheck, Search, Users, X
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 
@@ -22,7 +23,7 @@ export function ResumeLanding() {
             <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl">
                 <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <Logo className="w-20 h-20" />
+                        <Logo className="w-18 h-18" />
                         {/* <span className="font-bold text-xl tracking-tight hidden md:block">
                             Hoffby <span className="text-emerald-500">Tools</span>
                         </span> */}
@@ -98,8 +99,23 @@ export function ResumeLanding() {
                 </div>
             </section>
 
+            {/* Section 1: Tech Stack Support */}
+            <section className="py-12 border-y border-white/5 bg-[#080808] overflow-hidden">
+                <div className="max-w-7xl mx-auto px-6 text-center">
+                    <p className="text-slate-500 text-sm font-bold uppercase tracking-widest mb-8">Compatível com suas stacks favoritas</p>
+                    <div className="flex flex-wrap justify-center gap-12 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+                        <div className="flex items-center gap-2"><Code2 size={24} /> <span className="font-bold">React</span></div>
+                        <div className="flex items-center gap-2"><Terminal size={24} /> <span className="font-bold">Node.js</span></div>
+                        <div className="flex items-center gap-2"><Database size={24} /> <span className="font-bold">SQL</span></div>
+                        <div className="flex items-center gap-2"><Cpu size={24} /> <span className="font-bold">Python</span></div>
+                        <div className="flex items-center gap-2"><LayoutTemplate size={24} /> <span className="font-bold">Figma</span></div>
+                        <div className="flex items-center gap-2"><Zap size={24} /> <span className="font-bold">Next.js</span></div>
+                    </div>
+                </div>
+            </section>
+
             {/* How it Works Section */}
-            <section className="py-24 px-6 bg-[#0A0A0A] relative border-y border-white/5">
+            <section className="py-24 px-6 bg-[#0A0A0A] relative">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-black mb-6">Como Funciona</h2>
@@ -136,15 +152,64 @@ export function ResumeLanding() {
                             </div>
                             <h3 className="text-xl font-bold mb-3">3. Baixe</h3>
                             <p className="text-slate-400 text-sm leading-relaxed px-4">
-                                Gostou do resultado? Pague apenas uma taxa única de R$ 5,00 para baixar seu PDF sem marca d'água.
+                                Pague apenas uma taxa única de R$ 5,00 para baixar seu PDF sem marca d'água.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Templates Showcase */}
-            <section className="py-24 px-6 bg-[#050505] overflow-hidden">
+            {/* Section 2: Comparison Table */}
+            <section className="py-24 px-6 bg-[#050505] border-t border-white/5">
+                <div className="max-w-5xl mx-auto">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black mb-6">Por que escolher o Hoffby?</h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto">Compare e veja por que somos a melhor opção.</p>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr>
+                                    <th className="p-4 text-slate-500 font-medium">Recursos</th>
+                                    <th className="p-4 bg-[#111] rounded-t-xl text-emerald-400 font-bold text-center border-b-2 border-emerald-500">Hoffby Tools</th>
+                                    <th className="p-4 text-slate-500 font-medium text-center">Editores Online</th>
+                                    <th className="p-4 text-slate-500 font-medium text-center">Word / Docs</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-white/5">
+                                <tr>
+                                    <td className="p-4 text-slate-300 font-medium">Design Premium</td>
+                                    <td className="p-4 bg-[#111]/50 text-center"><CheckCircle2 className="inline text-emerald-500" size={20} /></td>
+                                    <td className="p-4 text-center"><CheckCircle2 className="inline text-slate-600" size={20} /></td>
+                                    <td className="p-4 text-center"><X className="inline text-red-500/50" size={20} /></td>
+                                </tr>
+                                <tr>
+                                    <td className="p-4 text-slate-300 font-medium">Otimizado para ATS</td>
+                                    <td className="p-4 bg-[#111]/50 text-center"><CheckCircle2 className="inline text-emerald-500" size={20} /></td>
+                                    <td className="p-4 text-center"><X className="inline text-red-500/50" size={20} /></td>
+                                    <td className="p-4 text-center"><CheckCircle2 className="inline text-slate-600" size={20} /></td>
+                                </tr>
+                                <tr>
+                                    <td className="p-4 text-slate-300 font-medium">Exportação JSON</td>
+                                    <td className="p-4 bg-[#111]/50 text-center"><CheckCircle2 className="inline text-emerald-500" size={20} /></td>
+                                    <td className="p-4 text-center"><X className="inline text-red-500/50" size={20} /></td>
+                                    <td className="p-4 text-center"><X className="inline text-red-500/50" size={20} /></td>
+                                </tr>
+                                <tr>
+                                    <td className="p-4 text-slate-300 font-medium">Custo</td>
+                                    <td className="p-4 bg-[#111] rounded-b-xl text-center font-bold text-white">R$ 5,00 (Único)</td>
+                                    <td className="p-4 text-center text-slate-500">Assinatura Mensal</td>
+                                    <td className="p-4 text-center text-slate-500">Grátis</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            {/* Improved Templates Showcase */}
+            <section className="py-24 px-6 bg-[#0A0A0A] overflow-hidden">
                 <div className="max-w-7xl mx-auto mb-16 flex flex-col md:flex-row items-end justify-between gap-6">
                     <div>
                         <h2 className="text-3xl md:text-5xl font-black mb-4">Modelos Premium</h2>
@@ -156,67 +221,176 @@ export function ResumeLanding() {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-8">
-                    {/* Template 1 */}
-                    <div className="group rounded-2xl bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2">
-                        <div className="h-64 bg-white/5 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-black/80" />
-                            {/* Mock UI */}
-                            <div className="absolute top-4 left-4 right-4 bottom-0 bg-white shadow-2xl rounded-t-lg p-4 opacity-80 group-hover:opacity-100 group-hover:translate-y-[-10px] transition-all duration-500">
-                                <div className="w-1/3 h-2 bg-slate-800 mb-4" />
-                                <div className="space-y-2">
-                                    <div className="w-full h-1 bg-slate-200" />
-                                    <div className="w-full h-1 bg-slate-200" />
-                                    <div className="w-2/3 h-1 bg-slate-200" />
+                    {/* Template 1 - Modern */}
+                    <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2 shadow-2xl">
+                        <div className="h-80 bg-[#151515] relative p-6 flex flex-col items-center justify-center overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            {/* Realistic Mini Resume UI */}
+                            <div className="w-full h-full bg-white shadow-xl rounded-sm p-4 text-[6px] text-slate-800 flex flex-col gap-2 transform group-hover:scale-105 transition-transform duration-500 origin-center">
+                                <div className="h-1 w-full bg-emerald-500 mb-1" />
+                                <div className="flex justify-between items-end border-b border-slate-100 pb-2">
+                                    <div>
+                                        <div className="h-2 w-20 bg-slate-900 rounded-sm mb-1" />
+                                        <div className="h-1.5 w-12 bg-emerald-600 rounded-sm" />
+                                    </div>
+                                    <div className="h-4 w-4 rounded-full bg-slate-200" />
+                                </div>
+                                <div className="grid grid-cols-3 gap-2 flex-1">
+                                    <div className="col-span-2 space-y-2">
+                                        <div className="h-1.5 w-full bg-slate-100" />
+                                        <div className="h-1.5 w-full bg-slate-100" />
+                                        <div className="h-10 bg-slate-50 rounded-sm border border-slate-100 p-1 space-y-1">
+                                            <div className="h-1.5 w-1/3 bg-slate-300" />
+                                            <div className="h-1 w-full bg-slate-200" />
+                                            <div className="h-1 w-full bg-slate-200" />
+                                        </div>
+                                    </div>
+                                    <div className="bg-slate-50 p-1 space-y-2">
+                                        <div className="h-1.5 w-10 bg-slate-300" />
+                                        <div className="flex flex-wrap gap-0.5">
+                                            <div className="h-1 w-6 bg-slate-800" />
+                                            <div className="h-1 w-5 bg-slate-800" />
+                                            <div className="h-1 w-7 bg-slate-800" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="p-6">
-                            <h3 className="text-xl font-bold mb-2">Modern Tech</h3>
-                            <p className="text-sm text-slate-400">Ideal para desenvolvedores e designers. Visual limpo com toques de cor.</p>
+                            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Modern Tech <Zap size={16} className="text-emerald-500" /></h3>
+                            <p className="text-sm text-slate-400">Ideal para desenvolvedores e designers. Visual limpo com toques de cor estratégica.</p>
                         </div>
                     </div>
 
-                    {/* Template 2 */}
-                    <div className="group rounded-2xl bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-2">
-                        <div className="h-64 bg-white/5 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-black/80" />
-                            {/* Mock UI */}
-                            <div className="absolute top-4 left-4 right-4 bottom-0 bg-white shadow-2xl rounded-t-lg p-6 opacity-80 group-hover:opacity-100 group-hover:translate-y-[-10px] transition-all duration-500 flex flex-col items-center text-center">
-                                <div className="w-16 h-16 rounded-full bg-slate-200 mb-4" />
-                                <div className="w-1/2 h-2 bg-slate-800 mb-2" />
-                                <div className="w-1/3 h-1.5 bg-slate-400" />
-                            </div>
-                        </div>
-                        <div className="p-6">
-                            <h3 className="text-xl font-bold mb-2">Classic Executive</h3>
-                            <p className="text-sm text-slate-400">Focado em hierarquia e legibilidade. Perfeito para cargos de gestão.</p>
-                        </div>
-                    </div>
-
-                    {/* Template 3 */}
-                    <div className="group rounded-2xl bg-[#0A0A0A] border border-white/10 overflow-hidden hover:border-white/30 transition-all duration-500 hover:-translate-y-2">
-                        <div className="h-64 bg-white/5 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-black/80" />
-                            {/* Mock UI */}
-                            <div className="absolute top-4 left-4 right-4 bottom-0 bg-white shadow-2xl rounded-t-lg p-6 opacity-80 group-hover:opacity-100 group-hover:translate-y-[-10px] transition-all duration-500">
-                                <div className="w-full h-px bg-black mb-4" />
-                                <div className="w-1/2 h-2 bg-black mb-4" />
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="h-20 bg-slate-100" />
-                                    <div className="h-20 bg-slate-100" />
+                    {/* Template 2 - Classic */}
+                    <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-2 shadow-2xl">
+                        <div className="h-80 bg-[#151515] relative p-6 flex flex-col items-center justify-center overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            {/* Realistic Mini Resume UI */}
+                            <div className="w-full h-full bg-white shadow-xl rounded-sm p-5 text-[6px] text-slate-800 flex flex-col gap-2 transform group-hover:scale-105 transition-transform duration-500 origin-center items-center text-center">
+                                <div className="h-2.5 w-32 bg-slate-900 mb-1 font-serif" />
+                                <div className="h-1.5 w-20 bg-slate-500 mb-2" />
+                                <div className="w-full h-px bg-slate-200 mb-2" />
+                                <div className="w-full text-left space-y-3">
+                                    <div className="space-y-1">
+                                        <div className="h-1.5 w-16 bg-slate-800" />
+                                        <div className="h-1 w-full bg-slate-100" />
+                                        <div className="h-1 w-full bg-slate-100" />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <div className="h-1.5 w-16 bg-slate-800" />
+                                        <div className="h-1 w-full bg-slate-100" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="p-6">
-                            <h3 className="text-xl font-bold mb-2">Minimalist BW</h3>
-                            <p className="text-sm text-slate-400">Preto e branco. Direto ao ponto. Máxima compatibilidade ATS.</p>
+                            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Classic Executive <Award size={16} className="text-cyan-500" /></h3>
+                            <p className="text-sm text-slate-400">Focado em hierarquia e legibilidade. Perfeito para cargos de gestão e corporativo.</p>
+                        </div>
+                    </div>
+
+                    {/* Template 3 - Minimal */}
+                    <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-white/30 transition-all duration-500 hover:-translate-y-2 shadow-2xl">
+                        <div className="h-80 bg-[#151515] relative p-6 flex flex-col items-center justify-center overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            {/* Realistic Mini Resume UI */}
+                            <div className="w-full h-full bg-white shadow-xl rounded-sm p-4 text-[6px] text-black flex flex-col gap-3 transform group-hover:scale-105 transition-transform duration-500 origin-center">
+                                <div className="h-3 w-24 bg-black mb-2" />
+                                <div className="grid grid-cols-2 gap-4 h-full">
+                                    <div className="space-y-2">
+                                        <div className="h-1.5 w-10 bg-gray-400" />
+                                        <div className="h-20 bg-gray-50 p-1" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="h-1.5 w-10 bg-gray-400" />
+                                        <div className="flex flex-wrap gap-1">
+                                            <div className="h-1 w-5 border-b border-black" />
+                                            <div className="h-1 w-6 border-b border-black" />
+                                            <div className="h-1 w-4 border-b border-black" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="p-6">
+                            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Minimalist BW <LayoutTemplate size={16} className="text-white" /></h3>
+                            <p className="text-sm text-slate-400">Preto e branco. Direto ao ponto. Máxima compatibilidade e elegância.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Pricing Section */}
-            <section id="pricing" className="py-24 px-6 bg-[#0A0A0A] border-y border-white/5 relative overflow-hidden">
+            {/* Section 3: Recruiter Insights */}
+            <section className="py-24 px-6 bg-[#050505] border-t border-white/5">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-16">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-500/5 mb-4">
+                            <UserCheck size={12} className="text-purple-500" />
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-purple-500">
+                                Visão do Recrutador
+                            </span>
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-black mb-6">O que eles realmente olham?</h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                        <div className="p-8 rounded-2xl bg-[#0A0A0A] border border-white/5 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-10"><Search size={80} /></div>
+                            <h3 className="text-4xl font-black text-white mb-2">6s</h3>
+                            <p className="font-bold text-slate-300 mb-4">Tempo médio de leitura</p>
+                            <p className="text-sm text-slate-500 leading-relaxed">
+                                Recrutadores escaneiam currículos em segundos. Nossos layouts guiam o olhar para o que importa: Cargo, Empresa e Skills.
+                            </p>
+                        </div>
+                        <div className="p-8 rounded-2xl bg-[#0A0A0A] border border-white/5 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-10"><Database size={80} /></div>
+                            <h3 className="text-4xl font-black text-white mb-2">ATS</h3>
+                            <p className="font-bold text-slate-300 mb-4">Applicant Tracking Systems</p>
+                            <p className="text-sm text-slate-500 leading-relaxed">
+                                Robôs leem seu CV antes de humanos. Evitamos colunas complexas e gráficos que confundem a inteligência artificial.
+                            </p>
+                        </div>
+                        <div className="p-8 rounded-2xl bg-[#0A0A0A] border border-white/5 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-10"><Award size={80} /></div>
+                            <h3 className="text-4xl font-black text-white mb-2">Resultados</h3>
+                            <p className="font-bold text-slate-300 mb-4">Impacto &gt; Tarefas</p>
+                            <p className="text-sm text-slate-500 leading-relaxed">
+                                Nossos campos incentivam você a descrever conquistas ("Aumentei vendas em 20%") em vez de apenas funções.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Section 4: Testimonials */}
+            <section className="py-24 px-6 bg-[#0A0A0A] border-t border-white/5">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black mb-6">Quem usa, aprova</h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {[
+                            { name: "Carlos M.", role: "Senior Frontend Dev", text: "Fiz meu currículo em 5 minutos e passei na triagem da Amazon. O modelo clean fez toda a diferença." },
+                            { name: "Ana P.", role: "UX Designer", text: "Estava cansada de brigar com o Word. O gerador é intuitivo e o resultado final é super profissional." },
+                            { name: "Lucas S.", role: "Tech Lead", text: "Recomendo para todos os meus mentorados. A estrutura foca no que precisamos ver numa entrevista técnica." }
+                        ].map((t, i) => (
+                            <div key={i} className="bg-[#111] p-8 rounded-2xl border border-white/5 relative">
+                                <Users className="text-emerald-500 mb-4 opacity-50" size={24} />
+                                <p className="text-slate-300 italic mb-6 leading-relaxed">"{t.text}"</p>
+                                <div>
+                                    <div className="font-bold text-white">{t.name}</div>
+                                    <div className="text-xs text-emerald-500 uppercase tracking-wider font-bold">{t.role}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Pricing Section - Repositioned? No, keeping flow */}
+            <section id="pricing" className="py-24 px-6 bg-[#050505] border-y border-white/5 relative overflow-hidden">
                 {/* Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/5 blur-[100px] rounded-full pointer-events-none" />
 
@@ -228,7 +402,7 @@ export function ResumeLanding() {
 
                     <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                         {/* Free Tier */}
-                        <div className="p-8 rounded-3xl bg-[#050505] border border-white/10 flex flex-col relative group">
+                        <div className="p-8 rounded-3xl bg-[#0A0A0A] border border-white/10 flex flex-col relative group">
                             <div className="mb-6">
                                 <h3 className="text-2xl font-bold text-slate-200">Criação & Preview</h3>
                                 <div className="mt-4 flex items-baseline gap-1">
@@ -264,7 +438,7 @@ export function ResumeLanding() {
                         </div>
 
                         {/* Paid Tier */}
-                        <div className="p-8 rounded-3xl bg-gradient-to-b from-emerald-900/10 to-[#050505] border border-emerald-500/50 flex flex-col relative overflow-hidden group shadow-2xl shadow-emerald-500/10">
+                        <div className="p-8 rounded-3xl bg-gradient-to-b from-emerald-900/10 to-[#0A0A0A] border border-emerald-500/50 flex flex-col relative overflow-hidden group shadow-2xl shadow-emerald-500/10">
                             <div className="absolute top-0 right-0 bg-emerald-500 text-black text-xs font-bold px-3 py-1 rounded-bl-xl uppercase tracking-widest">
                                 Mais Popular
                             </div>
@@ -307,7 +481,7 @@ export function ResumeLanding() {
             </section>
 
             {/* FAQ Section */}
-            <section className="py-24 px-6 bg-[#050505]">
+            <section className="py-24 px-6 bg-[#0A0A0A]">
                 <div className="max-w-4xl mx-auto">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold mb-4">Perguntas Frequentes</h2>
@@ -332,7 +506,7 @@ export function ResumeLanding() {
                                 a: "Aceitamos PIX para aprovação instantânea. Assim que o pagamento é confirmado, o download do seu PDF é liberado automaticamente."
                             }
                         ].map((item, i) => (
-                            <div key={i} className="border border-white/5 rounded-xl bg-[#0A0A0A] overflow-hidden">
+                            <div key={i} className="border border-white/5 rounded-xl bg-[#050505] overflow-hidden">
                                 <button
                                     onClick={() => toggleFaq(i)}
                                     className="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors"
@@ -356,10 +530,10 @@ export function ResumeLanding() {
             </section>
 
             {/* Final CTA */}
-            <section className="py-24 px-6 bg-[#0A0A0A] relative overflow-hidden">
+            <section className="py-24 px-6 bg-[#050505] relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/10 to-transparent pointer-events-none" />
 
-                <div className="max-w-4xl mx-auto text-center relative z-10 p-8 md:p-16 rounded-3xl border border-white/10 bg-[#050505]/80 backdrop-blur-xl">
+                <div className="max-w-4xl mx-auto text-center relative z-10 p-8 md:p-16 rounded-3xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-xl">
                     <div className="inline-block p-4 rounded-full bg-emerald-500/10 text-emerald-500 mb-8 animate-pulse">
                         <Rocket size={32} />
                     </div>

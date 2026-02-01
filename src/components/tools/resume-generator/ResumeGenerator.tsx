@@ -3,8 +3,11 @@
 import React, { useState, useRef } from 'react';
 import { ResumeForm } from './ResumeForm';
 import { ResumePreview } from './ResumePreview';
+import { ResumeAnalyzer } from './ResumeAnalyzer';
+import { PaymentModal } from './PaymentModal';
 import { JsonDocsModal } from './JsonDocsModal';
-import { Trash2, Plus, Download, ChevronRight, ChevronLeft, Save, Sparkles, Check, AlertCircle, Copy, Share2, Printer, FileText, Send, Lock, Eye, EyeOff, CheckCircle, Upload, FileDown, Rocket, ArrowLeft, BrainCircuit, Target, MessageCircleMore, RotateCcw, CheckCircle2, FileJson, X } from 'lucide-react';
+import { Modal } from '../../Modal';
+import { Trash2, Plus, Download, ChevronRight, ChevronLeft, Save, Sparkles, Check, AlertCircle, Copy, Share2, Printer, FileText, Send, Lock, Eye, EyeOff, CheckCircle, Upload, FileDown, Rocket, ArrowLeft, BrainCircuit, Target, MessageCircleMore, RotateCcw, CheckCircle2, FileJson, X, Info } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import Link from 'next/link';
 
@@ -141,6 +144,7 @@ const STEPS = [
     { title: "Formação", description: "Acadêmico" },
     { title: "Projetos", description: "Portfólio" },
     { title: "Habilidades", description: "Tecnologias" },
+    { title: "Análise ATS", description: "Feedback com I.A." },
     { title: "Revisão", description: "Preview e Exportar" },
     { title: "Boost AI", description: "Acelere sua Carreira" },
 ];
@@ -153,6 +157,9 @@ export function ResumeGenerator() {
     const [isSubmittingLead, setIsSubmittingLead] = useState(false);
     const [showCpfModal, setShowCpfModal] = useState(false);
     const [showJsonDocs, setShowJsonDocs] = useState(false);
+    const [showExampleConfirm, setShowExampleConfirm] = useState(false);
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
+    const [isExporting, setIsExporting] = useState(false);
     const [cpf, setCpf] = useState('');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const printRef = useRef<HTMLDivElement>(null);
@@ -197,12 +204,20 @@ export function ResumeGenerator() {
         linkElement.click();
     };
 
-
+    const handlePaymentSuccess = () => {
+        // Wait for modal to close (it has a timeout) then print
+        setTimeout(() => {
+            window.print();
+        }, 500);
+    };
 
     const handleGenerateExample = () => {
-        if (confirm("Isso irá substituir os dados atuais por um exemplo. Deseja continuar?")) {
-            setData(EXAMPLE_RESUME_DATA);
-        }
+        setShowExampleConfirm(true);
+    };
+
+    const confirmGenerateExample = () => {
+        setData(EXAMPLE_RESUME_DATA);
+        setShowExampleConfirm(false);
     };
 
     const handleDownloadTemplate = () => {
@@ -307,8 +322,9 @@ export function ResumeGenerator() {
         }
     };
 
-    const isPreviewStep = currentStep === 5;
-    const isBoostStep = currentStep === 6;
+    const isAnalysisStep = currentStep === 5;
+    const isPreviewStep = currentStep === 6;
+    const isBoostStep = currentStep === 7;
     const currentStepData = STEPS[currentStep];
 
     return (
@@ -421,7 +437,13 @@ export function ResumeGenerator() {
 
                         {isBoostStep && (
                             <div className="animate-in fade-in zoom-in-95 duration-500 py-8 px-4 md:px-12">
-                                <div className="text-center mb-12">
+                                <div className="text-center mb-12 relative">
+                                    <button
+                                        onClick={prevStep}
+                                        className="absolute left-0 top-0 text-slate-400 hover:text-white font-bold transition-colors flex items-center gap-2 px-4 py-2 border border-white/10 rounded-lg hover:bg-white/5"
+                                    >
+                                        <ChevronLeft size={18} /> Voltar
+                                    </button>
                                     <div className="inline-flex items-center justify-center p-4 rounded-xl bg-gradient-to-r from-orange-500/10 to-amber-500/10 border border-orange-500/20 mb-6 relative">
                                         <div className="absolute inset-0 rounded-xl bg-orange-500/20 blur-xl animate-pulse" />
                                         <Rocket className="w-12 h-12 text-orange-400 relative z-10" />
@@ -528,11 +550,24 @@ export function ResumeGenerator() {
                             </div>
                         )}
 
+                        {isAnalysisStep && (
+                            <div className="max-w-4xl mx-auto">
+                                <ResumeAnalyzer data={data} />
+                            </div>
+                        )}
+
                         {isPreviewStep ? (
                             <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
                                 <div id='resume-actions' className="flex flex-col md:flex-row gap-4 justify-between items-center bg-[#0E0E0E] p-6 rounded-2xl border border-white/5 mb-8 shadow-2xl">
 
                                     <div className="flex items-center gap-4 w-full md:w-auto">
+                                        <button
+                                            onClick={prevStep}
+                                            className="px-4 py-2 rounded-lg text-slate-400 hover:text-white font-bold transition-colors flex items-center gap-2 border border-transparent hover:border-white/10 hover:bg-white/5"
+                                        >
+                                            <ChevronLeft size={18} /> Voltar
+                                        </button>
+                                        <div className="h-8 w-px bg-white/10 mx-2 hidden md:block" />
                                         <button
                                             onClick={() => setData(initialData)}
                                             className="px-4 py-2 rounded-lg text-slate-500 hover:text-red-400 font-bold transition-colors text-xs uppercase tracking-wider hover:bg-red-500/5"
@@ -572,7 +607,7 @@ export function ResumeGenerator() {
                                         </button>
 
                                         <button
-                                            onClick={() => window.print()}
+                                            onClick={() => setShowPaymentModal(true)}
                                             className="group relative flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-white font-bold transition-all shadow-[0_0_30px_-10px_rgba(16,185,129,0.5)] hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.7)]"
                                         >
                                             <div className="p-1 bg-black/10 rounded-lg group-hover:bg-transparent transition-colors">
@@ -586,12 +621,12 @@ export function ResumeGenerator() {
                                     <ResumePreview data={data} ref={printRef} />
                                 </div>
                             </div>
-                        ) : !isBoostStep ? (
+                        ) : !isBoostStep && !isAnalysisStep ? (
                             <ResumeForm data={data} onChange={setData} step={currentStep} />
                         ) : null}
 
                         {/* Navigation Footer (Integrated & Sticky) */}
-                        {!isPreviewStep && !isBoostStep && (
+                        {!isPreviewStep && !isBoostStep && !isAnalysisStep && (
                             <div className="sticky bottom-0 z-20 mt-8 -mx-1 md:-mx-8 -mb-1 md:-mb-8 p-4 md:p-8 bg-[#0E0E0E]/80 backdrop-blur-xl border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 rounded-b-2xl">
 
                                 {currentStep === 0 ? (
@@ -643,6 +678,25 @@ export function ResumeGenerator() {
                                     className="flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold transition-all shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.5)] group"
                                 >
                                     Próximo Passo <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Custom Footer for Analysis Step */}
+                        {isAnalysisStep && (
+                            <div className="sticky bottom-0 z-20 mt-8 -mx-1 md:-mx-8 -mb-1 md:-mb-8 p-4 md:p-8 bg-[#0E0E0E]/80 backdrop-blur-xl border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 rounded-b-2xl">
+                                <button
+                                    onClick={prevStep}
+                                    className="text-slate-400 hover:text-white font-bold transition-colors flex items-center gap-2 px-4 py-2"
+                                >
+                                    <ChevronLeft size={18} /> Voltar
+                                </button>
+
+                                <button
+                                    onClick={nextStep}
+                                    className="flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold transition-all shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.5)] group"
+                                >
+                                    Ver Preview Final <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </div>
                         )}
@@ -716,6 +770,48 @@ export function ResumeGenerator() {
             <div className="h-24"></div>
 
             <JsonDocsModal isOpen={showJsonDocs} onClose={() => setShowJsonDocs(false)} />
-        </div>
+
+            <PaymentModal
+                isOpen={showPaymentModal}
+                onClose={() => setShowPaymentModal(false)}
+                onSuccess={handlePaymentSuccess}
+                data={data}
+            />
+
+            {/* Example Confirmation Modal */}
+            <Modal
+                isOpen={showExampleConfirm}
+                onClose={() => setShowExampleConfirm(false)}
+                maxWidth="max-w-md"
+                title="Confirmar Exemplo"
+                icon={<Sparkles size={24} />}
+                footer={
+                    <>
+                        <button
+                            onClick={() => setShowExampleConfirm(false)}
+                            className="px-4 py-2 rounded-lg hover:bg-white/5 text-slate-400 hover:text-white transition-colors text-sm font-bold"
+                        >
+                            Cancelar
+                        </button>
+                        <button
+                            onClick={confirmGenerateExample}
+                            className="px-6 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-black font-bold transition-colors shadow-lg shadow-amber-500/20"
+                        >
+                            Sim, gerar exemplo
+                        </button>
+                    </>
+                }
+            >
+                <div className="text-slate-300 space-y-4">
+                    <p>
+                        Tem certeza que deseja preencher os campos com dados de exemplo?
+                    </p>
+                    <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200 text-sm flex gap-3">
+                        <Info size={16} className="shrink-0 mt-0.5" />
+                        <p>Isso <strong>substituirá</strong> todos os dados que você já preencheu no formulário.</p>
+                    </div>
+                </div>
+            </Modal>
+        </div >
     );
 }

@@ -154,6 +154,16 @@ export const ResumePreview = forwardRef<HTMLDivElement, ResumePreviewProps>(({ d
                     )}
                 </div>
             </div>
+
+            {/* Branding Footer */}
+            <div className="mt-auto pt-8 text-center print:pt-4">
+                <p className="text-[10px] text-slate-300 uppercase tracking-widest font-medium opacity-60 flex items-center justify-center gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-emerald-400" />
+                    Currículo gerado pela Hoffby
+                    <span className="w-1 h-1 rounded-full bg-emerald-400" />
+                </p>
+            </div>
+
             {/* Print Styles */}
             <style jsx global>{`
                 @media print {

@@ -784,7 +784,7 @@ const Contact = () => {
                 <div className="w-10 h-10 rounded-lg bg-[#A451FF]/10 flex items-center justify-center text-[#A451FF]"><Mail size={18} /></div>
                 <div>
                   <div className="text-[10px] uppercase font-bold text-slate-500">Email</div>
-                  <div className="text-white text-sm">contato@hoffby.com.br</div>
+                  <div className="text-white text-sm">hoffby@hoffby.com.br</div>
                 </div>
               </div>
               <a href="https://wa.me/5564992263914" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group hover:bg-white/5 p-2 rounded-lg -ml-2 transition-all">

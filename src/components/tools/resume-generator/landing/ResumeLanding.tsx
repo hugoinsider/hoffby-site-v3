@@ -8,15 +8,54 @@ import {
     Rocket, Sparkles, Star, ShieldCheck, Zap, ChevronDown,
     CreditCard, PenTool, MousePointerClick, Check,
     Code2, Terminal, Cpu, Database, Award, UserCheck, Search, Users, X,
-    Briefcase, RefreshCw, Lock
+    Briefcase, RefreshCw, Lock,
+    Mail, MessageCircle, CheckSquare, Send
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 
 export function ResumeLanding() {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
     const toggleFaq = (index: number) => {
         setOpenFaq(openFaq === index ? null : index);
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!formData.name || !formData.email || !formData.message) return;
+
+        setStatus('loading');
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                setStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+            } else {
+                setStatus('error');
+            }
+        } catch (error) {
+            console.error(error);
+            setStatus('error');
+        }
     };
 
     return (
@@ -668,12 +707,108 @@ export function ResumeLanding() {
                 </div>
             </section>
 
+
+            {/* Contact Section */}
+            <section id="contato" className="py-32 px-6 relative z-10 bg-[#050505] border-t border-white/5">
+                <div className="max-w-5xl mx-auto bg-[#0E0E0E] border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative z-10">
+                    <div className="bg-[#151515] px-4 py-3 border-b border-white/5 flex items-center gap-2">
+                        <div className="flex gap-1.5">
+                            <div className="w-3 h-3 rounded-full bg-red-500/50" />
+                            <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+                            <div className="w-3 h-3 rounded-full bg-green-500/50" />
+                        </div>
+                        <div className="ml-4 text-[10px] text-slate-500 font-mono">root@resume-builder:~/contact</div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2">
+                        <div className="p-10 border-r border-white/5 bg-white/[0.01]">
+                            <h3 className="text-2xl font-black uppercase text-white mb-6">Dúvidas?</h3>
+                            <div className="space-y-6">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500"><Mail size={18} /></div>
+                                    <div>
+                                        <div className="text-[10px] uppercase font-bold text-slate-500">Email</div>
+                                        <div className="text-white text-sm">hoffby@hoffby.com.br</div>
+                                    </div>
+                                </div>
+                                <a href="https://wa.me/5564992263914" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group hover:bg-white/5 p-2 rounded-lg -ml-2 transition-all">
+                                    <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-black transition-colors">
+                                        <MessageCircle size={18} />
+                                    </div>
+                                    <div>
+                                        <div className="text-[10px] uppercase font-bold text-slate-500 group-hover:text-emerald-500 transition-colors">Whatsapp</div>
+                                        <div className="text-white text-sm group-hover:text-emerald-500 transition-colors">+55 (64) 99226-3914</div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div className="mt-12 font-mono text-xs">
+                                <p className="text-slate-500 mb-2">{'// System Status:'}</p>
+                                {status === 'idle' && <span className="text-slate-400 animate-pulse">Waiting for user input...</span>}
+                                {status === 'loading' && <span className="text-emerald-500">Establishing secure connection...</span>}
+                                {status === 'success' && <span className="text-emerald-400">Data packet sent to Hoffby DB.</span>}
+                                {status === 'error' && <span className="text-red-500">Connection failed. Try again.</span>}
+                            </div>
+                        </div>
+
+                        <div className="p-10 font-mono relative">
+                            {status === 'success' && (
+                                <div className="absolute inset-0 z-20 bg-[#0E0E0E]/95 flex flex-col items-center justify-center text-center p-8 backdrop-blur-sm animate-in fade-in duration-300">
+                                    <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-500 mb-4 border border-emerald-500/20">
+                                        <CheckSquare size={32} />
+                                    </div>
+                                    <h4 className="text-xl font-black uppercase text-white mb-2">Mensagem Recebida</h4>
+                                    <p className="text-slate-400 text-sm mb-6">Sua mensagem foi enviada. Responderemos em breve.</p>
+                                    <button onClick={() => setStatus('idle')} className="text-xs font-bold text-emerald-500 hover:text-white transition-colors uppercase tracking-widest border-b border-emerald-500 pb-1">Enviar Novo Comando</button>
+                                </div>
+                            )}
+
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <div>
+                                    <label className="block text-emerald-500 text-xs mb-2">$ input_name:</label>
+                                    <input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full bg-transparent border-b border-white/10 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors placeholder:text-slate-700" placeholder="Seu Nome_" />
+                                </div>
+                                <div>
+                                    <label className="block text-emerald-500 text-xs mb-2">$ input_email:</label>
+                                    <input type="email" name="email" required value={formData.email} onChange={handleChange} className="w-full bg-transparent border-b border-white/10 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors placeholder:text-slate-700" placeholder="seu@email.com_" />
+                                </div>
+                                <div>
+                                    <label className="block text-emerald-500 text-xs mb-2">$ input_message:</label>
+                                    <textarea rows={3} name="message" required value={formData.message} onChange={handleChange} className="w-full bg-transparent border-b border-white/10 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors resize-none placeholder:text-slate-700" placeholder="// Digite sua dúvida ou sugestão..." />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    disabled={status === 'loading'}
+                                    className={`w-full py-4 font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 mt-4 rounded-lg ${status === 'loading' ? 'bg-white/10 text-slate-400 cursor-not-allowed' : 'bg-white text-black hover:bg-emerald-500'}`}
+                                >
+                                    {status === 'loading' ? 'Processing...' : <><Send size={14} /> Executar Envio</>}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Footer Simple */}
-            <footer className="py-12 px-6 border-t border-white/5 bg-[#050505] text-center">
+            <footer className="py-12 px-6 border-t border-white/5 bg-[#050505] text-center mb-20 md:mb-0">
                 <p className="text-slate-600 text-sm">
                     &copy; {new Date().getFullYear()} Hoffby tecnologia ltda. Desenvolvido para a comunidade.
                 </p>
             </footer>
+
+            {/* Floating WhatsApp Button */}
+            <a
+                href="https://wa.me/5564992263914?text=Olá,%20tenho%20uma%20dúvida%20sobre%20o%20Gerador%20de%20Currículo."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#128C7E] rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 group"
+            >
+                <MessageCircle size={32} className="text-white" />
+                <span className="absolute right-full mr-4 bg-white text-black px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                    Fale Conosco
+                </span>
+            </a>
         </div>
     );
 }

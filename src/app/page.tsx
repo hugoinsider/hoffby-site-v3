@@ -10,9 +10,10 @@ import {
   Bot, Layers, Gamepad2, Sparkles, Megaphone,
   BrainCircuit, Database, Workflow, Box, Scale, Diamond, Shield, FileText,
   CreditCard, Stethoscope, Users, CalendarCheck,
-  CheckSquare, Linkedin, Github, MapPin, Award, ShieldCheck
+  CheckSquare, Linkedin, Github, MapPin, Award, ShieldCheck, Palette, Scissors
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
+import { Navbar } from '@/components/layout/Navbar';
 import Image from 'next/image';
 
 // --- COMPONENTE DE FUNDO ---
@@ -30,44 +31,6 @@ const GradientText = ({ children, from, to }: { children: React.ReactNode, from:
     {children}
   </span>
 );
-
-// --- NAVBAR ---
-const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'py-4' : 'py-8'}`}
-    >
-      <div className={`max-w-7xl mx-auto py-3 px-6 ${isScrolled ? 'bg-[#0a0a0a]/80 backdrop-blur-md rounded-full border border-white/5 shadow-2xl' : ''} flex justify-between items-center transition-all`}>
-        <a href="#" className="flex items-center gap-3 group">
-          <Logo className="w-24 h-11" />
-          {/* <span className="text-xl font-black italic tracking-tighter text-white group-hover:text-[#00F26B] transition-colors">
-            HOFFBY<span className="text-[#A451FF]">.TEC</span>
-          </span> */}
-        </a>
-        <div className="hidden md:flex gap-8">
-          {['Soluções', 'Cases', 'SaaS Factory', 'Legado', 'Contato'].map((item) => (
-            <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-colors relative group">
-              {item}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00F26B] transition-all group-hover:w-full" />
-            </a>
-          ))}
-        </div>
-        <button onClick={() => window.location.href = '/#contato'} className="hidden md:flex items-center gap-2 px-5 py-2 rounded-full bg-white text-black text-[10px] font-black uppercase tracking-widest hover:bg-[#00F26B] transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(0,242,107,0.4)]">
-          Iniciar Projeto <ArrowRight className="w-3 h-3" />
-        </button>
-      </div>
-    </motion.nav>
-  );
-};
 
 // --- HERO SECTION (RESTAURADO COM CARTÃO FLUTUANTE) ---
 const Hero = () => {
@@ -139,6 +102,112 @@ const Hero = () => {
     </section>
   );
 };
+
+// --- FEATURED PRODUCT SECTION (NEW) ---
+const FeaturedProduct = () => {
+  return (
+    <section className="py-24 relative overflow-hidden bg-[#0A0A0A] border-y border-white/5">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col lg:flex-row items-center gap-16">
+          <div className="lg:w-1/2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/5 mb-6">
+              <Sparkles size={14} className="text-emerald-500" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-500">Produto Destaque</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter text-white mb-6">
+              Seu Currículo.<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Profissional.</span>
+            </h2>
+            <p className="text-lg text-slate-400 leading-relaxed mb-8">
+              Não perca oportunidades por um CV mal formatado. Nossa ferramenta cuida do design e da estrutura ATS-Friendly enquanto você foca no conteúdo.
+            </p>
+            <ul className="space-y-4 mb-10">
+              <li className="flex items-center gap-3 text-slate-300">
+                <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500"><CheckSquare size={14} /></div>
+                <span>Modelos validados por recrutadores</span>
+              </li>
+              <li className="flex items-center gap-3 text-slate-300">
+                <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500"><CheckSquare size={14} /></div>
+                <span>Exportação PDF em alta resolução</span>
+              </li>
+              <li className="flex items-center gap-3 text-slate-300">
+                <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500"><CheckSquare size={14} /></div>
+                <span>Privacidade Total (LocalStorage)</span>
+              </li>
+            </ul>
+            <div className="flex gap-4">
+              <Link href="/ferramentas/gerador-curriculo" className="px-8 py-4 bg-emerald-500 text-black font-bold uppercase text-xs tracking-widest rounded-xl hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20 flex items-center gap-2">
+                Criar Agora <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+          <div className="lg:w-1/2 relative">
+            <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full blur-[100px] opacity-20" />
+            <div className="relative bg-[#111] border border-white/10 rounded-2xl overflow-hidden shadow-2xl skew-y-3 hover:skew-y-0 transition-transform duration-700">
+              <Image
+                src="/gerador-curriculo/2026-02-01_00-29.png"
+                alt="Preview Gerador de Currículo"
+                width={800}
+                height={600}
+                className="w-full h-auto object-cover opacity-90 hover:opacity-100 transition-opacity"
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-white font-bold">Hoffby Resume Builder</h4>
+                    <p className="text-xs text-emerald-500">v2.0 Stable</p>
+                  </div>
+                  <div className="px-3 py-1 bg-emerald-500 text-black text-xs font-bold rounded">PREMIUM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// --- TOOLS CATALOG SECTION (NEW) ---
+const ToolsCatalog = () => {
+  const freeTools = [
+    { name: "Gerador de Senha", icon: Lock, bg: "bg-orange-500", text: "text-orange-500", href: "/ferramentas/gerador-de-senha" },
+    { name: "Paleta de Cores", icon: Palette, bg: "bg-pink-500", text: "text-pink-500", href: "/ferramentas/gerador-de-paletas" },
+    { name: "Removedor de Fundo", icon: Scissors, bg: "bg-blue-500", text: "text-blue-500", href: "#", comingSoon: true }
+  ];
+
+  return (
+    <section className="py-24 bg-[#050505] relative z-10 border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-black uppercase text-white tracking-widest mb-4">Ferramentas <span className="text-slate-500">Úteis</span></h2>
+          <p className="text-slate-400 text-sm">Utilitários gratuitos para acelerar seu dia a dia.</p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {freeTools.map((tool, idx) => (
+            <Link
+              href={tool.href}
+              key={idx}
+              className={`group relative bg-[#0E0E0E] border border-white/5 p-8 rounded-2xl hover:border-white/20 transition-all ${tool.comingSoon ? 'opacity-50 pointer-events-none' : ''}`}
+            >
+              <div className={`w-12 h-12 rounded-xl ${tool.bg}/10 flex items-center justify-center mb-6 ${tool.text} group-hover:scale-110 transition-transform`}>
+                <tool.icon size={24} />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">{tool.name}</h3>
+              <div className="flex items-center justify-between mt-4">
+                <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded border ${tool.comingSoon ? 'border-slate-700 text-slate-500' : 'border-white/10 text-slate-400 bg-white/5'} `}>
+                  {tool.comingSoon ? 'Em Breve' : 'Gratuito'}
+                </span>
+                {!tool.comingSoon && <ArrowRight size={16} className="text-white opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
 
 // --- AI POWERHOUSE ---
 const AIPowerhouse = () => {
@@ -888,6 +957,8 @@ export default function HoffbyPage() {
       <div className="relative z-10">
         <Navbar />
         <Hero />
+        <FeaturedProduct />
+        <ToolsCatalog />
         <AIPowerhouse />
         <Cases /> {/* Nova sessão inserida aqui */}
         <SolutionsBento />

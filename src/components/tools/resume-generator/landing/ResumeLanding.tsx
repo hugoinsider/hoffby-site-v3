@@ -7,7 +7,8 @@ import {
     ArrowRight, CheckCircle2, Download, FileJson, LayoutTemplate,
     Rocket, Sparkles, Star, ShieldCheck, Zap, ChevronDown,
     CreditCard, PenTool, MousePointerClick, Check,
-    Code2, Terminal, Cpu, Database, Award, UserCheck, Search, Users, X
+    Code2, Terminal, Cpu, Database, Award, UserCheck, Search, Users, X,
+    Briefcase, RefreshCw, Lock
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 
@@ -52,17 +53,17 @@ export function ResumeLanding() {
                 <div className="max-w-5xl mx-auto text-center relative z-10">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
                         <Sparkles size={14} />
-                        <span>Gerador Profissional</span>
+                        <span>currículo profissional</span>
                     </div>
 
                     <h1 className="text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
                         Crie Grátis. <br className="hidden md:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Pague Só Se Gostar.</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Pague Se Gostar.</span>
                     </h1>
 
                     <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
                         O gerador de currículos mais moderno do mercado.
-                        Preencha seus dados, visualize em tempo real e exporte em PDF de alta qualidade por um preço justo.
+                        Preencha seus dados, visualize em tempo real e pague apenas para baixar o PDF em alta qualidade.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
@@ -78,7 +79,7 @@ export function ResumeLanding() {
                             href="#pricing"
                             className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-medium transition-all"
                         >
-                            Ver Preços
+                            Ver Modelo
                         </Link>
                     </div>
 
@@ -89,13 +90,136 @@ export function ResumeLanding() {
                             <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Currículos Gerados</span>
                         </div>
                         <div className="flex flex-col items-center">
-                            <span className="text-2xl font-bold text-white mb-1">Instantâneo</span>
-                            <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Sem Cadastro</span>
+                            <span className="text-2xl font-bold text-white mb-1">R$ 5,00</span>
+                            <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Taxa Única</span>
                         </div>
                         <div className="flex flex-col items-center">
                             <span className="text-2xl font-bold text-white mb-1">4.9/5</span>
                             <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Avaliação</span>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* NEW SECTION 1: Target Audience */}
+            <section className="py-24 px-6 bg-[#080808] border-y border-white/5">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-black mb-4">Para quem?</h2>
+                        <p className="text-slate-400">Desenvolvemos cada detalhe pensando em profissionais de tecnologia.</p>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        <div className="p-8 rounded-2xl bg-[#0F0F0F] border border-white/5 hover:border-emerald-500/30 transition-all group">
+                            <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-6 group-hover:scale-110 transition-transform">
+                                <Rocket size={24} />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-3">Iniciantes (Júnior)</h3>
+                            <p className="text-sm text-slate-400 leading-relaxed">
+                                Está começando? Nossos modelos destacam projetos pessoais e skills, tirando o foco da falta de experiência formal.
+                            </p>
+                        </div>
+                        <div className="p-8 rounded-2xl bg-[#0F0F0F] border border-white/5 hover:border-cyan-500/30 transition-all group">
+                            <div className="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-500 mb-6 group-hover:scale-110 transition-transform">
+                                <Briefcase size={24} />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-3">Plenos & Sêniores</h3>
+                            <p className="text-sm text-slate-400 leading-relaxed">
+                                Estrutura densa que comporta histórico extenso sem poluição visual. Foco em impacto e métricas.
+                            </p>
+                        </div>
+                        <div className="p-8 rounded-2xl bg-[#0F0F0F] border border-white/5 hover:border-purple-500/30 transition-all group">
+                            <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500 mb-6 group-hover:scale-110 transition-transform">
+                                <RefreshCw size={24} />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-3">Transição de Carreira</h3>
+                            <p className="text-sm text-slate-400 leading-relaxed">
+                                Campos flexíveis para conectar suas habilidades anteriores com o novo mundo tech.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* NEW SECTION 2: Feature Grid */}
+            <section className="py-24 px-6 bg-[#050505] overflow-hidden">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid md:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <h2 className="text-3xl md:text-5xl font-black mb-8 leading-tight">
+                                Ferramentas poderosas para <span className="text-emerald-500">destacar você.</span>
+                            </h2>
+                            <div className="space-y-8">
+                                <div className="flex gap-4">
+                                    <div className="w-10 h-10 rounded-lg bg-[#111] border border-white/10 flex-shrink-0 flex items-center justify-center text-emerald-500">
+                                        <Zap size={20} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-lg font-bold text-white mb-1">Preview em Tempo Real</h4>
+                                        <p className="text-sm text-slate-400">Digite e veja a mudança na hora. Sem "f5", sem surpresas.</p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-4">
+                                    <div className="w-10 h-10 rounded-lg bg-[#111] border border-white/10 flex-shrink-0 flex items-center justify-center text-cyan-500">
+                                        <FileJson size={20} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-lg font-bold text-white mb-1">Exportação JSON</h4>
+                                        <p className="text-sm text-slate-400">Seus dados são seus. Baixe o JSON gratuitamente e importe quando quiser editar.</p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-4">
+                                    <div className="w-10 h-10 rounded-lg bg-[#111] border border-white/10 flex-shrink-0 flex items-center justify-center text-purple-500">
+                                        <ShieldCheck size={20} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-lg font-bold text-white mb-1">Privacidade Total</h4>
+                                        <p className="text-sm text-slate-400">Não vendemos seus dados. Tudo fica salvo no seu navegador (LocalStorage) até você limpar.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 blur-3xl opacity-30 rounded-full" />
+                            <div className="relative bg-[#0A0A0A] border border-white/10 rounded-3xl p-8 shadow-2xl">
+                                {/* Abstract UI Representation */}
+                                <div className="space-y-4 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+                                    <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                                        <div className="w-3 h-3 rounded-full bg-red-500/20" />
+                                        <div className="w-3 h-3 rounded-full bg-yellow-500/20" />
+                                        <div className="w-3 h-3 rounded-full bg-green-500/20" />
+                                    </div>
+                                    <div className="h-4 bg-white/10 rounded w-1/3" />
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="h-24 bg-white/5 rounded border border-white/5" />
+                                        <div className="h-24 bg-white/5 rounded border border-white/5" />
+                                    </div>
+                                    <div className="h-32 bg-white/5 rounded border border-white/5" />
+                                </div>
+                                <div className="absolute bottom-6 right-6">
+                                    <Link href="/ferramentas/gerador-curriculo/app" className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500 text-black font-bold rounded-lg text-sm hover:bg-emerald-400">
+                                        Testar Editor <ArrowRight size={14} />
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* NEW SECTION 3: Trust / Guarantee */}
+            <section className="py-20 px-6 bg-[#080808]">
+                <div className="max-w-4xl mx-auto text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#111] border border-white/10 text-emerald-500 mb-6">
+                        <Lock size={32} />
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-4">Pagamento Seguro & Garantido</h2>
+                    <p className="text-slate-400 max-w-xl mx-auto mb-8">
+                        Utilizamos processadores de pagamento líderes de mercado. Seu download é liberado instantaneamente após a confirmação do PIX. Se houver qualquer problema técnico com seu arquivo, devolvemos seu dinheiro.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-4 opacity-50">
+                        <div className="px-4 py-2 border border-white/10 rounded bg-[#111] text-xs font-mono text-slate-500">SSL ENCRYPTED</div>
+                        <div className="px-4 py-2 border border-white/10 rounded bg-[#111] text-xs font-mono text-slate-500">INSTANT DELIVERY</div>
+                        <div className="px-4 py-2 border border-white/10 rounded bg-[#111] text-xs font-mono text-slate-500">24/7 SUPPORT</div>
                     </div>
                 </div>
             </section>

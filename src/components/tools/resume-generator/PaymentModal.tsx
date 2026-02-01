@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal } from '../../Modal';
 import { QrCode, Copy, Check, Loader2, AlertCircle, ShieldCheck, Lock } from 'lucide-react';
 import { ResumeData } from './ResumeGenerator';
+import { cleanCPF, formatCPF, isValidCPF } from '@/lib/cpf';
 
 const copyToClipboard = async (text: string) => {
     try {
@@ -65,8 +66,8 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
     }, [isOpen, state.step, state.paymentId]);
 
     const handleCreatePayment = async () => {
-        if (cpf.length < 11) {
-            setState(prev => ({ ...prev, error: 'CPF inválido.' }));
+        if (!isValidCPF(cpf)) {
+            setState(prev => ({ ...prev, error: 'CPF inválido. Verifique os números.' }));
             return;
         }
 
@@ -79,7 +80,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
                 body: JSON.stringify({
                     name: data.personal.fullName || 'Cliente Hoffby',
                     email: data.personal.email || 'email@exemplo.com',
-                    cpf: cpf
+                    cpf: cleanCPF(cpf)
                 })
             });
 
@@ -153,10 +154,11 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
                         <label className="block text-xs font-bold uppercase text-slate-400 mb-2">Informe seu CPF (Para o Pix)</label>
                         <input
                             type="text"
-                            className="w-full bg-[#050505] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500"
+                            className="w-full bg-[#050505] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 font-mono tracking-wider"
                             placeholder="000.000.000-00"
                             value={cpf}
-                            onChange={(e) => setCpf(e.target.value)}
+                            maxLength={14}
+                            onChange={(e) => setCpf(formatCPF(e.target.value))}
                         />
                         {state.error && <p className="text-red-400 text-sm mt-2 flex items-center gap-1"><AlertCircle size={14} /> {state.error}</p>}
                     </div>

@@ -7,6 +7,15 @@ interface ResumePreviewProps {
 }
 
 export const ResumePreview = forwardRef<HTMLDivElement, ResumePreviewProps>(({ data }, ref) => {
+    const formatDate = (dateString: string) => {
+        if (!dateString) return '';
+        const [year, month] = dateString.split('-');
+        if (year && month) {
+            return `${month}/${year}`;
+        }
+        return dateString;
+    };
+
     return (
         <div className="bg-white text-slate-800 p-6 md:p-[2cm] shadow-2xl mx-auto w-full max-w-[21cm] min-h-[29.7cm] flex flex-col" ref={ref} id="resume-preview">
             <header className="border-b-2 border-slate-800 pb-5 mb-5">
@@ -62,7 +71,7 @@ export const ResumePreview = forwardRef<HTMLDivElement, ResumePreviewProps>(({ d
                                         <div className="flex justify-between items-baseline mb-0.5">
                                             <h3 className="font-bold text-slate-900">{exp.role}</h3>
                                             <span className="text-slate-500 text-xs font-medium">
-                                                {exp.startDate} - {exp.current ? 'Presente' : exp.endDate}
+                                                {formatDate(exp.startDate)} - {exp.current ? 'Presente' : formatDate(exp.endDate)}
                                             </span>
                                         </div>
                                         <div className="text-sm font-medium text-slate-700 mb-1.5">
@@ -131,7 +140,7 @@ export const ResumePreview = forwardRef<HTMLDivElement, ResumePreviewProps>(({ d
                                         <h3 className="font-bold text-slate-900 text-sm">{edu.institution}</h3>
                                         <p className="text-xs text-slate-600 mb-0.5">{edu.degree} em {edu.field}</p>
                                         <span className="text-slate-400 text-[10px] font-medium block">
-                                            {edu.startDate} - {edu.endDate}
+                                            {formatDate(edu.startDate)} - {formatDate(edu.endDate)}
                                         </span>
                                     </div>
                                 ))}

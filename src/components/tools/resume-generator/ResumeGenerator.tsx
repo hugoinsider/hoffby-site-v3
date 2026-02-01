@@ -7,6 +7,7 @@ import { ResumeAnalyzer } from './ResumeAnalyzer';
 import { PaymentModal } from './PaymentModal';
 import { JsonDocsModal } from './JsonDocsModal';
 import { Modal } from '../../Modal';
+import { cleanCPF, formatCPF, isValidCPF } from '@/lib/cpf';
 import { Trash2, Plus, Download, ChevronRight, ChevronLeft, Save, Sparkles, Check, AlertCircle, Copy, Share2, Printer, FileText, Send, Lock, Eye, EyeOff, CheckCircle, Upload, FileDown, Rocket, ArrowLeft, BrainCircuit, Target, MessageCircleMore, RotateCcw, CheckCircle2, FileJson, X, Info } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import Link from 'next/link';
@@ -236,11 +237,12 @@ export function ResumeGenerator() {
     };
 
     const handleConfirmSubscribe = async () => {
-        const cleanCpf = cpf.replace(/\D/g, '');
-        if (cleanCpf.length < 11) {
+        if (!isValidCPF(cpf)) {
             alert('Por favor, informe um CPF válido.');
             return;
         }
+
+        const cleanCpf = cleanCPF(cpf);
 
         setIsLoading(true);
         try {
@@ -726,15 +728,12 @@ export function ResumeGenerator() {
                                         <div>
                                             <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">CPF do Titular</label>
                                             <input
-                                                type="text" // using simple text for now, assume user types numbers
+                                                type="text"
                                                 value={cpf}
-                                                onChange={(e) => {
-                                                    // Simple mask logic or just limitation
-                                                    const v = e.target.value.replace(/\D/g, '');
-                                                    if (v.length <= 11) setCpf(v);
-                                                }}
+                                                onChange={(e) => setCpf(formatCPF(e.target.value))}
+                                                maxLength={14}
                                                 placeholder="000.000.000-00"
-                                                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-colors text-center text-lg tracking-widest"
+                                                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-colors text-center text-lg tracking-widest font-mono"
                                             />
                                         </div>
 

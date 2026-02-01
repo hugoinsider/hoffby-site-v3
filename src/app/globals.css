@@ -3,9 +3,10 @@
 :root {
   --background: #050505;
   --foreground: #ededed;
-  
+
   /* Neon Brutalist Palette */
-  --neon-green: #00F0FF; /* Using Cyan/Green mix for high voltage */
+  --neon-green: #00F0FF;
+  /* Using Cyan/Green mix for high voltage */
   --neon-purple: #B026FF;
   --acid-lime: #CCFF00;
   --deep-black: #000000;
@@ -19,13 +20,13 @@
   --color-neon-purple: var(--neon-purple);
   --color-acid-lime: var(--acid-lime);
   --color-deep-black: var(--deep-black);
-  
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  
+
   /* Brutalist Radii */
   --radius-none: 0px;
-  --radius-sm: 0px; 
+  --radius-sm: 0px;
   --radius-md: 0px;
   --radius-lg: 0px;
 }
@@ -88,4 +89,50 @@ body {
   outline: none;
   border-color: var(--neon-green);
   box-shadow: 2px 2px 0px var(--neon-green);
+}
+
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+
+  body {
+    background-color: white;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  /* Target all specific resume template IDs */
+  #resume-preview-modern,
+  #resume-preview-modern *,
+  #resume-preview-classic,
+  #resume-preview-classic *,
+  #resume-preview-minimal,
+  #resume-preview-minimal * {
+    visibility: visible;
+  }
+
+  #resume-preview-modern,
+  #resume-preview-classic,
+  #resume-preview-minimal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Safer for print */
+    height: 100%;
+    margin: 0;
+    padding: 1.5cm !important;
+    padding-top: 1cm !important;
+    box-shadow: none;
+    border: none;
+    z-index: 9999;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin-top: -450px;
+    /* Ensure padding doesn't overflow width */
+  }
 }

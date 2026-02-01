@@ -131,11 +131,6 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
     };
 
     const handleCreatePayment = async () => {
-        if (!isValidCPF(cpf)) {
-            setState(prev => ({ ...prev, error: 'CPF inválido. Verifique os números.' }));
-            return;
-        }
-
         // 100% Discount Flow
         if (coupon.valid && coupon.discountPercent === 100) {
             setState(prev => ({ ...prev, step: 'loading', error: null }));
@@ -159,6 +154,11 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
             } catch (error) {
                 setState(prev => ({ ...prev, step: 'cpf', error: 'Erro ao processar cupom.' }));
             }
+            return;
+        }
+
+        if (!isValidCPF(cpf)) {
+            setState(prev => ({ ...prev, error: 'CPF inválido. Verifique os números.' }));
             return;
         }
 
@@ -247,18 +247,8 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
                         </div>
                     </div>
 
+                    {/* Coupon Input - Moved to Top */}
                     <div>
-                        <label className="block text-xs font-bold uppercase text-slate-400 mb-2">Informe seu CPF (Para o Pix)</label>
-                        <input
-                            type="text"
-                            className="w-full bg-[#050505] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 font-mono tracking-wider mb-4"
-                            placeholder="000.000.000-00"
-                            value={cpf}
-                            maxLength={14}
-                            onChange={(e) => setCpf(formatCPF(e.target.value))}
-                        />
-
-                        {/* Coupon Input */}
                         <label className="block text-xs font-bold uppercase text-slate-400 mb-2 flex items-center gap-2">
                             <Tag size={12} /> Cupom de Desconto
                         </label>
@@ -284,9 +274,23 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
                                 {coupon.valid ? <Check size={12} /> : <AlertCircle size={12} />} {coupon.message}
                             </p>
                         )}
-
-                        {state.error && <p className="text-red-400 text-sm mt-2 flex items-center gap-1"><AlertCircle size={14} /> {state.error}</p>}
                     </div>
+
+                    {/* CPF Input - Only shown if not 100% free */}
+                    {!(coupon.valid && coupon.discountPercent === 100) && (
+                        <div>
+                            <label className="block text-xs font-bold uppercase text-slate-400 mb-2">Informe seu CPF (Para o Pix)</label>
+                            <input
+                                type="text"
+                                className="w-full bg-[#050505] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 font-mono tracking-wider mb-4"
+                                placeholder="000.000.000-00"
+                                value={cpf}
+                                maxLength={14}
+                                onChange={(e) => setCpf(formatCPF(e.target.value))}
+                            />
+                            {state.error && <p className="text-red-400 text-sm mt-2 flex items-center gap-1"><AlertCircle size={14} /> {state.error}</p>}
+                        </div>
+                    )}
 
                     <div className="py-4 border-t border-white/5 flex justify-between items-center text-sm">
                         <span className="text-slate-400">Total a pagar:</span>

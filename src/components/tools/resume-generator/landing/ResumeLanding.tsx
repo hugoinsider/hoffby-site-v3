@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
     ArrowRight, CheckCircle2, Download, FileJson, LayoutTemplate,
     Rocket, Sparkles, Star, ShieldCheck, Zap, ChevronDown,
@@ -223,38 +224,14 @@ export function ResumeLanding() {
                 <div className="grid md:grid-cols-3 gap-8">
                     {/* Template 1 - Modern */}
                     <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2 shadow-2xl">
-                        <div className="h-80 bg-[#151515] relative p-6 flex flex-col items-center justify-center overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            {/* Realistic Mini Resume UI */}
-                            <div className="w-full h-full bg-white shadow-xl rounded-sm p-4 text-[6px] text-slate-800 flex flex-col gap-2 transform group-hover:scale-105 transition-transform duration-500 origin-center">
-                                <div className="h-1 w-full bg-emerald-500 mb-1" />
-                                <div className="flex justify-between items-end border-b border-slate-100 pb-2">
-                                    <div>
-                                        <div className="h-2 w-20 bg-slate-900 rounded-sm mb-1" />
-                                        <div className="h-1.5 w-12 bg-emerald-600 rounded-sm" />
-                                    </div>
-                                    <div className="h-4 w-4 rounded-full bg-slate-200" />
-                                </div>
-                                <div className="grid grid-cols-3 gap-2 flex-1">
-                                    <div className="col-span-2 space-y-2">
-                                        <div className="h-1.5 w-full bg-slate-100" />
-                                        <div className="h-1.5 w-full bg-slate-100" />
-                                        <div className="h-10 bg-slate-50 rounded-sm border border-slate-100 p-1 space-y-1">
-                                            <div className="h-1.5 w-1/3 bg-slate-300" />
-                                            <div className="h-1 w-full bg-slate-200" />
-                                            <div className="h-1 w-full bg-slate-200" />
-                                        </div>
-                                    </div>
-                                    <div className="bg-slate-50 p-1 space-y-2">
-                                        <div className="h-1.5 w-10 bg-slate-300" />
-                                        <div className="flex flex-wrap gap-0.5">
-                                            <div className="h-1 w-6 bg-slate-800" />
-                                            <div className="h-1 w-5 bg-slate-800" />
-                                            <div className="h-1 w-7 bg-slate-800" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="h-80 bg-[#151515] relative overflow-hidden">
+                            <Image
+                                src="/gerador-curriculo/2026-02-01_00-29.png"
+                                alt="Modelo Moderno"
+                                fill
+                                className="object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-60" />
                         </div>
                         <div className="p-6">
                             <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Modern Tech <Zap size={16} className="text-emerald-500" /></h3>
@@ -264,25 +241,14 @@ export function ResumeLanding() {
 
                     {/* Template 2 - Classic */}
                     <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-2 shadow-2xl">
-                        <div className="h-80 bg-[#151515] relative p-6 flex flex-col items-center justify-center overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            {/* Realistic Mini Resume UI */}
-                            <div className="w-full h-full bg-white shadow-xl rounded-sm p-5 text-[6px] text-slate-800 flex flex-col gap-2 transform group-hover:scale-105 transition-transform duration-500 origin-center items-center text-center">
-                                <div className="h-2.5 w-32 bg-slate-900 mb-1 font-serif" />
-                                <div className="h-1.5 w-20 bg-slate-500 mb-2" />
-                                <div className="w-full h-px bg-slate-200 mb-2" />
-                                <div className="w-full text-left space-y-3">
-                                    <div className="space-y-1">
-                                        <div className="h-1.5 w-16 bg-slate-800" />
-                                        <div className="h-1 w-full bg-slate-100" />
-                                        <div className="h-1 w-full bg-slate-100" />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <div className="h-1.5 w-16 bg-slate-800" />
-                                        <div className="h-1 w-full bg-slate-100" />
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="h-80 bg-[#151515] relative overflow-hidden">
+                            <Image
+                                src="/gerador-curriculo/2026-02-01_00-29_1.png"
+                                alt="Modelo Clássico"
+                                fill
+                                className="object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-60" />
                         </div>
                         <div className="p-6">
                             <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Classic Executive <Award size={16} className="text-cyan-500" /></h3>
@@ -292,26 +258,14 @@ export function ResumeLanding() {
 
                     {/* Template 3 - Minimal */}
                     <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-white/30 transition-all duration-500 hover:-translate-y-2 shadow-2xl">
-                        <div className="h-80 bg-[#151515] relative p-6 flex flex-col items-center justify-center overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            {/* Realistic Mini Resume UI */}
-                            <div className="w-full h-full bg-white shadow-xl rounded-sm p-4 text-[6px] text-black flex flex-col gap-3 transform group-hover:scale-105 transition-transform duration-500 origin-center">
-                                <div className="h-3 w-24 bg-black mb-2" />
-                                <div className="grid grid-cols-2 gap-4 h-full">
-                                    <div className="space-y-2">
-                                        <div className="h-1.5 w-10 bg-gray-400" />
-                                        <div className="h-20 bg-gray-50 p-1" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <div className="h-1.5 w-10 bg-gray-400" />
-                                        <div className="flex flex-wrap gap-1">
-                                            <div className="h-1 w-5 border-b border-black" />
-                                            <div className="h-1 w-6 border-b border-black" />
-                                            <div className="h-1 w-4 border-b border-black" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="h-80 bg-[#151515] relative overflow-hidden">
+                            <Image
+                                src="/gerador-curriculo/2026-02-01_00-29_2.png"
+                                alt="Modelo Minimalista"
+                                fill
+                                className="object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-60" />
                         </div>
                         <div className="p-6">
                             <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Minimalist BW <LayoutTemplate size={16} className="text-white" /></h3>

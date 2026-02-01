@@ -1,7 +1,7 @@
 import Visualizer from "@/components/tools/logo-3d/Visualizer";
 
 export const metadata = {
-    title: "3D Logo Visualizer | HOFFBY Tools",
+    title: "3D Logo Visualizer | Hoffby tecnologia ltda",
     description: "Convert your 2D SVG/PNG logos into 3D metallic elements.",
 };
 

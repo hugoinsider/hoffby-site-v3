@@ -6,6 +6,7 @@ import { ResumePreview } from './ResumePreview';
 import { ResumeAnalyzer } from './ResumeAnalyzer';
 import { PaymentModal } from './PaymentModal';
 import { JsonDocsModal } from './JsonDocsModal';
+import { TemplateSelector } from './TemplateSelector';
 import { Modal } from '../../Modal';
 import { cleanCPF, formatCPF, isValidCPF } from '@/lib/cpf';
 import { Trash2, Plus, Download, ChevronRight, ChevronLeft, Save, Sparkles, Check, AlertCircle, Copy, Share2, Printer, FileText, Send, Lock, Eye, EyeOff, CheckCircle, Upload, FileDown, Rocket, ArrowLeft, BrainCircuit, Target, MessageCircleMore, RotateCcw, CheckCircle2, FileJson, X, Info } from 'lucide-react';
@@ -162,6 +163,7 @@ export function ResumeGenerator() {
     const [showPaymentModal, setShowPaymentModal] = useState(false);
     const [isExporting, setIsExporting] = useState(false);
     const [cpf, setCpf] = useState('');
+    const [template, setTemplate] = useState<'modern' | 'classic' | 'minimal'>('modern');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const printRef = useRef<HTMLDivElement>(null);
 
@@ -344,7 +346,7 @@ export function ResumeGenerator() {
                     Beta Tool
                 </div>
                 <h1 className="text-4xl md:text-5xl font-black mb-4 text-white tracking-tight">
-                    Gerador de <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Currículo Tech</span>
+                    Gerador de <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Currículo</span>
                 </h1>
                 <p className="text-slate-400 text-lg">
                     Focado em desenvolvedores de software, mas adaptável para profissionais de todas as áreas que buscam um design moderno e minimalista.
@@ -619,8 +621,12 @@ export function ResumeGenerator() {
                                         </button>
                                     </div>
                                 </div>
+
+                                <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
+                                    <TemplateSelector currentTemplate={template} onSelect={setTemplate} />
+                                </div>
                                 <div className="rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10">
-                                    <ResumePreview data={data} ref={printRef} />
+                                    <ResumePreview data={data} template={template} ref={printRef} />
                                 </div>
                             </div>
                         ) : !isBoostStep && !isAnalysisStep ? (

@@ -2,11 +2,11 @@ import { ResumeGenerator } from "@/components/tools/resume-generator/ResumeGener
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Gerador de Currículo Tech Grátis | Hoffby Tools",
+    title: "Gerador de Currículo Grátis | Hoffby tecnologia ltda",
     description: "Crie um currículo profissional focado em tecnologia e programação. Modelos gratuitos, sem cadastro, exportação PDF e JSON. Ideal para desenvolvedores Front-end, Back-end e Full-stack.",
-    keywords: ["gerador de currículo", "currículo tech", "currículo desenvolvedor", "tecnologia", "programador", "frontend", "backend", "grátis", "pdf", "json"],
+    keywords: ["gerador de currículo", "currículo", "currículo desenvolvedor", "tecnologia", "programador", "frontend", "backend", "grátis", "pdf", "json"],
     openGraph: {
-        title: "Gerador de Currículo Tech Grátis",
+        title: "Gerador de Currículo Grátis",
         description: "A ferramenta definitiva para criar currículos de tecnologia. Design minimalista e focado em resultados.",
         type: "website",
         locale: "pt_BR",

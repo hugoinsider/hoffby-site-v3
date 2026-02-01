@@ -154,8 +154,8 @@ const FeaturedProduct = () => {
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="text-white font-bold">Hoffby Resume Builder</h4>
-                    <p className="text-xs text-emerald-500">v2.0 Stable</p>
+                    <h4 className="text-white font-bold">Gerador de Currículo</h4>
+                    <p className="text-xs text-emerald-500">v1.0 Release</p>
                   </div>
                   <div className="px-3 py-1 bg-emerald-500 text-black text-xs font-bold rounded">PREMIUM</div>
                 </div>

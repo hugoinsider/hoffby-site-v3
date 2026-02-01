@@ -92,7 +92,7 @@ export function ResumeLanding() {
                 <div className="max-w-5xl mx-auto text-center relative z-10">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
                         <Sparkles size={14} />
-                        <span>currículo profissional</span>
+                        <span>v1.0 Release</span>
                     </div>
 
                     <h1 className="text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">

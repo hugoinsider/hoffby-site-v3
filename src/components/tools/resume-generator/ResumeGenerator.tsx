@@ -343,7 +343,7 @@ export function ResumeGenerator() {
                 <Logo className="w-24 h-24 relative z-10" />
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-4">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    currículo profissional
+                    v1.0 Release
                 </div>
                 <h1 className="text-4xl md:text-5xl font-black mb-4 text-white tracking-tight">
                     Gerador de <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Currículo</span>

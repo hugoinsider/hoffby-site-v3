@@ -36,3 +36,39 @@ create policy "Enable update for everyone" on boost_leads
 
 -- If you are using service_role key for the API, RLS is bypassed automatically. 
 -- But typically createServerClient uses the key from env which is usually ANON key.
+
+-- Create the table for Coupons
+create table if not exists coupons (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  code text not null,
+  discount_percent integer not null check (discount_percent >= 0 and discount_percent <= 100),
+  max_uses integer, -- null means unlimited
+  current_uses integer default 0,
+  active boolean default true
+);
+
+-- Unique constraint for code
+alter table coupons add constraint coupons_code_key unique (code);
+
+-- Enable RLS for Coupons
+alter table coupons enable row level security;
+
+-- Policies for Coupons
+create policy "Enable read for everyone" on coupons
+  for select using (true);
+
+-- Create the table for Coupon Usages (History)
+create table if not exists coupon_usages (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  coupon_id uuid references coupons(id) not null,
+  metadata jsonb -- store ip or other details
+);
+
+-- Enable RLS for Coupon Usages
+alter table coupon_usages enable row level security;
+
+-- Policies for Coupon Usages
+create policy "Enable insert for everyone" on coupon_usages
+  for insert with check (true);

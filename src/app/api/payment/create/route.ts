@@ -1,10 +1,12 @@
+
 import { NextResponse } from 'next/server';
 import { createCustomer, createPixCharge } from '../../services/asaas';
+import { createClient } from '@/lib/supabase-server';
 
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { name, email, cpf, type } = body;
+        const { name, email, cpf, type, coupon } = body;
 
         // Basic validation
         if (!name || !email || !cpf) {
@@ -24,6 +26,31 @@ export async function POST(req: Request) {
             );
         }
 
+        let finalValue = 5.00;
+
+        // Validate Coupon if present
+        if (coupon) {
+            const supabase = await createClient();
+            const { data: couponData, error: couponError } = await supabase
+                .from('coupons')
+                .select('*')
+                .eq('code', coupon.toUpperCase().trim())
+                .eq('active', true)
+                .single();
+
+            if (!couponError && couponData) {
+                // Check limits
+                if (couponData.max_uses === null || couponData.current_uses < couponData.max_uses) {
+                    const discount = couponData.discount_percent || 0;
+                    finalValue = 5.00 * (1 - discount / 100);
+
+                    // Ensure we don't charge 0 or negative via this route
+                    // (Zero case should be handled by frontend via register-usage, but just in case)
+                    if (finalValue < 0.01) finalValue = 0.01; // Minimum charge if not fully free
+                }
+            }
+        }
+
         // 1. Get or Create Customer
         const customerId = await createCustomer({
             name,
@@ -32,8 +59,7 @@ export async function POST(req: Request) {
         });
 
         // 2. Create Charge
-        // Value is R$ 5.00
-        const result = await createPixCharge(customerId, 5.00);
+        const result = await createPixCharge(customerId, finalValue);
 
         return NextResponse.json(result);
 
@@ -45,3 +71,4 @@ export async function POST(req: Request) {
         );
     }
 }
+

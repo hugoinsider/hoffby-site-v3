@@ -149,6 +149,37 @@ export async function POST(request: Request) {
             }, { status: 400 });
         }
 
+        // 3.5 Configure Automatic Invoice (NFS-e)
+        try {
+            // Get Municipal Service
+            const servicesReq = await fetch(`${ASAAS_API_URL}/invoices/municipalServices`, {
+                headers: { 'access_token': apiKey }
+            });
+            const servicesData = await servicesReq.json();
+
+            if (servicesData.data && servicesData.data.length > 0) {
+                const serviceId = servicesData.data[0].id;
+
+                await fetch(`${ASAAS_API_URL}/subscriptions/${subscriptionData.id}/invoiceSettings`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'access_token': apiKey
+                    },
+                    body: JSON.stringify({
+                        municipalServiceId: serviceId,
+                        effectiveDatePeriod: 'ON_PAYMENT_CONFIRMATION', // Issue when paid
+                        receivedOnly: true,
+                        daysBeforeDueDate: 0,
+                        observations: 'Emissão automática Hoffby Boost AI'
+                    })
+                });
+            }
+        } catch (invoiceError) {
+            console.error('Error configuring invoice settings:', invoiceError);
+            // Non-blocking error, continue
+        }
+
         // 4. Update Lead with Subscription ID 
         if (leadData && leadData.id) {
             await supabase.from('boost_leads').update({

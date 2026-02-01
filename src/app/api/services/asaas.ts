@@ -96,11 +96,80 @@ export async function getPaymentStatus(paymentId: string) {
         const payment = await response.json();
 
         return {
+            id: payment.id,
+            customerId: payment.customer,
+            value: payment.value,
             status: payment.status, // RECEIVED, CONFIRMED, OVERDUE, PENDING
             confirmed: payment.status === 'RECEIVED' || payment.status === 'CONFIRMED'
         };
     } catch (error) {
         console.error('Error in getPaymentStatus:', error);
         throw error;
+    }
+}
+
+interface CreateInvoiceDTO {
+    paymentId: string;
+    customerId: string;
+    value: number;
+    description?: string;
+}
+
+export async function createInvoice(data: CreateInvoiceDTO) {
+    try {
+        // 1. Get Municipal Service
+        // We assume the user has configured at least one service in their Asaas account.
+        const servicesResponse = await fetch(`${ASAAS_API_URL}/api/v3/invoices/municipalServices`, { headers });
+        const services = await servicesResponse.json();
+
+        if (!services.data || services.data.length === 0) {
+            console.warn('No municipal services found. Cannot emit invoice.');
+            return null; // Silent fail or throw? Better silent for now to not block flow, but log error.
+        }
+
+        // Use the first available service
+        const service = services.data[0];
+
+        // 2. Create Invoice
+        const invoiceResponse = await fetch(`${ASAAS_API_URL}/api/v3/invoices`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                payment: data.paymentId,
+                customer: data.customerId,
+                value: data.value,
+                serviceDescription: data.description || 'Serviços de Tecnologia',
+                municipalServiceId: service.id,
+                effectiveDate: new Date().toISOString().split('T')[0], // Today
+                observations: 'Emitido automaticamente por Hoffby'
+            })
+        });
+
+        const invoice = await invoiceResponse.json();
+
+        if (invoice.errors) {
+            console.error('Asaas Create Invoice Error:', invoice.errors);
+            // Don't throw to avoid breaking the payment confirmation flow visuals
+            return null;
+        }
+
+        return invoice;
+
+    } catch (error) {
+        console.error('Error in createInvoice:', error);
+        return null;
+    }
+}
+
+export async function checkInvoiceExists(paymentId: string) {
+    try {
+        const query = new URLSearchParams({ payment: paymentId });
+        const response = await fetch(`${ASAAS_API_URL}/api/v3/invoices?${query}`, { headers });
+        const result = await response.json();
+
+        return result.data && result.data.length > 0;
+    } catch (error) {
+        console.error('Error checking invoice:', error);
+        return false;
     }
 }

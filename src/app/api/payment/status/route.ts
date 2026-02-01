@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getPaymentStatus } from '../../services/asaas';
+import { getPaymentStatus, createInvoice, checkInvoiceExists } from '../../services/asaas';
 
 export async function GET(req: Request) {
     try {
@@ -14,6 +14,21 @@ export async function GET(req: Request) {
         }
 
         const result = await getPaymentStatus(paymentId);
+
+        // If payment confirmed, try to create invoice
+        if (result.confirmed) {
+            // Check if invoice already exists to avoid duplicates
+            const hasInvoice = await checkInvoiceExists(paymentId);
+
+            if (!hasInvoice) {
+                await createInvoice({
+                    paymentId: result.id,
+                    customerId: result.customerId,
+                    value: result.value,
+                    description: 'Download Currículo - Hoffby'
+                });
+            }
+        }
 
         return NextResponse.json(result);
 

@@ -223,53 +223,86 @@ export function ResumeLanding() {
 
                 <div className="grid md:grid-cols-3 gap-8">
                     {/* Template 1 - Modern */}
-                    <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2 shadow-2xl">
-                        <div className="h-80 bg-[#151515] relative overflow-hidden">
+                    <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2 shadow-2xl relative">
+                        <div className="h-96 bg-[#151515] relative overflow-hidden">
                             <Image
                                 src="/gerador-curriculo/2026-02-01_00-29.png"
                                 alt="Modelo Moderno"
                                 fill
-                                className="object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                                className="object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-60" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-90" />
+
+                            {/* Overlay Action */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/40 backdrop-blur-sm">
+                                <Link href="/ferramentas/gerador-curriculo/app" className="px-6 py-3 rounded-full bg-emerald-500 text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 flex items-center gap-2">
+                                    Usar este modelo <ArrowRight size={18} />
+                                </Link>
+                            </div>
                         </div>
-                        <div className="p-6">
-                            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Modern Tech <Zap size={16} className="text-emerald-500" /></h3>
-                            <p className="text-sm text-slate-400">Ideal para desenvolvedores e designers. Visual limpo com toques de cor estratégica.</p>
+                        <div className="p-6 absolute bottom-0 left-0 right-0">
+                            <div className="mb-3 flex flex-wrap gap-2">
+                                <span className="px-2 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold uppercase tracking-wider text-emerald-400">Tech</span>
+                                <span className="px-2 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold uppercase tracking-wider text-emerald-400">ATS Friendly</span>
+                            </div>
+                            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Modern Tech <Zap size={16} className="text-emerald-500 fill-emerald-500" /></h3>
+                            <p className="text-sm text-slate-400 line-clamp-2 group-hover:text-slate-300 transition-colors">Ideal para desenvolvedores e designers. Visual limpo com toques de cor estratégica para destacar skills.</p>
                         </div>
                     </div>
 
                     {/* Template 2 - Classic */}
-                    <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-2 shadow-2xl">
-                        <div className="h-80 bg-[#151515] relative overflow-hidden">
+                    <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-2 shadow-2xl relative">
+                        <div className="h-96 bg-[#151515] relative overflow-hidden">
                             <Image
                                 src="/gerador-curriculo/2026-02-01_00-29_1.png"
                                 alt="Modelo Clássico"
                                 fill
-                                className="object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                                className="object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-60" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-90" />
+
+                            {/* Overlay Action */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/40 backdrop-blur-sm">
+                                <Link href="/ferramentas/gerador-curriculo/app" className="px-6 py-3 rounded-full bg-cyan-500 text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 flex items-center gap-2">
+                                    Usar este modelo <ArrowRight size={18} />
+                                </Link>
+                            </div>
                         </div>
-                        <div className="p-6">
-                            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Classic Executive <Award size={16} className="text-cyan-500" /></h3>
-                            <p className="text-sm text-slate-400">Focado em hierarquia e legibilidade. Perfeito para cargos de gestão e corporativo.</p>
+                        <div className="p-6 absolute bottom-0 left-0 right-0">
+                            <div className="mb-3 flex flex-wrap gap-2">
+                                <span className="px-2 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-[10px] font-bold uppercase tracking-wider text-cyan-400">Executivo</span>
+                                <span className="px-2 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-[10px] font-bold uppercase tracking-wider text-cyan-400">Corporativo</span>
+                            </div>
+                            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Classic Executive <Award size={16} className="text-cyan-500 fill-cyan-500" /></h3>
+                            <p className="text-sm text-slate-400 line-clamp-2 group-hover:text-slate-300 transition-colors">Focado em hierarquia e legibilidade. Perfeito para cargos de gestão, financeiro e jurídico.</p>
                         </div>
                     </div>
 
                     {/* Template 3 - Minimal */}
-                    <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-white/30 transition-all duration-500 hover:-translate-y-2 shadow-2xl">
-                        <div className="h-80 bg-[#151515] relative overflow-hidden">
+                    <div className="group rounded-2xl bg-[#0F0F0F] border border-white/10 overflow-hidden hover:border-white/30 transition-all duration-500 hover:-translate-y-2 shadow-2xl relative">
+                        <div className="h-96 bg-[#151515] relative overflow-hidden">
                             <Image
                                 src="/gerador-curriculo/2026-02-01_00-29_2.png"
                                 alt="Modelo Minimalista"
                                 fill
-                                className="object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                                className="object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-60" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-90" />
+
+                            {/* Overlay Action */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/40 backdrop-blur-sm">
+                                <Link href="/ferramentas/gerador-curriculo/app" className="px-6 py-3 rounded-full bg-white text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 flex items-center gap-2">
+                                    Usar este modelo <ArrowRight size={18} />
+                                </Link>
+                            </div>
                         </div>
-                        <div className="p-6">
-                            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Minimalist BW <LayoutTemplate size={16} className="text-white" /></h3>
-                            <p className="text-sm text-slate-400">Preto e branco. Direto ao ponto. Máxima compatibilidade e elegância.</p>
+                        <div className="p-6 absolute bottom-0 left-0 right-0">
+                            <div className="mb-3 flex flex-wrap gap-2">
+                                <span className="px-2 py-1 rounded-md bg-white/10 border border-white/20 text-[10px] font-bold uppercase tracking-wider text-white">Universal</span>
+                                <span className="px-2 py-1 rounded-md bg-white/10 border border-white/20 text-[10px] font-bold uppercase tracking-wider text-white">Clean</span>
+                            </div>
+                            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">Minimalist BW <LayoutTemplate size={16} className="text-white fill-white" /></h3>
+                            <p className="text-sm text-slate-400 line-clamp-2 group-hover:text-slate-300 transition-colors">Preto e branco. Direto ao ponto. Máxima compatibilidade com qualquer sistema ou impressora.</p>
                         </div>
                     </div>
                 </div>

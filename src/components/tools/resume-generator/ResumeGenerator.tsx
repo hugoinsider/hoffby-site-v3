@@ -9,7 +9,7 @@ import { JsonDocsModal } from './JsonDocsModal';
 import { TemplateSelector } from './TemplateSelector';
 import { Modal } from '../../Modal';
 import { cleanCPF, formatCPF, isValidCPF } from '@/lib/cpf';
-import { Trash2, Plus, Download, ChevronRight, ChevronLeft, Save, Sparkles, Check, AlertCircle, Copy, Share2, Printer, FileText, Send, Lock, Eye, EyeOff, CheckCircle, Upload, FileDown, Rocket, ArrowLeft, BrainCircuit, Target, MessageCircleMore, RotateCcw, CheckCircle2, FileJson, X, Info } from 'lucide-react';
+import { Trash2, Plus, Download, ChevronRight, ChevronLeft, Save, Sparkles, Check, AlertCircle, Copy, Share2, Printer, FileText, Send, Lock, Eye, EyeOff, CheckCircle, Upload, FileDown, Rocket, ArrowLeft, BrainCircuit, Target, MessageCircleMore, RotateCcw, CheckCircle2, FileJson, X, Info, MessageCircle, ArrowRight } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import Link from 'next/link';
 
@@ -334,8 +334,8 @@ export function ResumeGenerator() {
     return (
         <div className="max-w-[1600px] mx-auto px-4 py-8 md:py-12">
             <div className="mb-8">
-                <Link href="/ferramentas" className="inline-flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors font-medium">
-                    <ArrowLeft size={16} /> Voltar para Ferramentas
+                <Link href="/ferramentas/gerador-curriculo" className="inline-flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors font-medium">
+                    <ArrowLeft size={16} /> Voltar para o Início
                 </Link>
             </div>
 
@@ -771,8 +771,37 @@ export function ResumeGenerator() {
                 </div>
             </div>
 
-            {/* Hidden spacer for visual balance */}
-            <div className="h-24"></div>
+            {/* Footer with More Tools */}
+            <footer className="mt-20 py-12 border-t border-white/5 text-center">
+                <div className="max-w-md mx-auto">
+                    <h4 className="text-white font-bold mb-2">Explore Mais</h4>
+                    <p className="text-slate-400 text-sm mb-6">Confira outras ferramentas gratuitas e premium para impulsionar sua carreira.</p>
+
+                    <Link href="/ferramentas" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0E0E0E] border border-white/10 hover:border-emerald-500/50 hover:text-emerald-500 transition-all text-sm font-bold group">
+                        Ver todas as ferramentas
+                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                </div>
+
+                <p className="text-slate-600 text-xs mt-12">
+                    &copy; {new Date().getFullYear()} Hoffby tecnologia ltda.
+                </p>
+            </footer>
+
+            {/* Floating WhatsApp Button */}
+            <a
+                href="https://wa.me/5564992263914?text=Olá,%20estou%20no%20app%20do%20Gerador%20de%20Currículo%20e%20preciso%20de%20ajuda."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#128C7E] rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 group"
+            >
+                <MessageCircle size={32} className="text-white" />
+                <span className="absolute right-full mr-4 bg-white text-black px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                    Suporte
+                </span>
+            </a>
+
+            <div className="h-24 md:hidden"></div>
 
             <JsonDocsModal isOpen={showJsonDocs} onClose={() => setShowJsonDocs(false)} />
 

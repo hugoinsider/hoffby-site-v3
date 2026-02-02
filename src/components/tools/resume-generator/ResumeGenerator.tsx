@@ -12,6 +12,7 @@ import { cleanCPF, formatCPF, isValidCPF } from '@/lib/cpf';
 import { Trash2, Plus, Download, ChevronRight, ChevronLeft, Save, Sparkles, Check, AlertCircle, Copy, Share2, Printer, FileText, Send, Lock, Eye, EyeOff, CheckCircle, Upload, FileDown, Rocket, ArrowLeft, BrainCircuit, Target, MessageCircleMore, RotateCcw, CheckCircle2, FileJson, X, Info, MessageCircle, ArrowRight, Loader2 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 export type ResumeData = {
     personal: {
@@ -152,6 +153,9 @@ const STEPS = [
 ];
 
 export function ResumeGenerator() {
+    const searchParams = useSearchParams();
+    const couponFromUrl = searchParams.get('coupon') || undefined;
+
     const [data, setData] = useState<ResumeData>(initialData);
     const [currentStep, setCurrentStep] = useState(0);
     const [lgpdConsent, setLgpdConsent] = useState(false);
@@ -887,6 +891,7 @@ export function ResumeGenerator() {
                 onClose={() => setShowPaymentModal(false)}
                 onSuccess={handlePaymentSuccess}
                 data={data}
+                initialCouponCode={couponFromUrl}
             />
 
             {/* Example Confirmation Modal */}

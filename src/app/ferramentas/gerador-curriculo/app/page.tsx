@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { ResumeGenerator } from "@/components/tools/resume-generator/ResumeGenerator";
 import { Metadata } from "next";
 
@@ -16,7 +17,9 @@ export const metadata: Metadata = {
 export default function ResumeGeneratorPage() {
     return (
         <div className="min-h-screen bg-[#050505] text-white">
-            <ResumeGenerator />
+            <Suspense fallback={<div className="p-10 text-center text-white">Carregando...</div>}>
+                <ResumeGenerator />
+            </Suspense>
         </div>
     );
 }

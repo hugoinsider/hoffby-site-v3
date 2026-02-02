@@ -19,6 +19,7 @@ interface PaymentModalProps {
     onClose: () => void;
     onSuccess: (paymentId?: string) => void;
     data: ResumeData;
+    initialCouponCode?: string;
 }
 
 interface PaymentState {
@@ -37,7 +38,7 @@ interface CouponState {
     isValidating: boolean;
 }
 
-export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalProps) {
+export function PaymentModal({ isOpen, onClose, onSuccess, data, initialCouponCode }: PaymentModalProps) {
     const [state, setState] = useState<PaymentState>({
         step: 'cpf',
         error: null,
@@ -72,15 +73,30 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
                 paymentId: null
             });
             setCpf('');
-            setCoupon({
-                code: '',
-                valid: false,
-                discountPercent: 0,
-                message: null,
-                isValidating: false
-            });
+
+            // If URL has coupon, set it
+            if (initialCouponCode) {
+                setCoupon({
+                    code: initialCouponCode.toUpperCase(),
+                    valid: false,
+                    discountPercent: 0,
+                    message: null,
+                    isValidating: true // Start valid state
+                });
+
+                // Small delay to allow state update then trigger validation
+                setTimeout(() => validateDirectly(initialCouponCode.toUpperCase()), 100);
+            } else {
+                setCoupon({
+                    code: '',
+                    valid: false,
+                    discountPercent: 0,
+                    message: null,
+                    isValidating: false
+                });
+            }
         }
-    }, [isOpen]);
+    }, [isOpen, initialCouponCode]);
 
     // Polling for Status
     useEffect(() => {
@@ -93,16 +109,15 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
         return () => clearInterval(interval);
     }, [isOpen, state.step, state.paymentId]);
 
-    const handleValidateCoupon = async () => {
-        if (!coupon.code) return;
-
-        setCoupon(prev => ({ ...prev, isValidating: true, message: null, error: null })); // clear previous msg
+    // Reusable validation function
+    const validateDirectly = async (codeToValidate: string) => {
+        if (!codeToValidate) return;
 
         try {
             const response = await fetch('/api/payment/validate-coupon', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code: coupon.code })
+                body: JSON.stringify({ code: codeToValidate })
             });
             const result = await response.json();
 
@@ -112,7 +127,8 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
                     valid: true,
                     discountPercent: result.discountPercent,
                     message: `Cupom aplicado! ${result.discountPercent}% OFF`,
-                    isValidating: false
+                    isValidating: false,
+                    code: codeToValidate // Ensure code is set
                 }));
             } else {
                 setCoupon(prev => ({
@@ -120,7 +136,8 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
                     valid: false,
                     discountPercent: 0,
                     message: result.message || 'Cupom inválido',
-                    isValidating: false
+                    isValidating: false,
+                    code: codeToValidate
                 }));
             }
         } catch (error) {
@@ -132,6 +149,10 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
                 isValidating: false
             }));
         }
+    };
+
+    const handleValidateCoupon = async () => {
+        await validateDirectly(coupon.code);
     };
 
     const handleCreatePayment = async () => {

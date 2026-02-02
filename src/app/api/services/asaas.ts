@@ -1,4 +1,4 @@
-export const ASAAS_API_URL = process.env.NEXT_PUBLIC_ASAAS_API_URL || 'https://www.asaas.com';
+export const ASAAS_API_URL = process.env.ASAAS_API_URL || 'https://www.asaas.com';
 export const ASAAS_API_KEY = process.env.ASAAS_API_KEY;
 
 if (!ASAAS_API_KEY) {

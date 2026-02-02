@@ -619,6 +619,12 @@ const FounderProfile = () => {
               </div>
 
               <div className="flex gap-4">
+                <Link href="/founder" className="p-3 rounded-full bg-white/5 hover:bg-[#A451FF] hover:text-white transition-all text-slate-400 group relative">
+                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-[#A451FF] text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                    Ver Bio Completa
+                  </div>
+                  <Users size={20} />
+                </Link>
                 <a href="https://www.linkedin.com/in/hugoinsider/" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 hover:bg-[#0077B5] hover:text-white transition-all text-slate-400">
                   <Linkedin size={20} />
                 </a>
@@ -728,6 +734,11 @@ const FAQ = () => {
     { q: "Quais tecnologias de IA vocês utilizam?", a: "Trabalhamos com o estado da arte: OpenAI (GPT-4), Claude 3, Gemini, além de frameworks open-source como Llama e Mistral via Ollama/HuggingFace." },
     { q: "Vocês criam SaaS do zero?", a: "Sim. Oferecemos o serviço de 'SaaS Factory', onde desenhamos, desenvolvemos e lançamos seu produto (MVP) pronto para receber assinantes." },
     { q: "Como funciona a IA para Ecommerce?", a: "Implementamos recomendação personalizada, busca inteligente (vetorial) e atendimento automatizado que entende contexto de vendas." },
+    { q: "O que define um 'Software de Elite'?", a: "Não entregamos apenas código funcional. Nosso foco é performance extrema, segurança nível bancário e arquitetura preparada para escalar milhões de usuários sem refatoração." },
+    { q: "Como a Hoffby garante segurança?", a: "Seguimos rigorosamente a LGPD e padrões OWASP Top 10. Dados criptografados em repouso e em trânsito, com auditorias constantes de vulnerabilidade." },
+    { q: "Vocês atendem projetos internacionais?", a: "Sim. Nossos engenheiros são bilíngues e experientes em fusos horários globais, já tendo entregue projetos para EUA e Europa." },
+    { q: "Qual o prazo médio de entrega?", a: "Depende da complexidade. Um MVP de Micro-SaaS pode levar 4-6 semanas, enquanto plataformas Enterprise podem levar 3-6 meses. Tudo começa na fase de Discovery." },
+    { q: "Existe suporte após o lançamento?", a: "Absolutamente. Oferecemos contratos de SLA (Nível de Serviço) para garantir que sua operação nunca pare, com monitoramento 24/7." }
   ];
 
   return (

@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Menu, X, ArrowRight, ChevronDown,
     Zap, Lock, Palette, FileText, LayoutTemplate,
-    ShoppingBag, Rocket
+    ShoppingBag, Rocket, User
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 
@@ -45,6 +45,7 @@ export const Navbar = () => {
             id: "company",
             children: [
                 { title: "Sobre Nós", desc: "Nossa história e DNA.", icon: LayoutTemplate, href: "/#legado" },
+                { title: "Fundador", desc: "Conheça Hugo Alves.", icon: User, href: "/founder" },
                 { title: "Cases", desc: "O que já construímos.", icon: Zap, href: "/#cases" },
                 { title: "Contato", desc: "Fale com nosso time.", icon: ArrowRight, href: "/#contato" },
             ]

@@ -17,6 +17,8 @@ interface CreateCustomerDTO {
 }
 
 export async function createCustomer(data: CreateCustomerDTO) {
+    console.log("Debug Key Prefix:", ASAAS_API_KEY?.substring(0, 10));
+    console.log("URL:", ASAAS_API_URL);
     try {
         // First try to find existing customer
         const query = new URLSearchParams({ cpfCnpj: data.cpfCnpj });
@@ -53,6 +55,8 @@ export async function createCustomer(data: CreateCustomerDTO) {
 }
 
 export async function createPixCharge(customerId: string, value: number) {
+    console.log("Debug Key Prefix:", ASAAS_API_KEY?.substring(0, 10));
+    console.log("URL:", ASAAS_API_URL);
     try {
         // 1. Create the payment
         const paymentResponse = await fetch(`${ASAAS_API_URL}/api/v3/payments`, {
@@ -91,6 +95,8 @@ export async function createPixCharge(customerId: string, value: number) {
 }
 
 export async function getPaymentStatus(paymentId: string) {
+    console.log("Debug Key Prefix:", ASAAS_API_KEY?.substring(0, 10));
+    console.log("URL:", ASAAS_API_URL);
     try {
         const response = await fetch(`${ASAAS_API_URL}/api/v3/payments/${paymentId}`, { headers });
         const payment = await response.json();
@@ -116,6 +122,8 @@ interface CreateInvoiceDTO {
 }
 
 export async function createInvoice(data: CreateInvoiceDTO) {
+    console.log("Debug Key Prefix:", ASAAS_API_KEY?.substring(0, 10));
+    console.log("URL:", ASAAS_API_URL);
     try {
         // 1. Get Municipal Service
         // We assume the user has configured at least one service in their Asaas account.
@@ -162,6 +170,8 @@ export async function createInvoice(data: CreateInvoiceDTO) {
 }
 
 export async function checkInvoiceExists(paymentId: string) {
+    console.log("Debug Key Prefix:", ASAAS_API_KEY?.substring(0, 10));
+    console.log("URL:", ASAAS_API_URL);
     try {
         const query = new URLSearchParams({ payment: paymentId });
         const response = await fetch(`${ASAAS_API_URL}/api/v3/invoices?${query}`, { headers });

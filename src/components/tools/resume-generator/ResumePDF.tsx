@@ -3,19 +3,37 @@ import { Page, Text, View, Document, StyleSheet, Font, Link, Svg, Path, Polyline
 import { ResumeData } from './ResumeGenerator';
 
 // Register standard fonts
-Font.register({
-    family: 'Lato',
-    fonts: [
-        { src: 'https://fonts.gstatic.com/s/lato/v20/S6uyw4BMUTPHjx4wXiWtFCc.ttf' }, // Regular
-        { src: 'https://fonts.gstatic.com/s/lato/v20/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.ttf', fontWeight: 'bold' } // Bold
-    ]
+// Register standard fonts
+// Font.register({
+//     family: 'Lato',
+//     fonts: [
+//         { src: 'https://fonts.gstatic.com/s/lato/v20/S6uyw4BMUTPHjx4wXiWtFCc.ttf' }, // Regular
+//         { src: 'https://fonts.gstatic.com/s/lato/v20/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.ttf', fontWeight: 'bold' } // Bold
+//     ]
+// });
+
+// --- COMMON STYLES ---
+const stylesCommon = StyleSheet.create({
+    watermark: {
+        position: 'absolute',
+        top: 300,
+        left: 100,
+        opacity: 0.15,
+        transform: 'rotate(-45deg)',
+    },
+    watermarkText: {
+        fontSize: 60,
+        color: '#ff0000',
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+    }
 });
 
 // --- STYLES FOR MODERN LAYOUT ---
 const stylesModern = StyleSheet.create({
     page: {
         padding: 40,
-        fontFamily: 'Lato',
+        fontFamily: 'Helvetica',
         fontSize: 10,
         color: '#1e293b', // slate-800
         backgroundColor: '#ffffff',
@@ -409,9 +427,17 @@ const stylesMinimal = StyleSheet.create({
 interface ResumePDFProps {
     data: ResumeData;
     template?: 'modern' | 'classic' | 'minimal';
+    isWatermarked?: boolean;
 }
 
-export const ResumePDF = ({ data, template = 'modern' }: ResumePDFProps) => {
+const Watermark = () => (
+    <View style={stylesCommon.watermark} fixed>
+        <Text style={stylesCommon.watermarkText}>SEM PAGAMENTO</Text>
+        <Text style={[stylesCommon.watermarkText, { fontSize: 30, textAlign: 'center' }]}>PREVIEW</Text>
+    </View>
+);
+
+export const ResumePDF = ({ data, template = 'modern', isWatermarked = false }: ResumePDFProps) => {
     const formatDate = (dateString: string) => {
         if (!dateString) return '';
         const [year, month] = dateString.split('-');
@@ -426,6 +452,7 @@ export const ResumePDF = ({ data, template = 'modern' }: ResumePDFProps) => {
     // 1. MODERN LAYOUT RENDERER
     const renderModern = () => (
         <Page size="A4" style={stylesModern.page}>
+            {isWatermarked && <Watermark />}
             <View style={stylesModern.headerTop} />
 
             <View style={stylesModern.header}>
@@ -536,6 +563,7 @@ export const ResumePDF = ({ data, template = 'modern' }: ResumePDFProps) => {
     // 2. CLASSIC LAYOUT RENDERER
     const renderClassic = () => (
         <Page size="A4" style={stylesClassic.page}>
+            {isWatermarked && <Watermark />}
             <View style={stylesClassic.header}>
                 <Text style={stylesClassic.name}>{data.personal.fullName || 'Seu Nome'}</Text>
                 <Text style={stylesClassic.role}>{data.personal.role || 'Seu Cargo'}</Text>
@@ -663,6 +691,7 @@ export const ResumePDF = ({ data, template = 'modern' }: ResumePDFProps) => {
     // 3. MINIMAL LAYOUT RENDERER
     const renderMinimal = () => (
         <Page size="A4" style={stylesMinimal.page}>
+            {isWatermarked && <Watermark />}
             <View style={stylesMinimal.header}>
                 <Text style={stylesMinimal.name}>{data.personal.fullName || 'Seu Nome'}</Text>
                 <Text style={stylesMinimal.role}>{data.personal.role || 'Seu Cargo'}</Text>

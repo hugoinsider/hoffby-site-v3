@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ResumeForm } from './ResumeForm';
 import { ResumePreview } from './ResumePreview';
 import { ResumeAnalyzer } from './ResumeAnalyzer';
@@ -9,7 +9,7 @@ import { JsonDocsModal } from './JsonDocsModal';
 import { TemplateSelector } from './TemplateSelector';
 import { Modal } from '../../Modal';
 import { cleanCPF, formatCPF, isValidCPF } from '@/lib/cpf';
-import { Trash2, Plus, Download, ChevronRight, ChevronLeft, Save, Sparkles, Check, AlertCircle, Copy, Share2, Printer, FileText, Send, Lock, Eye, EyeOff, CheckCircle, Upload, FileDown, Rocket, ArrowLeft, BrainCircuit, Target, MessageCircleMore, RotateCcw, CheckCircle2, FileJson, X, Info, MessageCircle, ArrowRight } from 'lucide-react';
+import { Trash2, Plus, Download, ChevronRight, ChevronLeft, Save, Sparkles, Check, AlertCircle, Copy, Share2, Printer, FileText, Send, Lock, Eye, EyeOff, CheckCircle, Upload, FileDown, Rocket, ArrowLeft, BrainCircuit, Target, MessageCircleMore, RotateCcw, CheckCircle2, FileJson, X, Info, MessageCircle, ArrowRight, Loader2 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import Link from 'next/link';
 
@@ -162,6 +162,9 @@ export function ResumeGenerator() {
     const [showExampleConfirm, setShowExampleConfirm] = useState(false);
     const [showPaymentModal, setShowPaymentModal] = useState(false);
     const [isExporting, setIsExporting] = useState(false);
+    const [isDownloading, setIsDownloading] = useState(false);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [isLoadingPreview, setIsLoadingPreview] = useState(false);
     const [cpf, setCpf] = useState('');
     const [template, setTemplate] = useState<'modern' | 'classic' | 'minimal'>('modern');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -207,10 +210,47 @@ export function ResumeGenerator() {
         linkElement.click();
     };
 
-    const handlePaymentSuccess = () => {
-        // Wait for modal to close (it has a timeout) then print
+    const handleDownloadPDF = async (paymentId?: string) => {
+        console.log('[ResumeGenerator] handleDownloadPDF called with paymentId:', paymentId);
+        setIsDownloading(true);
+        try {
+            const response = await fetch('/api/resume/download', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    resumeData: data,
+                    template: template,
+                    paymentId: paymentId // Ensure property exists even if undefined (though JSON.stringify omits undefined)
+                })
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `curriculo-hoffby-${paymentId ? 'final' : 'preview'}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            } else {
+                const err = await response.json();
+                alert('Erro ao gerar PDF: ' + (err.error || 'Tente novamente.'));
+            }
+        } catch (error) {
+            console.error('Download error:', error);
+            alert('Erro ao realizar download. Verifique sua conexão.');
+        } finally {
+            setIsDownloading(false);
+        }
+    };
+
+    const handlePaymentSuccess = (paymentId?: string) => {
+        // Wait for modal to close (it has a timeout) then download
         setTimeout(() => {
-            window.print();
+            console.log('[ResumeGenerator] handlePaymentSuccess timeout executing with paymentId:', paymentId);
+            handleDownloadPDF(paymentId);
         }, 500);
     };
 
@@ -312,6 +352,47 @@ export function ResumeGenerator() {
         }
     };
 
+    // Fetch Preview PDF when entering Preview Step
+    useEffect(() => {
+        if (currentStep === 6) {
+            const fetchPreview = async () => {
+                setIsLoadingPreview(true);
+                try {
+                    const response = await fetch('/api/resume/download', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            resumeData: data,
+                            template: template,
+                            // No paymentId = Watermarked Preview
+                        })
+                    });
+
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const url = window.URL.createObjectURL(blob);
+                        setPreviewUrl(prev => {
+                            if (prev) window.URL.revokeObjectURL(prev);
+                            return url;
+                        });
+                    }
+                } catch (error) {
+                    console.error("Error fetching preview", error);
+                } finally {
+                    setIsLoadingPreview(false);
+                }
+            };
+
+            fetchPreview();
+        }
+
+        // Cleanup function
+        return () => {
+            // We don't revoke here immediately to avoid flickering if re-rendering, 
+            // but ideally we cleanup when component unmounts or step changes significantly
+        };
+    }, [currentStep, data, template]);
+
     const nextStep = () => {
         if (currentStep < STEPS.length - 1) {
             setCurrentStep(s => s + 1);
@@ -333,25 +414,32 @@ export function ResumeGenerator() {
 
     return (
         <div className="max-w-[1600px] mx-auto px-4 py-8 md:py-12">
-            <div className="mb-8">
-                <Link href="/ferramentas/gerador-curriculo" className="inline-flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors font-medium">
-                    <ArrowLeft size={16} /> Voltar para o Início
-                </Link>
-            </div>
+            {/* Compact Header */}
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-[#0E0E0E]/80 backdrop-blur-md p-3 rounded-2xl border border-white/10 sticky top-4 z-50 shadow-2xl">
+                <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
+                    <div className="flex items-center gap-4">
+                        <Link href="/ferramentas/gerador-curriculo" className="group flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/50 text-slate-400 hover:text-emerald-400 transition-all" title="Voltar para o Início">
+                            <ArrowLeft size={18} className="group-hover:-translate-x-0.5 transition-transform" />
+                        </Link>
 
-            <header className="mb-12 text-center max-w-2xl mx-auto flex flex-col items-center">
-                <Logo className="w-24 h-24 relative z-10" />
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-4">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    v1.0 Release
+                        <div className="h-8 w-px bg-white/10 hidden md:block" />
+
+                        <div className="flex items-center gap-3">
+                            <Logo className="w-11 h-11" />
+                            {/* <h1 className="text-lg font-bold text-white hidden sm:block leading-tight">
+                                Hoffby <span className="text-slate-600 font-light mx-2">|</span> <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Gerador de Currículo</span>
+                            </h1> */}
+                        </div>
+                    </div>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-black mb-4 text-white tracking-tight">
-                    Gerador de <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Currículo</span>
-                </h1>
-                <p className="text-slate-400 text-lg">
-                    Focado em desenvolvedores de software, mas adaptável para profissionais de todas as áreas que buscam um design moderno e minimalista.
-                </p>
-            </header>
+
+                <div className="hidden md:flex items-center gap-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        v1.0 Release
+                    </div>
+                </div>
+            </div>
 
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
 
@@ -562,71 +650,26 @@ export function ResumeGenerator() {
 
                         {isPreviewStep ? (
                             <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
-                                <div id='resume-actions' className="flex flex-col md:flex-row gap-4 justify-between items-center bg-[#0E0E0E] p-6 rounded-2xl border border-white/5 mb-8 shadow-2xl">
-
-                                    <div className="flex items-center gap-4 w-full md:w-auto">
-                                        <button
-                                            onClick={prevStep}
-                                            className="px-4 py-2 rounded-lg text-slate-400 hover:text-white font-bold transition-colors flex items-center gap-2 border border-transparent hover:border-white/10 hover:bg-white/5"
-                                        >
-                                            <ChevronLeft size={18} /> Voltar
-                                        </button>
-                                        <div className="h-8 w-px bg-white/10 mx-2 hidden md:block" />
-                                        <button
-                                            onClick={() => setData(initialData)}
-                                            className="px-4 py-2 rounded-lg text-slate-500 hover:text-red-400 font-bold transition-colors text-xs uppercase tracking-wider hover:bg-red-500/5"
-                                        >
-                                            <div className="flex items-center gap-2">
-                                                <RotateCcw size={14} /> Resetar Tudo
-                                            </div>
-                                        </button>
-                                        <button
-                                            onClick={handleExportJSON}
-                                            className="px-4 py-2 rounded-lg text-slate-400 hover:text-white font-bold transition-colors text-xs uppercase tracking-wider hover:bg-white/5 border border-transparent hover:border-white/10"
-                                        >
-                                            <div className="flex items-center gap-2">
-                                                <FileDown size={14} /> Salvar JSON
-                                            </div>
-                                        </button>
-                                    </div>
-
-                                    <div className="flex flex-col md:flex-row gap-3 w-full md:w-auto">
-                                        <button
-                                            onClick={handleBoostClick}
-                                            disabled={isSubmittingLead}
-                                            className="group relative flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-purple-900/50 to-indigo-900/50 hover:from-purple-600 hover:to-indigo-600 text-white font-bold transition-all border border-purple-500/30 hover:border-purple-400/50 overflow-hidden"
-                                        >
-                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-
-                                            {isSubmittingLead ? (
-                                                <span className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                                            ) : (
-                                                <>
-                                                    <div className="p-1 bg-purple-500/20 rounded-lg group-hover:bg-white/20 transition-colors">
-                                                        <Rocket size={18} className="text-purple-300 group-hover:text-white" />
-                                                    </div>
-                                                    <span>Aplicar com I.A.</span>
-                                                </>
-                                            )}
-                                        </button>
-
-                                        <button
-                                            onClick={() => setShowPaymentModal(true)}
-                                            className="group relative flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-white font-bold transition-all shadow-[0_0_30px_-10px_rgba(16,185,129,0.5)] hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.7)]"
-                                        >
-                                            <div className="p-1 bg-black/10 rounded-lg group-hover:bg-transparent transition-colors">
-                                                <Download size={20} />
-                                            </div>
-                                            <span className="text-lg">Baixar PDF</span>
-                                        </button>
-                                    </div>
-                                </div>
+                                {/* Actions moved to footer */}
 
                                 <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
                                     <TemplateSelector currentTemplate={template} onSelect={setTemplate} />
                                 </div>
-                                <div className="rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10">
-                                    <ResumePreview data={data} template={template} ref={printRef} />
+                                <div className="rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10 min-h-[800px] bg-slate-900 flex items-center justify-center relative">
+                                    {isLoadingPreview ? (
+                                        <div className="flex flex-col items-center gap-4">
+                                            <Loader2 size={48} className="text-emerald-500 animate-spin" />
+                                            <p className="text-slate-400 font-medium">Gerando Preview...</p>
+                                        </div>
+                                    ) : previewUrl ? (
+                                        <iframe
+                                            src={`${previewUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                                            className="w-full h-[800px] border-none"
+                                            title="Resume Preview"
+                                        />
+                                    ) : (
+                                        <div className="text-slate-500">Erro ao carregar preview</div>
+                                    )}
                                 </div>
                             </div>
                         ) : !isBoostStep && !isAnalysisStep ? (
@@ -705,6 +748,40 @@ export function ResumeGenerator() {
                                     className="flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold transition-all shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.5)] group"
                                 >
                                     Ver Preview Final <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Custom Footer for Preview Step */}
+                        {isPreviewStep && (
+                            <div className="sticky bottom-0 z-20 mt-8 -mx-1 md:-mx-8 -mb-1 md:-mb-8 p-4 md:p-8 bg-[#0E0E0E]/90 backdrop-blur-xl border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 rounded-b-2xl shadow-2xl">
+                                <div className="flex items-center gap-4 order-2 md:order-1 w-full md:w-auto justify-between md:justify-start">
+                                    <button
+                                        onClick={prevStep}
+                                        className="text-slate-400 hover:text-white font-bold transition-colors flex items-center gap-2 px-4 py-2"
+                                    >
+                                        <ChevronLeft size={18} /> Voltar
+                                    </button>
+
+                                    <button
+                                        onClick={handleExportJSON}
+                                        className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-500 hover:text-emerald-400 hover:bg-emerald-400/5 transition-colors text-[10px] font-bold uppercase tracking-wider"
+                                        title="Salvar dados em JSON"
+                                    >
+                                        <FileJson size={14} /> JSON
+                                    </button>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider bg-amber-400/10 px-4 py-2 rounded-full border border-amber-400/20 order-1 md:order-2 animate-pulse">
+                                    <Info size={14} /> Marca d'água removida após pagamento
+                                </div>
+
+                                <button
+                                    onClick={() => setShowPaymentModal(true)}
+                                    className="order-3 flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold transition-all shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.5)] group w-full md:w-auto justify-center"
+                                >
+                                    <Download size={20} className="group-hover:-translate-y-0.5 transition-transform" />
+                                    <span>Baixar PDF Oficial</span>
                                 </button>
                             </div>
                         )}

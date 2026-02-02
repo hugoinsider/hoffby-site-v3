@@ -17,7 +17,7 @@ const copyToClipboard = async (text: string) => {
 interface PaymentModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onSuccess: () => void;
+    onSuccess: (paymentId?: string) => void;
     data: ResumeData;
 }
 
@@ -143,9 +143,10 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
                 });
 
                 if (response.ok) {
+                    const result = await response.json();
                     setState(prev => ({ ...prev, step: 'success' }));
                     setTimeout(() => {
-                        onSuccess();
+                        onSuccess(result.paymentId); // Gratis / Cupom com ID de uso
                         onClose();
                     }, 1500);
                 } else {
@@ -206,7 +207,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
             if (result.confirmed) {
                 setState(prev => ({ ...prev, step: 'success' }));
                 setTimeout(() => {
-                    onSuccess();
+                    onSuccess(state.paymentId!);
                     onClose();
                 }, 2000); // Wait 2s to show success message
             }

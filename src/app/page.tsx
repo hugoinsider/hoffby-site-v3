@@ -10,7 +10,8 @@ import {
   Bot, Layers, Gamepad2, Sparkles, Megaphone,
   BrainCircuit, Database, Workflow, Box, Scale, Diamond, Shield, FileText,
   CreditCard, Stethoscope, Users, CalendarCheck,
-  CheckSquare, Linkedin, Github, MapPin, Award, ShieldCheck, Palette, Scissors
+  CheckSquare, Linkedin, Github, MapPin, Award, ShieldCheck, Palette, Scissors,
+  QrCode, FileJson, Globe, Calculator, Building2
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import { Navbar } from '@/components/layout/Navbar';
@@ -168,12 +169,15 @@ const FeaturedProduct = () => {
   )
 }
 
-// --- TOOLS CATALOG SECTION (NEW) ---
+// --- TOOLS CATALOG SECTION (UPDATED) ---
 const ToolsCatalog = () => {
   const freeTools = [
     { name: "Gerador de Senha", icon: Lock, bg: "bg-orange-500", text: "text-orange-500", href: "/ferramentas/gerador-de-senha" },
     { name: "Paleta de Cores", icon: Palette, bg: "bg-pink-500", text: "text-pink-500", href: "/ferramentas/gerador-de-paletas" },
-    { name: "Removedor de Fundo", icon: Scissors, bg: "bg-blue-500", text: "text-blue-500", href: "#", comingSoon: true }
+    { name: "QR Code", icon: QrCode, bg: "bg-blue-500", text: "text-blue-500", href: "/ferramentas/gerador-qrcode" },
+    { name: "JSON Formatter", icon: FileJson, bg: "bg-yellow-500", text: "text-yellow-500", href: "/ferramentas/json-formatter" },
+    { name: "Meu IP", icon: Globe, bg: "bg-cyan-500", text: "text-cyan-500", href: "/ferramentas/meu-ip" },
+    { name: "Calc. Margem", icon: Calculator, bg: "bg-green-500", text: "text-green-500", href: "/ferramentas/calculadora-margem" },
   ];
 
   return (
@@ -181,29 +185,60 @@ const ToolsCatalog = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-black uppercase text-white tracking-widest mb-4">Ferramentas <span className="text-slate-500">Úteis</span></h2>
-          <p className="text-slate-400 text-sm">Utilitários gratuitos para acelerar seu dia a dia.</p>
+          <p className="text-slate-400 text-sm max-w-2xl mx-auto">
+            Utilitários gratuitos desenvolvidos para acelerar o dia a dia de devs e empreendedores.
+            Sem login, sem custo, privacidade total.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {freeTools.map((tool, idx) => (
             <Link
               href={tool.href}
               key={idx}
-              className={`group relative bg-[#0E0E0E] border border-white/5 p-8 rounded-2xl hover:border-white/20 transition-all ${tool.comingSoon ? 'opacity-50 pointer-events-none' : ''}`}
+              className="group relative bg-[#0E0E0E] border border-white/5 p-6 rounded-2xl hover:border-white/20 transition-all flex items-center gap-4"
             >
-              <div className={`w-12 h-12 rounded-xl ${tool.bg}/10 flex items-center justify-center mb-6 ${tool.text} group-hover:scale-110 transition-transform`}>
+              <div className={`w-12 h-12 rounded-xl ${tool.bg}/10 flex items-center justify-center ${tool.text} group-hover:scale-110 transition-transform`}>
                 <tool.icon size={24} />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">{tool.name}</h3>
-              <div className="flex items-center justify-between mt-4">
-                <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded border ${tool.comingSoon ? 'border-slate-700 text-slate-500' : 'border-white/10 text-slate-400 bg-white/5'} `}>
-                  {tool.comingSoon ? 'Em Breve' : 'Gratuito'}
-                </span>
-                {!tool.comingSoon && <ArrowRight size={16} className="text-white opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />}
+              <div>
+                <h3 className="text-lg font-bold text-white group-hover:text-[#00F26B] transition-colors">{tool.name}</h3>
+                <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Acessar Grátis</span>
               </div>
+              <ArrowRight size={16} className="text-slate-600 ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
             </Link>
           ))}
         </div>
+
+        {/* Call to Actions */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Ver Mais */}
+          <Link href="/ferramentas" className="group p-8 rounded-[30px] border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all flex flex-col items-center justify-center text-center">
+            <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white mb-4 group-hover:bg-[#A451FF] group-hover:scale-110 transition-all">
+              <Box size={20} />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">Ver Todas as Ferramentas</h3>
+            <p className="text-sm text-slate-400 mb-6 px-8">Explore nosso catálogo completo com mais de 20 utilitários gratuitos.</p>
+            <div className="text-xs font-bold uppercase tracking-widest text-[#A451FF] flex items-center gap-2 group-hover:gap-4 transition-all">
+              Explorar Catálogo <ArrowRight size={14} />
+            </div>
+          </Link>
+
+          {/* Criar Personalizada */}
+          <Link href="/#contato" className="group p-8 rounded-[30px] border border-dashed border-[#00F26B]/30 bg-[#00F26B]/5 hover:bg-[#00F26B]/10 transition-all flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#00F26B]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
+            <div className="w-12 h-12 rounded-full bg-[#00F26B]/10 flex items-center justify-center text-[#00F26B] mb-4 group-hover:scale-110 transition-transform relative z-10">
+              <Building2 size={20} />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2 relative z-10">Precisa de uma Ferramenta Exclusiva?</h3>
+            <p className="text-sm text-slate-400 mb-6 px-8 relative z-10">Criamos calculadoras, geradores e sistemas sob medida para o seu negócio engajar leads.</p>
+            <div className="text-xs font-bold uppercase tracking-widest text-[#00F26B] flex items-center gap-2 group-hover:gap-4 transition-all relative z-10">
+              Solicitar Orçamento <ArrowRight size={14} />
+            </div>
+          </Link>
+        </div>
+
       </div>
     </section>
   )

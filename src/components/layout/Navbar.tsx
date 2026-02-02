@@ -120,7 +120,7 @@ export const Navbar = () => {
                         href="/ferramentas/gerador-curriculo"
                         className="hidden lg:flex text-xs font-bold uppercase tracking-widest text-emerald-400 hover:text-emerald-300 mr-4"
                     >
-                        Gerador de CV
+                        Gerador de Currículo
                     </Link>
                     <button onClick={() => window.location.href = '/#contato'} className="flex items-center gap-2 px-5 py-2 rounded-full bg-white text-black text-[10px] font-black uppercase tracking-widest hover:bg-[#00F26B] transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(0,242,107,0.4)]">
                         Iniciar Projeto <ArrowRight className="w-3 h-3" />

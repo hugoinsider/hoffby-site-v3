@@ -3,14 +3,15 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/auth-context';
 import {
-    Loader2, LogOut, Zap, Lock, Vote,
+    Loader2, LogOut, Zap, Vote,
     ArrowRight, User, Building2, Layout,
-    FileText, ClipboardList, Database, Briefcase
+    FileText, ClipboardList, Database, Briefcase,
+    LucideIcon
 } from 'lucide-react';
 import Link from 'next/link';
 
 // Icon mapping helper
-const IconMap: any = {
+const IconMap: Record<string, LucideIcon> = {
     User: User,
     Building2: Building2,
     CRM: Database,
@@ -20,10 +21,22 @@ const IconMap: any = {
     SIGC: Briefcase
 };
 
+interface Tool {
+    id: string;
+    icon: string;
+    status: string;
+    title: string;
+    description: string;
+}
+
+interface ToolsData {
+    paid: Tool[];
+}
+
 export default function CustomerArea() {
     const { user, logout } = useAuth();
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<ToolsData | null>(null);
     const [votingState, setVotingState] = useState<Record<string, boolean>>({});
 
     useEffect(() => {
@@ -118,7 +131,7 @@ export default function CustomerArea() {
 
                 {/* Premium Tools Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-                    {data?.paid.map((tool: any) => {
+                    {data?.paid.map((tool) => {
                         const Icon = IconMap[tool.icon] || Zap;
                         return (
                             <div key={tool.id} className="group relative bg-[#0E0E0E] border border-white/5 rounded-[30px] p-10 overflow-hidden hover:border-[#CCFF00]/30 transition-all duration-500">

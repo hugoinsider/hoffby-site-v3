@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Lock, RefreshCw, CheckCircle2, XCircle, Hash, Shield, Copy, Check } from 'lucide-react';
+import { Lock, CheckCircle2, XCircle, Shield, Copy, Check } from 'lucide-react';
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
 import bcrypt from 'bcryptjs';

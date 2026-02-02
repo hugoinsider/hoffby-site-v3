@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Type, ArrowRightLeft, Copy, Check, Trash2 } from 'lucide-react';
+import { ArrowRightLeft, Copy, Check, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
 
@@ -18,7 +18,7 @@ export default function Base64Page() {
             } else {
                 setOutput(atob(input));
             }
-        } catch (e) {
+        } catch {
             setOutput('Error: Invalid Input');
         }
     };

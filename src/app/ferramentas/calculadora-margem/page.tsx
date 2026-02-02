@@ -39,45 +39,31 @@ export default function FinancialCalculatorPage() {
     // Expense Input State
     const [newExpenseName, setNewExpenseName] = useState('');
     const [newExpenseValue, setNewExpenseValue] = useState('');
-    const [newExpenseType, setNewExpenseType] = useState<any>('fixed');
+    const [newExpenseType, setNewExpenseType] = useState<Expense['type']>('fixed');
     const [newExpenseMode, setNewExpenseMode] = useState<'currency' | 'percent'>('currency');
     const [newExpenseQty, setNewExpenseQty] = useState('1');
 
     // Pricing States
     const [productCost, setProductCost] = useState<number>(0);
     const [desiredMargin, setDesiredMargin] = useState<number>(20); // %
-    const [markup, setMarkup] = useState<number>(0);
 
     // Results
-    const [results, setResults] = useState<any>(null);
+    interface Results {
+        totalRevenue?: number;
+        totalExpenses?: number;
+        netProfit?: number;
+        margin: string | number;
+        isPositive: boolean;
+        salePrice?: number;
+        profit?: number;
+        markup?: string | number;
+    }
+
+    const [results, setResults] = useState<Results | null>(null);
     const [showDonation, setShowDonation] = useState(false);
 
     // --- LOGIC ---
-    useEffect(() => {
-        calculateDRE();
-    }, [revenue, expenses, productCost, desiredMargin, mode]);
-
-    const addExpense = () => {
-        if (!newExpenseName || !newExpenseValue) return;
-        const newItem: Expense = {
-            id: Math.random().toString(36).substr(2, 9),
-            name: newExpenseName,
-            value: Number(newExpenseValue),
-            type: newExpenseType,
-            mode: newExpenseMode,
-            quantity: Number(newExpenseQty) || 1
-        };
-        setExpenses([...expenses, newItem]);
-        setNewExpenseName('');
-        setNewExpenseValue('');
-        setNewExpenseQty('1');
-    };
-
-    const removeExpense = (id: string) => {
-        setExpenses(expenses.filter(e => e.id !== id));
-    };
-
-    const calculateDRE = () => {
+    const calculateDRE = React.useCallback(() => {
         let totalAbsoluteExpenses = 0;
         let totalPercentage = 0;
 
@@ -141,6 +127,30 @@ export default function FinancialCalculatorPage() {
                 isPositive: true
             });
         }
+    }, [expenses, mode, revenue, productCost, desiredMargin]);
+
+    useEffect(() => {
+        calculateDRE();
+    }, [calculateDRE]);
+
+    const addExpense = () => {
+        if (!newExpenseName || !newExpenseValue) return;
+        const newItem: Expense = {
+            id: Math.random().toString(36).substr(2, 9),
+            name: newExpenseName,
+            value: Number(newExpenseValue),
+            type: newExpenseType,
+            mode: newExpenseMode,
+            quantity: Number(newExpenseQty) || 1
+        };
+        setExpenses([...expenses, newItem]);
+        setNewExpenseName('');
+        setNewExpenseValue('');
+        setNewExpenseQty('1');
+    };
+
+    const removeExpense = (id: string) => {
+        setExpenses(expenses.filter(e => e.id !== id));
     };
 
     const chartData = EXPENSE_TYPES.map(type => {
@@ -329,7 +339,7 @@ export default function FinancialCalculatorPage() {
                                         <label className="text-[10px] uppercase font-bold text-slate-500 mb-2 block tracking-widest">Categoria</label>
                                         <select
                                             value={newExpenseType}
-                                            onChange={(e) => setNewExpenseType(e.target.value)}
+                                            onChange={(e) => setNewExpenseType(e.target.value as Expense['type'])}
                                             className="w-full bg-[#050505] border border-white/10 rounded-xl px-4 py-4 text-slate-400 text-xs outline-none h-[54px] appearance-none"
                                         >
                                             {EXPENSE_TYPES.map(t => <option key={t.value} value={t.value}>{t.label.split(' ')[0]}</option>)}

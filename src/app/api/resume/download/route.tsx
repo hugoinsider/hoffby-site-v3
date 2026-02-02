@@ -127,7 +127,7 @@ export async function POST(req: Request) {
                 data: resumeData,
                 template: template,
                 isWatermarked: isWatermarked
-            })
+            }) as any
         );
 
         return new NextResponse(stream as unknown as BodyInit, {
@@ -137,10 +137,11 @@ export async function POST(req: Request) {
             },
         });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('PDF Generation Error:', error);
+        const message = error instanceof Error ? error.message : String(error);
         return NextResponse.json(
-            { error: 'Erro ao gerar PDF: ' + error.message },
+            { error: 'Erro ao gerar PDF: ' + message },
             { status: 500 }
         );
     }

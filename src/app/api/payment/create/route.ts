@@ -26,7 +26,7 @@ export async function POST(req: Request) {
             );
         }
 
-        let finalValue = 5.00;
+        let finalValue = 10.00;
 
         // Validate Coupon if present
         if (coupon) {
@@ -42,13 +42,20 @@ export async function POST(req: Request) {
                 // Check limits
                 if (couponData.max_uses === null || couponData.current_uses < couponData.max_uses) {
                     const discount = couponData.discount_percent || 0;
-                    finalValue = 5.00 * (1 - discount / 100);
+                    finalValue = 10.00 * (1 - discount / 100);
 
-                    // Ensure we don't charge 0 or negative via this route
-                    // (Zero case should be handled by frontend via register-usage, but just in case)
-                    if (finalValue < 0.01) finalValue = 0.01; // Minimum charge if not fully free
+                    // Ensure we don't charge 0 via this route (handled by register-usage)
+                    if (finalValue < 0.01) finalValue = 0.00;
                 }
             }
+        }
+
+        // Asaas Validation
+        if (finalValue > 0 && finalValue < 5.00) {
+            return NextResponse.json(
+                { error: 'Devido a regras bancárias, o valor mínimo da cobrança deve ser R$ 5,00.' },
+                { status: 400 }
+            );
         }
 
         // 1. Get or Create Customer

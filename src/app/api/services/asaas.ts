@@ -58,24 +58,32 @@ export async function createPixCharge(customerId: string, value: number) {
     console.log("Debug Key Prefix:", ASAAS_API_KEY?.substring(0, 10));
     console.log("URL:", ASAAS_API_URL);
     try {
+
+        console.log("Customer ID:", customerId);
+        console.log("Value:", value);
+
+        const payload = {
+            customer: customerId,
+            billingType: 'PIX',
+            value: value,
+            dueDate: new Date().toISOString().split('T')[0], // Due today
+            description: 'Download Currículo - Hoffby'
+        }
+
+        console.log("Payload:", payload);
+
         // 1. Create the payment
         const paymentResponse = await fetch(`${ASAAS_API_URL}/api/v3/payments`, {
             method: 'POST',
             headers,
-            body: JSON.stringify({
-                customer: customerId,
-                billingType: 'PIX',
-                value: value,
-                dueDate: new Date().toISOString().split('T')[0], // Due today
-                description: 'Download Currículo - Hoffby'
-            })
+            body: JSON.stringify(payload)
         });
 
         const payment = await paymentResponse.json();
 
-        if (payment.errors) {
-            console.error('Asaas Create Payment Error:', payment.errors);
-            throw new Error(payment.errors[0].description);
+        if (payment?.errors) {
+            console.error('Asaas Create Payment Error:', payment?.errors);
+            throw new Error(payment?.errors?.[0]?.description);
         }
 
         // 2. Get Pix QR Code

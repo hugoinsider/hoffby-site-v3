@@ -591,7 +591,7 @@ export function ResumeGenerator() {
                                                 <span className="text-slate-500 font-medium mb-1">/ano</span>
                                             </div>
                                             <p className="text-emerald-400 text-sm font-bold mt-2 bg-emerald-500/10 inline-block px-3 py-1 rounded-full border border-emerald-500/20">
-                                                Menos de R$ 5,00 por mês
+                                                Menos de R$ 10,00 por mês
                                             </p>
                                         </div>
 

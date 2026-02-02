@@ -129,7 +129,7 @@ export function ResumeLanding() {
                             <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Currículos Gerados</span>
                         </div>
                         <div className="flex flex-col items-center">
-                            <span className="text-2xl font-bold text-white mb-1">R$ 5,00</span>
+                            <span className="text-2xl font-bold text-white mb-1">R$ 10,00</span>
                             <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Taxa Única</span>
                         </div>
                         <div className="flex flex-col items-center">
@@ -316,7 +316,7 @@ export function ResumeLanding() {
                             </div>
                             <h3 className="text-xl font-bold mb-3">3. Baixe</h3>
                             <p className="text-slate-400 text-sm leading-relaxed px-4">
-                                Pague apenas uma taxa única de R$ 5,00 para baixar seu PDF sem marca d'água.
+                                Pague apenas uma taxa única de R$ 10,00 para baixar seu PDF sem marca d'água.
                             </p>
                         </div>
                     </div>
@@ -362,7 +362,7 @@ export function ResumeLanding() {
                                 </tr>
                                 <tr>
                                     <td className="p-4 text-slate-300 font-medium">Custo</td>
-                                    <td className="p-4 bg-[#111] rounded-b-xl text-center font-bold text-white">R$ 5,00 (Único)</td>
+                                    <td className="p-4 bg-[#111] rounded-b-xl text-center font-bold text-white">R$ 10,00 (Único)</td>
                                     <td className="p-4 text-center text-slate-500">Assinatura Mensal</td>
                                     <td className="p-4 text-center text-slate-500">Grátis</td>
                                 </tr>
@@ -641,7 +641,7 @@ export function ResumeLanding() {
                         {[
                             {
                                 q: "Preciso pagar para testar?",
-                                a: "Não! A criação, edição e visualização do currículo são 100% gratuitas. Você só paga R$ 5,00 se gostar do resultado e quiser baixar o arquivo final em PDF."
+                                a: "Não! A criação, edição e visualização do currículo são 100% gratuitas. Você só paga R$ 10,00 se gostar do resultado e quiser baixar o arquivo final em PDF."
                             },
                             {
                                 q: "Posso editar depois de baixar?",

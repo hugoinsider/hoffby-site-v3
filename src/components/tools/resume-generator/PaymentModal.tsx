@@ -57,6 +57,10 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
         isValidating: false
     });
 
+    // Calculate price (Moved up for access in handlers)
+    const basePrice = 10.00;
+    const finalPrice = coupon.valid ? (basePrice * (1 - coupon.discountPercent / 100)) : basePrice;
+
     // Reset state when opening
     useEffect(() => {
         if (isOpen) {
@@ -131,8 +135,9 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
     };
 
     const handleCreatePayment = async () => {
-        // 100% Discount Flow
-        if (coupon.valid && coupon.discountPercent === 100) {
+        // 100% Discount Flow OR Low Value Flow (Asaas min is R$ 5.00)
+        // Check if fully free
+        if (coupon.valid && (coupon.discountPercent === 100 || finalPrice === 0)) {
             setState(prev => ({ ...prev, step: 'loading', error: null }));
             try {
                 // Register Usage
@@ -160,6 +165,12 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
 
         if (!isValidCPF(cpf)) {
             setState(prev => ({ ...prev, error: 'CPF inválido. Verifique os números.' }));
+            return;
+        }
+
+        // Min Value Validation (Asaas Rule)
+        if (finalPrice > 0 && finalPrice < 5.00) {
+            setState(prev => ({ ...prev, error: 'O valor com desconto não pode ser menor que R$ 5,00 (Regra do Banco).' }));
             return;
         }
 
@@ -225,8 +236,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
     };
 
     // Calculate final price display
-    const basePrice = 5.00;
-    const finalPrice = coupon.valid ? (basePrice * (1 - coupon.discountPercent / 100)) : basePrice;
+    // MOVED TOP
 
     return (
         <Modal
@@ -243,7 +253,7 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data }: PaymentModalP
                         <div>
                             <p className="text-emerald-100 font-bold mb-1">Liberação Imediata</p>
                             <p className="text-emerald-200/70 text-sm">
-                                Para baixar seu currículo profissional em PDF de alta qualidade, é necessário uma taxa única.
+                                Para baixar seu currículo profissional em PDF de alta qualidade, é necessário uma taxa única de R$ 10,00.
                             </p>
                         </div>
                     </div>

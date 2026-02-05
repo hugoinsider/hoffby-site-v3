@@ -1,8 +1,16 @@
 import Link from 'next/link';
-import { Shield, QrCode, Globe, Key, ArrowRight, Lock, Sparkles, User, Building2, Map, Gamepad2, Fingerprint, Code2, Code, Braces, Smartphone, Type, FileCheck, Hash, Binary, Link2, Palette, DollarSign, Box } from 'lucide-react';
+import { Shield, QrCode, Globe, Key, ArrowRight, Lock, Sparkles, User, Building2, Map, Gamepad2, Fingerprint, Code2, Code, Braces, Smartphone, Type, FileCheck, Hash, Binary, Link2, Palette, DollarSign, Box, GraduationCap } from 'lucide-react';
 
 export default function ToolsHubPage() {
     const tools = [
+        {
+            title: "Plataforma de Cursos",
+            desc: "Plataforma de cursos premium para desenvolvedores de elite. Do Zero ao Fullstack.",
+            href: "/plataforma/login",
+            icon: GraduationCap,
+            color: "text-indigo-500",
+            bg: "bg-indigo-500/10"
+        },
         {
             title: "Gerador de Senha",
             desc: "Crie senhas fortes e seguras com entropia máxima para proteger suas contas.",

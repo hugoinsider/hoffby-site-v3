@@ -11,7 +11,7 @@ import {
   BrainCircuit, Database, Workflow, Box, Scale, Diamond, Shield, FileText,
   CreditCard, Stethoscope, Users, CalendarCheck,
   CheckSquare, Linkedin, Github, MapPin, Award, ShieldCheck, Palette, Scissors,
-  QrCode, FileJson, Globe, Calculator, Building2
+  QrCode, FileJson, Globe, Calculator, Building2, GraduationCap
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import { Navbar } from '@/components/layout/Navbar';
@@ -172,6 +172,7 @@ const FeaturedProduct = () => {
 // --- TOOLS CATALOG SECTION (UPDATED) ---
 const ToolsCatalog = () => {
   const freeTools = [
+    { name: "Plataforma de Cursos", icon: GraduationCap, bg: "bg-indigo-500", text: "text-indigo-500", href: "/plataforma/login" },
     { name: "Gerador de Currículo", icon: FileText, bg: "bg-emerald-500", text: "text-emerald-500", href: "/ferramentas/gerador-curriculo" },
     { name: "Gerador de Senha", icon: Lock, bg: "bg-orange-500", text: "text-orange-500", href: "/ferramentas/gerador-de-senha" },
     { name: "Paleta de Cores", icon: Palette, bg: "bg-pink-500", text: "text-pink-500", href: "/ferramentas/gerador-de-paletas" },

@@ -172,6 +172,7 @@ const FeaturedProduct = () => {
 // --- TOOLS CATALOG SECTION (UPDATED) ---
 const ToolsCatalog = () => {
   const freeTools = [
+    { name: "Gerador de Currículo", icon: FileText, bg: "bg-emerald-500", text: "text-emerald-500", href: "/ferramentas/gerador-curriculo" },
     { name: "Gerador de Senha", icon: Lock, bg: "bg-orange-500", text: "text-orange-500", href: "/ferramentas/gerador-de-senha" },
     { name: "Paleta de Cores", icon: Palette, bg: "bg-pink-500", text: "text-pink-500", href: "/ferramentas/gerador-de-paletas" },
     { name: "QR Code", icon: QrCode, bg: "bg-blue-500", text: "text-blue-500", href: "/ferramentas/gerador-qrcode" },

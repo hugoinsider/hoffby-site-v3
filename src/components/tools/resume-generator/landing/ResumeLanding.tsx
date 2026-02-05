@@ -68,7 +68,9 @@ export function ResumeLanding() {
             <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl">
                 <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <Logo className="w-18 h-18" />
+                        <Link href="/">
+                            <Logo className="w-18 h-18" />
+                        </Link>
                         {/* <span className="font-bold text-xl tracking-tight hidden md:block">
                             Hoffby <span className="text-emerald-500">Tools</span>
                         </span> */}
@@ -133,8 +135,11 @@ export function ResumeLanding() {
                             <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Currículos Gerados</span>
                         </div>
                         <div className="flex flex-col items-center">
-                            <span className="text-2xl font-bold text-white mb-1">R$ 10,00</span>
-                            <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Taxa Única</span>
+                            <div className="flex items-center gap-2">
+                                <span className="text-sm text-slate-500 line-through decoration-red-500/50">R$ 14,90</span>
+                                <span className="text-2xl font-bold text-emerald-400 mb-1">R$ 10,00</span>
+                            </div>
+                            <span className="text-xs text-emerald-500 uppercase tracking-widest font-bold bg-emerald-500/10 px-2 py-0.5 rounded">30% OFF</span>
                         </div>
                         <div className="flex flex-col items-center">
                             <span className="text-2xl font-bold text-white mb-1">4.9/5</span>
@@ -599,9 +604,15 @@ export function ResumeLanding() {
 
                             <div className="mb-6">
                                 <h3 className="text-2xl font-bold text-white">Download Premium</h3>
-                                <div className="mt-4 flex items-baseline gap-1">
-                                    <span className="text-5xl font-black text-emerald-400">R$ 10</span>
-                                    <span className="text-lg text-slate-500 font-medium">/download</span>
+                                <div className="mt-4">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <span className="text-lg text-slate-500 line-through decoration-red-500/50 font-medium">R$ 14,90</span>
+                                        <span className="text-xs font-bold bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">30% OFF</span>
+                                    </div>
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-5xl font-black text-emerald-400">R$ 10</span>
+                                        <span className="text-lg text-slate-500 font-medium">/download</span>
+                                    </div>
                                 </div>
                                 <p className="mt-4 text-emerald-100/60 text-sm leading-relaxed">
                                     O arquivo final em alta qualidade, pronto para enviar.

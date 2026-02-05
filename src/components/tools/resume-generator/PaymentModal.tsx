@@ -327,6 +327,9 @@ export function PaymentModal({ isOpen, onClose, onSuccess, data, initialCouponCo
                     <div className="py-4 border-t border-white/5 flex justify-between items-center text-sm">
                         <span className="text-slate-400">Total a pagar:</span>
                         <div className="text-right">
+                            {!coupon.valid && (
+                                <span className="block text-xs text-slate-500 line-through">De R$ 14,90 por</span>
+                            )}
                             {coupon.valid && coupon.discountPercent > 0 && (
                                 <span className="block text-xs text-slate-500 line-through">R$ {basePrice.toFixed(2).replace('.', ',')}</span>
                             )}

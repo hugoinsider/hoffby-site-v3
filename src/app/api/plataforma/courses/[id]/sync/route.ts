@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase-server';
 import { NextResponse } from 'next/server';
 
-export async function POST(request: Request, { params }: { params: { id: string } }) {
+export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
@@ -12,7 +12,8 @@ export async function POST(request: Request, { params }: { params: { id: string 
     try {
         const json = await request.json();
         const { modules, deletedModuleIds, deletedLessonIds } = json;
-        const courseId = params.id;
+        // Await the params for Next.js 15 compat
+        const { id: courseId } = await params;
 
         // 1. Handle Deletions
         if (deletedLessonIds && deletedLessonIds.length > 0) {

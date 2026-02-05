@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { ResumeLanding } from "@/components/tools/resume-generator/landing/ResumeLanding";
 import { Metadata } from "next";
 
@@ -14,5 +15,9 @@ export const metadata: Metadata = {
 };
 
 export default function ResumeGeneratorLandingPage() {
-    return <ResumeLanding />;
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-[#050505]" />}>
+            <ResumeLanding />
+        </Suspense>
+    );
 }

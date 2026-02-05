@@ -685,37 +685,37 @@ export function ResumeGenerator() {
                             <div className="sticky bottom-0 z-20 mt-8 -mx-1 md:-mx-8 -mb-1 md:-mb-8 p-4 md:p-8 bg-[#0E0E0E]/80 backdrop-blur-xl border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 rounded-b-2xl">
 
                                 {currentStep === 0 ? (
-                                    <div className="flex gap-3 items-center">
-                                        <label className="group relative flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0A0A0A] text-blue-400 hover:text-blue-300 transition-all border border-blue-500/30 hover:border-blue-500/50 cursor-pointer text-xs font-bold uppercase tracking-wider whitespace-nowrap overflow-hidden shadow-lg shadow-blue-900/10 hover:shadow-blue-900/20">
+                                    <div className="flex flex-col md:flex-row gap-3 items-center w-full md:w-auto">
+                                        <label className="group relative flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#0A0A0A] text-blue-400 hover:text-blue-300 transition-all border border-blue-500/30 hover:border-blue-500/50 cursor-pointer text-xs font-bold uppercase tracking-wider whitespace-nowrap overflow-hidden shadow-lg shadow-blue-900/10 hover:shadow-blue-900/20 w-full md:w-auto">
                                             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                             <Upload size={16} className="relative z-10 group-hover:-translate-y-0.5 transition-transform duration-300" />
-                                            <span className="relative z-10">Importar JSON</span>
+                                            <span className="relative z-10">Importar</span>
                                             <input type="file" accept=".json" onChange={handleImport} className="hidden" />
                                         </label>
 
-                                        <div className="hidden md:flex gap-2 items-center">
-                                            <div className="h-8 w-px bg-white/10 mx-2" />
+                                        <div className="flex flex-wrap justify-center gap-3 w-full md:w-auto">
+                                            {/* <div className="h-8 w-px bg-white/10 mx-2 hidden md:block" /> */}
 
                                             <button
                                                 onClick={handleGenerateExample}
-                                                className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-500 hover:text-amber-400 hover:bg-amber-400/5 transition-colors text-[10px] font-bold uppercase tracking-wider"
+                                                className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#0A0A0A] text-amber-400 hover:text-amber-300 transition-all border border-amber-500/30 hover:border-amber-500/50 text-xs font-bold uppercase tracking-wider shadow-lg shadow-amber-900/10 hover:shadow-amber-900/20"
                                                 title="Gerar currículo de exemplo"
                                             >
-                                                <Sparkles size={14} /> Exemplo
+                                                <Sparkles size={16} /> Exemplo
                                             </button>
                                             <button
                                                 onClick={handleDownloadTemplate}
-                                                className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-500 hover:text-emerald-400 hover:bg-emerald-400/5 transition-colors text-[10px] font-bold uppercase tracking-wider"
-                                                title="Baixar modelo preenchido (Exemplo Completo)"
+                                                className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#0A0A0A] text-emerald-400 hover:text-emerald-300 transition-all border border-emerald-500/30 hover:border-emerald-500/50 text-xs font-bold uppercase tracking-wider shadow-lg shadow-emerald-900/10 hover:shadow-emerald-900/20"
+                                                title="Baixar modelo preenchido"
                                             >
-                                                <FileDown size={14} /> Modelo Rico
+                                                <FileDown size={16} /> Modelo Rico
                                             </button>
                                             <button
                                                 onClick={() => setShowJsonDocs(true)}
-                                                className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-500 hover:text-white hover:bg-white/5 transition-colors text-[10px] font-bold uppercase tracking-wider"
+                                                className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#0A0A0A] text-slate-400 hover:text-white transition-all border border-white/10 hover:border-white/30 text-xs font-bold uppercase tracking-wider shadow-lg hover:shadow-white/5"
                                                 title="Ver documentação do JSON"
                                             >
-                                                <FileJson size={14} /> Docs
+                                                <FileJson size={16} /> Docs
                                             </button>
                                         </div>
                                     </div>

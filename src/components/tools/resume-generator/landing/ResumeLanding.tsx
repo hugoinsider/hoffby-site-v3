@@ -12,8 +12,12 @@ import {
     Mail, MessageCircle, CheckSquare, Send
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
+import { useSearchParams } from 'next/navigation';
 
 export function ResumeLanding() {
+    const searchParams = useSearchParams();
+    const coupon = searchParams.get('coupon');
+    const appUrl = `/ferramentas/gerador-curriculo/app${coupon ? `?coupon=${coupon}` : ''}`;
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [formData, setFormData] = useState({
         name: '',
@@ -74,7 +78,7 @@ export function ResumeLanding() {
                             Preços
                         </Link>
                         <Link
-                            href="/ferramentas/gerador-curriculo/app"
+                            href={appUrl}
                             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-emerald-400 hover:text-emerald-300 transition-all text-sm font-bold hover:scale-105 active:scale-95"
                         >
                             Criar Currículo
@@ -107,7 +111,7 @@ export function ResumeLanding() {
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
                         <Link
-                            href="/ferramentas/gerador-curriculo/app"
+                            href={appUrl}
                             className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 min-w-[200px] rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold text-lg shadow-[0_0_40px_-10px_rgba(16,185,129,0.4)] hover:shadow-[0_0_60px_-10px_rgba(16,185,129,0.6)] hover:scale-105 transition-all duration-300"
                         >
                             <span className="relative z-10">Começar Agora</span>
@@ -235,7 +239,7 @@ export function ResumeLanding() {
                                     <div className="h-32 bg-white/5 rounded border border-white/5" />
                                 </div>
                                 <div className="absolute bottom-6 right-6">
-                                    <Link href="/ferramentas/gerador-curriculo/app" className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500 text-black font-bold rounded-lg text-sm hover:bg-emerald-400">
+                                    <Link href={appUrl} className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500 text-black font-bold rounded-lg text-sm hover:bg-emerald-400">
                                         Testar Editor <ArrowRight size={14} />
                                     </Link>
                                 </div>
@@ -379,7 +383,7 @@ export function ResumeLanding() {
                         <h2 className="text-3xl md:text-5xl font-black mb-4">Modelos Premium</h2>
                         <p className="text-slate-400 max-w-xl">Designs pensados para destacar suas habilidades e passar pelos robôs de recrutamento (ATS).</p>
                     </div>
-                    <Link href="/ferramentas/gerador-curriculo/app" className="flex items-center gap-2 text-emerald-500 font-bold hover:text-emerald-400 transition-colors">
+                    <Link href={appUrl} className="flex items-center gap-2 text-emerald-500 font-bold hover:text-emerald-400 transition-colors">
                         Ver todos os modelos <ArrowRight size={18} />
                     </Link>
                 </div>
@@ -398,7 +402,7 @@ export function ResumeLanding() {
 
                             {/* Overlay Action */}
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/40 backdrop-blur-sm">
-                                <Link href="/ferramentas/gerador-curriculo/app" className="px-6 py-3 rounded-full bg-emerald-500 text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 flex items-center gap-2">
+                                <Link href={appUrl} className="px-6 py-3 rounded-full bg-emerald-500 text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 flex items-center gap-2">
                                     Usar este modelo <ArrowRight size={18} />
                                 </Link>
                             </div>
@@ -426,7 +430,7 @@ export function ResumeLanding() {
 
                             {/* Overlay Action */}
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/40 backdrop-blur-sm">
-                                <Link href="/ferramentas/gerador-curriculo/app" className="px-6 py-3 rounded-full bg-cyan-500 text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 flex items-center gap-2">
+                                <Link href={appUrl} className="px-6 py-3 rounded-full bg-cyan-500 text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 flex items-center gap-2">
                                     Usar este modelo <ArrowRight size={18} />
                                 </Link>
                             </div>
@@ -454,7 +458,7 @@ export function ResumeLanding() {
 
                             {/* Overlay Action */}
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/40 backdrop-blur-sm">
-                                <Link href="/ferramentas/gerador-curriculo/app" className="px-6 py-3 rounded-full bg-white text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 flex items-center gap-2">
+                                <Link href={appUrl} className="px-6 py-3 rounded-full bg-white text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 flex items-center gap-2">
                                     Usar este modelo <ArrowRight size={18} />
                                 </Link>
                             </div>
@@ -580,7 +584,7 @@ export function ResumeLanding() {
                             </ul>
 
                             <Link
-                                href="/ferramentas/gerador-curriculo/app"
+                                href={appUrl}
                                 className="w-full py-4 rounded-xl border border-white/10 hover:bg-white/5 text-white font-bold text-center transition-all"
                             >
                                 Começar Grátis
@@ -596,7 +600,7 @@ export function ResumeLanding() {
                             <div className="mb-6">
                                 <h3 className="text-2xl font-bold text-white">Download Premium</h3>
                                 <div className="mt-4 flex items-baseline gap-1">
-                                    <span className="text-5xl font-black text-emerald-400">R$ 5</span>
+                                    <span className="text-5xl font-black text-emerald-400">R$ 10</span>
                                     <span className="text-lg text-slate-500 font-medium">/download</span>
                                 </div>
                                 <p className="mt-4 text-emerald-100/60 text-sm leading-relaxed">
@@ -620,7 +624,7 @@ export function ResumeLanding() {
                             </ul>
 
                             <Link
-                                href="/ferramentas/gerador-curriculo/app"
+                                href={appUrl}
                                 className="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-center transition-all shadow-lg hover:shadow-emerald-500/20 transform hover:-translate-y-1"
                             >
                                 Criar e Baixar
@@ -698,7 +702,7 @@ export function ResumeLanding() {
 
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
                         <Link
-                            href="/ferramentas/gerador-curriculo/app"
+                            href={appUrl}
                             className="group px-10 py-5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xl transition-all shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2"
                         >
                             Criar Meu Currículo <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
